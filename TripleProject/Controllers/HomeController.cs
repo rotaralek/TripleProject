@@ -10,11 +10,13 @@ namespace TripleProject.Controllers
 {
     public class HomeController : Controller
     {
+        [Route("")]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("/About")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -22,6 +24,7 @@ namespace TripleProject.Controllers
             return View();
         }
 
+        [Route("/Contact")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -29,6 +32,7 @@ namespace TripleProject.Controllers
             return View();
         }
 
+        [Route("/Privacy")]
         public IActionResult Privacy()
         {
             return View();

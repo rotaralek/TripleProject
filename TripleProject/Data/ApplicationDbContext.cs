@@ -13,6 +13,8 @@ namespace TripleProject.Data
             : base(options)
         {
         }
-        public DbSet<TripleProject.Areas.Admin.Models.Page> Page { get; set; }
+        public DbSet<TripleProject.Areas.Admin.Models.Page> Pages { get; set; }
+        public DbSet<TripleProject.Areas.Admin.Models.Advertisement> Advertisements { get; set; }
+        public DbSet<TripleProject.Areas.Admin.Models.Product> Products { get; set; }
     }
 }

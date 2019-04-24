@@ -11,22 +11,22 @@ using TripleProject.Data;
 namespace TripleProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PagesController : Controller
+    public class AdvertisementsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PagesController(ApplicationDbContext context)
+        public AdvertisementsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Pages
+        // GET: Admin/Advertisements
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pages.ToListAsync());
+            return View(await _context.Advertisements.ToListAsync());
         }
 
-        // GET: Admin/Pages/Details/5
+        // GET: Admin/Advertisements/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages
+            var advertisement = await _context.Advertisements
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (page == null)
+            if (advertisement == null)
             {
                 return NotFound();
             }
 
-            return View(page);
+            return View(advertisement);
         }
 
-        // GET: Admin/Pages/Create
+        // GET: Admin/Advertisements/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Pages/Create
+        // POST: Admin/Advertisements/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Page page)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Advertisement advertisement)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(page);
+                _context.Add(advertisement);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(page);
+            return View(advertisement);
         }
 
-        // GET: Admin/Pages/Edit/5
+        // GET: Admin/Advertisements/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages.FindAsync(id);
-            if (page == null)
+            var advertisement = await _context.Advertisements.FindAsync(id);
+            if (advertisement == null)
             {
                 return NotFound();
             }
-            return View(page);
+            return View(advertisement);
         }
 
-        // POST: Admin/Pages/Edit/5
+        // POST: Admin/Advertisements/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Page page)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Advertisement advertisement)
         {
-            if (id != page.Id)
+            if (id != advertisement.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(page);
+                    _context.Update(advertisement);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PageExists(page.Id))
+                    if (!AdvertisementExists(advertisement.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(page);
+            return View(advertisement);
         }
 
-        // GET: Admin/Pages/Delete/5
+        // GET: Admin/Advertisements/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +125,30 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages
+            var advertisement = await _context.Advertisements
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (page == null)
+            if (advertisement == null)
             {
                 return NotFound();
             }
 
-            return View(page);
+            return View(advertisement);
         }
 
-        // POST: Admin/Pages/Delete/5
+        // POST: Admin/Advertisements/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var page = await _context.Pages.FindAsync(id);
-            _context.Pages.Remove(page);
+            var advertisement = await _context.Advertisements.FindAsync(id);
+            _context.Advertisements.Remove(advertisement);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PageExists(int id)
+        private bool AdvertisementExists(int id)
         {
-            return _context.Pages.Any(e => e.Id == id);
+            return _context.Advertisements.Any(e => e.Id == id);
         }
     }
 }

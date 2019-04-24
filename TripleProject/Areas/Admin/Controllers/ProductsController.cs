@@ -11,22 +11,22 @@ using TripleProject.Data;
 namespace TripleProject.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class PagesController : Controller
+    public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PagesController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/Pages
+        // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Pages.ToListAsync());
+            return View(await _context.Products.ToListAsync());
         }
 
-        // GET: Admin/Pages/Details/5
+        // GET: Admin/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (page == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(page);
+            return View(product);
         }
 
-        // GET: Admin/Pages/Create
+        // GET: Admin/Products/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/Pages/Create
+        // POST: Admin/Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Page page)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(page);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(page);
+            return View(product);
         }
 
-        // GET: Admin/Pages/Edit/5
+        // GET: Admin/Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages.FindAsync(id);
-            if (page == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(page);
+            return View(product);
         }
 
-        // POST: Admin/Pages/Edit/5
+        // POST: Admin/Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Page page)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Product product)
         {
-            if (id != page.Id)
+            if (id != product.Id)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(page);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PageExists(page.Id))
+                    if (!ProductExists(product.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(page);
+            return View(product);
         }
 
-        // GET: Admin/Pages/Delete/5
+        // GET: Admin/Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +125,30 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var page = await _context.Pages
+            var product = await _context.Products
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (page == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(page);
+            return View(product);
         }
 
-        // POST: Admin/Pages/Delete/5
+        // POST: Admin/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var page = await _context.Pages.FindAsync(id);
-            _context.Pages.Remove(page);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PageExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.Pages.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
     }
 }
