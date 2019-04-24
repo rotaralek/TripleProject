@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewData["Title"] = "LeftsideColumn";
+}
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="material-icons mr-2 feather">dashboard</i>Dashboard <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Admin" asp-controller="Pages" asp-action="Index">
+                    <i class="material-icons mr-2 feather">pages</i>Pages <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">collections</i>Media
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">menu</i>Menu
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">people</i>Users
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Advetisements</span>
+        </h6>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">shopping_cart</i>Ads
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">sort</i>Categories
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Shop</span>
+        </h6>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">shopping_cart</i>Products
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">sort</i>Categories
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">storage</i>Orders
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">people</i>Customers
+                </a>
+            </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Messenger</span>
+        </h6>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="material-icons mr-2 feather">forum</i>Messages
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
