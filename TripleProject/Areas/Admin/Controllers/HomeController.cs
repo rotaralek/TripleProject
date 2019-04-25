@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TripleProject.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class HomeController : Controller
     {
-        [Area("Admin")]
-        [Route("Admin/")]
+        [Route("Admin")]
         public IActionResult Index()
         {
             return View();

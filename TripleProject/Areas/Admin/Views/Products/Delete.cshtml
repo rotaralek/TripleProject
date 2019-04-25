@@ -23,6 +23,30 @@
         <dd>
             @Html.DisplayFor(model => model.Text)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Catalog)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Catalog.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Attribute)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Attribute.Name)
+        </dd>
     </dl>
     
     <form asp-action="Delete">

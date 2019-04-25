@@ -8,6 +8,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190424123904_v1.cs" />
     <Compile Remove="Migrations\20190424123904_v1.Designer.cs" />
+    <Compile Remove="Migrations\20190425113645_v.cs" />
+    <Compile Remove="Migrations\20190425113645_v.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +20,9 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\ViewModels\" />
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
   <ItemGroup>

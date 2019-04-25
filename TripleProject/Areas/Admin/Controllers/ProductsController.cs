@@ -23,7 +23,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Admin/Products/Details/5
@@ -35,6 +36,8 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
+                .Include(p => p.Attribute)
+                .Include(p => p.Catalog)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -47,6 +50,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name");
+            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name");
             return View();
         }
 
@@ -55,7 +60,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,CatalogId,Price,Quantity,AttributeId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +68,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
             return View(product);
         }
 
@@ -79,6 +86,8 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
             return View(product);
         }
 
@@ -87,7 +96,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,CatalogId,Price,Quantity,AttributeId")] Product product)
         {
             if (id != product.Id)
             {
@@ -114,6 +123,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
             return View(product);
         }
 
@@ -126,6 +137,8 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
+                .Include(p => p.Attribute)
+                .Include(p => p.Catalog)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {

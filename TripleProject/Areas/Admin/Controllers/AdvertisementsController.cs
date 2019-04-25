@@ -23,7 +23,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Advertisements
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Advertisements.ToListAsync());
+            var applicationDbContext = _context.Advertisements.Include(a => a.Attribute).Include(a => a.Category);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Admin/Advertisements/Details/5
@@ -35,6 +36,8 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var advertisement = await _context.Advertisements
+                .Include(a => a.Attribute)
+                .Include(a => a.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {
@@ -47,6 +50,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Advertisements/Create
         public IActionResult Create()
         {
+            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return View();
         }
 
@@ -55,7 +60,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text")] Advertisement advertisement)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Price,Quantity,CategoryId,AttributeId")] Advertisement advertisement)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +68,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
             return View(advertisement);
         }
 
@@ -79,6 +86,8 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
             return View(advertisement);
         }
 
@@ -87,7 +96,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text")] Advertisement advertisement)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Price,Quantity,CategoryId,AttributeId")] Advertisement advertisement)
         {
             if (id != advertisement.Id)
             {
@@ -114,6 +123,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
             return View(advertisement);
         }
 
@@ -126,6 +137,8 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var advertisement = await _context.Advertisements
+                .Include(a => a.Attribute)
+                .Include(a => a.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {
