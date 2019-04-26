@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TripleProject.Areas.Admin.Models;
+using TripleProject.Data;
 using TripleProject.Models;
 
 namespace TripleProject.Controllers

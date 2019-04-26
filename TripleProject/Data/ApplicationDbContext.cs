@@ -17,6 +17,7 @@ namespace TripleProject.Data
         public DbSet<TripleProject.Areas.Admin.Models.Category> Categories { get; set; }
         public DbSet<TripleProject.Areas.Admin.Models.AdvertisementAttribute> AdvertisementAttributes { get; set; }
         public DbSet<TripleProject.Areas.Admin.Models.ProductAttribute> ProductAttributes { get; set; }
+        public DbSet<TripleProject.Areas.Admin.Models.Menu> Menus { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
