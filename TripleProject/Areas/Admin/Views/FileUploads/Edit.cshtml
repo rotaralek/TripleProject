@@ -1,4 +1,4 @@
-﻿@model TripleProject.Areas.Admin.Models.Page
+﻿@model TripleProject.Areas.Admin.Models.FileUpload
 
 @{
     ViewData["Title"] = "Edit";
@@ -8,7 +8,7 @@
     <h1 class="h2">Edit</h1>
 </div>
 
-<h4>Page</h4>
+<h4>FileUpload</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,14 +16,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
-                <textarea asp-for="Text" class="form-control"></textarea>
-                <span asp-validation-for="Text" class="text-danger"></span>
+                <label asp-for="Path" class="control-label"></label>
+                <input asp-for="Path" class="form-control" readonly />
+                <span asp-validation-for="Path" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img src="@Model.Path" width="300" height="300" class="img-thumbnail">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

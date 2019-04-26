@@ -1,0 +1,33 @@
+﻿@*@model TripleProject.Areas.Admin.Models.FileUpload*@
+@model TripleProject.Areas.Admin.ViewModels.FileUploadViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Create</h1>
+</div>
+
+<h4>FileUpload</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="custom-file mb-3">
+                <label asp-for="ItemUpload" class="custom-file-label"></label>
+                <input asp-for="ItemUpload" class="custom-file-input" />
+                <span asp-validation-for="ItemUpload" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
