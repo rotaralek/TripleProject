@@ -1,16 +1,14 @@
-﻿@model TripleProject.Areas.Admin.Models.Product
+﻿@model TripleProject.Areas.Admin.Models.Advertisement
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Details</h1>
+    <h1 class="h2">@Model.Title</h1>
 </div>
 
 <div>
-    <h4>Product</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -19,16 +17,16 @@
             @Html.DisplayFor(model => model.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Text)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Text)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Catalog)
+            @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Catalog.Name)
+            @Html.DisplayFor(model => model.Category.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Price)
@@ -49,8 +47,4 @@
             @Html.DisplayFor(model => model.Attribute.Name)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

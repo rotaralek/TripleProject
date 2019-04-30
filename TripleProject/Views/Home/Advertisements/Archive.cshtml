@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>
+
+@{
+    ViewData["Title"] = "Advertisements";
+}
+
+<div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Advertisements</h1>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <article class="card">
+                <div class="card-body">
+                    <h3><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                    <p>@item.Price</p>
+                </div>
+            </article>
+        </div>
+    }
+</div>

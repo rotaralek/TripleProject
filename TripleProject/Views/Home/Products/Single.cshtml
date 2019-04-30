@@ -1,16 +1,14 @@
 ﻿@model TripleProject.Areas.Admin.Models.Product
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.Title;
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Details</h1>
+    <h1 class="h2">@Model.Title</h1>
 </div>
 
 <div>
-    <h4>Product</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Title)
@@ -23,6 +21,12 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Text)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Text)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Catalog)
@@ -49,8 +53,4 @@
             @Html.DisplayFor(model => model.Attribute.Name)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>

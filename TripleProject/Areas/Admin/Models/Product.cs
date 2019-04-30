@@ -20,6 +20,10 @@ namespace TripleProject.Areas.Admin.Models
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
+        [StringLength(100)]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
+
         [Display(Name = "Catalog")]
         public int? CatalogId { get; set; }
         public Catalog Catalog { get; set; }

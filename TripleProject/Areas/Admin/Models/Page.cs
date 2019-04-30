@@ -15,7 +15,7 @@ namespace TripleProject.Areas.Admin.Models
         public string Title { get; set; }
 
         [Required]
-        [StringLength(1000)]
+        [StringLength(10000)]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
     }
