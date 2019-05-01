@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.FileUpload>
+
+<div class="mb-3">
+    <p class="mb-2">Gallery</p>
+
+    <form method="post" enctype="multipart/form-data" class="ajax-file-upload bg-light text-dark mb-3 p-3 position-relative">
+        <label for="file"><i class="material-icons">insert_photo</i> Click to upload one image</label>
+
+        <input type="file" name="file" id="file" multiple class="position-absolute fixed-top w-100 h-100 fade">
+
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border d-none" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+        <div class="response"></div>
+
+        @foreach (var image in Model)
+        {
+            <img src="@image.Path" title="@image.Name" class="img-thumbnail" />
+        }
+    </form>
+</div>

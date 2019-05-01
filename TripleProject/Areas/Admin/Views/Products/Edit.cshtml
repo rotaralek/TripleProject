@@ -9,27 +9,35 @@
 </div>
 
 <h4>Product</h4>
+
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form asp-area="Admin" asp-action="Edit">
+    <div class="col-md-8">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageId" />
+            <input type="hidden" asp-for="GalleryId" />
+
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
                 <textarea asp-for="Text" class="form-control"></textarea>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CatalogId" class="control-label"></label>
                 <select asp-for="CatalogId" class="form-control" asp-items="ViewBag.CatalogId">
@@ -37,16 +45,19 @@
                 </select>
                 <span asp-validation-for="CatalogId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="AttributeId" class="control-label"></label>
                 <select asp-for="AttributeId" class="form-control" asp-items="ViewBag.AttributeId">
@@ -54,10 +65,17 @@
                 </select>
                 <span asp-validation-for="AttributeId" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+    </div>
+
+    <div class="col-md-4">
+        @await Component.InvokeAsync("Image", Model.ImageId)
+
+        @await Component.InvokeAsync("Gallery", Model.GalleryId)
     </div>
 </div>
 

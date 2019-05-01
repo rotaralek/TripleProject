@@ -37,5 +37,8 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
         public ProductAttribute Attribute { get; set; }
+
+        public int ImageId { get; set; }
+        public string GalleryId { get; set; }
     }
 }

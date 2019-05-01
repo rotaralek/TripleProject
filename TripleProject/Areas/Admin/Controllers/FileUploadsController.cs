@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -173,6 +174,33 @@ namespace TripleProject.Areas.Admin.Controllers
         private bool FileUploadExists(int id)
         {
             return _context.FileUploads.Any(e => e.Id == id);
+        }
+
+        //[HttpGet]
+        [Route("test")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Test(List<IFormFile> files)
+        {
+            List<Object> images = new List<Object>();
+
+            foreach (IFormFile file in files)
+            {
+                string path = "/files/" + file.FileName;
+
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                FileUpload image = new FileUpload { Name = file.FileName, Path = path };
+                _context.FileUploads.Add(image);
+                images.Add(image);
+            }
+
+            _context.SaveChanges();
+
+            return new JsonResult(images);
         }
     }
 }

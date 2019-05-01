@@ -28,9 +28,12 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Category")]
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
-        
+
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
         public AdvertisementAttribute Attribute { get; set; }
+
+        public int ImageId { get; set; }
+        public string GalleryId { get; set; }
     }
 }

@@ -28,6 +28,9 @@
     <Content Update="Areas\Admin\Views\Home\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Areas\Admin\Views\Shared\Components\Gallery\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Home\Advertisements\Archive.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
