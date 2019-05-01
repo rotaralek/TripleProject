@@ -1,11 +1,15 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Menu>
+@using TripleProject.ViewComponents
 
 <div class="navbar-collapse collapse" id="navbarNav">
+    @{
+        string menuTree = "";
+        TripleProject.ViewComponents.MenuViewComponent.GetMenuList(Model, ref menuTree);
+    }
+
+    @Html.Raw(menuTree)
+
     <ul class="nav navbar-nav">
-        @foreach (var item in Model)
-        {
-            <li class="nav-item"><a href="@item.Url" target="@item.Target" class="nav-link">@item.Name</a></li>
-        }
         <li class="nav-item"><a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link">Admin</a></li>
     </ul>
 </div>
