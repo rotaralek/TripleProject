@@ -4,21 +4,16 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div>
-    <h4>@Model.Title</h4>
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-    </dl>
+<div class="pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">@Model.Title</h1>
 </div>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.Text)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Text)
+    </dd>
+</dl>
