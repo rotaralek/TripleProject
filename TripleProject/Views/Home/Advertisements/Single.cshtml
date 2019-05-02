@@ -62,7 +62,7 @@
                 @Html.DisplayNameFor(model => model.Quantity)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Quantity)
+                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1"/>
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Category)

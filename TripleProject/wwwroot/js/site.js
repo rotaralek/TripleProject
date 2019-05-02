@@ -42,7 +42,12 @@
                     }
 
                     imagesList += response[i]['id'];
-                    form.find('.response').append('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
+
+                    if (multiple) {
+                        form.find('.response').append('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                    } else {
+                        form.find('.response').html('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                    }
                 }
 
                 if (multiple) {
