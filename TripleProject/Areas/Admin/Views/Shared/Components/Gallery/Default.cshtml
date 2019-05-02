@@ -14,11 +14,11 @@
             </div>
         </div>
 
-        <div class="response"></div>
-
-        @foreach (var image in Model)
-        {
-            <img src="@image.Path" title="@image.Name" class="img-thumbnail" />
-        }
+        <div class="response d-flex flex-wrap">
+            @foreach (var image in Model)
+            {
+                <div class="square-image thumbnail img-thumbnail mr-2 mb-2" style="background-image: url(@image.Path)"></div>
+            }
+        </div>
     </form>
 </div>

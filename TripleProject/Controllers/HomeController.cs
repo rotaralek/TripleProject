@@ -47,7 +47,7 @@ namespace TripleProject.Controllers
         [Route("products")]
         public async Task<IActionResult> ProductsArchive()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog);
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image);
             return View("Products/Archive", await applicationDbContext.ToListAsync());
         }
 
@@ -62,6 +62,7 @@ namespace TripleProject.Controllers
             var product = await _context.Products
                 .Include(p => p.Attribute)
                 .Include(p => p.Catalog)
+                .Include(p => p.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -74,7 +75,7 @@ namespace TripleProject.Controllers
         [Route("advertisements")]
         public async Task<IActionResult> AdvertisementsArchive()
         {
-            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category);
+            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
             return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
         }
 
@@ -89,6 +90,7 @@ namespace TripleProject.Controllers
             var advertisement = await _context.Advertisements
                 .Include(p => p.Attribute)
                 .Include(p => p.Category)
+                .Include(p => p.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {

@@ -9,17 +9,35 @@
 </div>
 
 <div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 mb-3">
-            <article class="card">
-                <div class="card-body">
-                    <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+    <div class="col-md-3">
+        <ul class="nav flex-column">
+            <li class="nav-item border-bottom"><a href="#" class="nav-link">Cras justo odio</a></li>
+            <li class="nav-item border-bottom"><a href="#" class="nav-link">Cras justo odio</a></li>
+            <li class="nav-item border-bottom"><a href="#" class="nav-link">Cras justo odio</a></li>
+            <li class="nav-item border-bottom"><a href="#" class="nav-link">Cras justo odio</a></li>
+            <li class="nav-item border-bottom"><a href="#" class="nav-link">Cras justo odio</a></li>
+        </ul>
+    </div>
 
-                    <p>@item.Description</p>
-                    <p>@item.Price</p>
+    <div class="col-md-9">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <article class="card">
+                        <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
+                            <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                        </a>
+
+                        <div class="card-body">
+                            <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+
+                            <p>@item.Description</p>
+                            <p>@item.Price</p>
+                        </div>
+                    </article>
                 </div>
-            </article>
+            }
         </div>
-    }
+    </div>
 </div>

@@ -9,25 +9,31 @@
 </div>
 
 <h4>FileUpload</h4>
+
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Path" class="control-label"></label>
                 <input asp-for="Path" class="form-control" readonly />
                 <span asp-validation-for="Path" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <img src="@Model.Path" width="300" height="300" class="img-thumbnail">
+                <div class="square-image thumbnail img-thumbnail mt-n2 mb-n2" style="background-image: url(@Model.Path)"></div>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

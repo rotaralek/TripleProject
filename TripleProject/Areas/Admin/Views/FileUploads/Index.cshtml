@@ -30,7 +30,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                <img src="@item.Path" width="50" height="50" class="img-thumbnail mt-n2 mb-n2">
+                <div class="square-image thumbnail-sm img-thumbnail mt-n2 mb-n2" style="background-image: url(@item.Path)"></div>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)

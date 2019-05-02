@@ -34,6 +34,8 @@ namespace TripleProject.Areas.Admin.Models
         public AdvertisementAttribute Attribute { get; set; }
 
         public int ImageId { get; set; }
+        public FileUpload Image { get; set; }
         public string GalleryId { get; set; }
+        public FileUpload Gallery { get; set; }
     }
 }

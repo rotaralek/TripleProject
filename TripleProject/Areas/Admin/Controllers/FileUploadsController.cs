@@ -177,10 +177,10 @@ namespace TripleProject.Areas.Admin.Controllers
         }
 
         //[HttpGet]
-        [Route("test")]
+        [Route("AjaxUpload")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Test(List<IFormFile> files)
+        public async Task<IActionResult> AjaxUpload(List<IFormFile> files)
         {
             List<Object> images = new List<Object>();
 

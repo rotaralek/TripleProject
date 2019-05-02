@@ -6,7 +6,7 @@
         var loading = form.find('.spinner-border')
         var file = form.find('input[name=file]')
         var files = file[0].files;
-        var imagesList = '';
+        var imagesList = [];
         var multiple = false;
 
         var formData = new FormData();
@@ -20,7 +20,7 @@
         }
 
         $.ajax({
-            url: '/test',
+            url: '/AjaxUpload',
             type: 'POST',
             data: formData,
             dataType: "json",
@@ -42,7 +42,7 @@
                     }
 
                     imagesList += response[i]['id'];
-                    form.find('.response').append('<img src="' + response[i]['path'] + '" class="img-thumbnail">');
+                    form.find('.response').append('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
                 }
 
                 if (multiple) {
