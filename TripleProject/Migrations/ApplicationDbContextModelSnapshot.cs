@@ -198,7 +198,7 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("GalleryId1");
 
-                    b.Property<int>("ImageId");
+                    b.Property<int?>("ImageId");
 
                     b.Property<decimal?>("Price");
 
@@ -206,7 +206,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(1000);
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -346,13 +346,13 @@ namespace TripleProject.Migrations
                     b.Property<int?>("CatalogId");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(100);
+                        .HasMaxLength(1000);
 
                     b.Property<string>("GalleryId");
 
                     b.Property<int?>("GalleryId1");
 
-                    b.Property<int>("ImageId");
+                    b.Property<int?>("ImageId");
 
                     b.Property<decimal?>("Price");
 
@@ -360,7 +360,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(1000);
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -455,8 +455,7 @@ namespace TripleProject.Migrations
 
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ImageId");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Catalog", b =>
@@ -496,8 +495,7 @@ namespace TripleProject.Migrations
 
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
                         .WithMany()
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ImageId");
                 });
 #pragma warning restore 612, 618
         }

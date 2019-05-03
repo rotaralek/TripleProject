@@ -21,7 +21,7 @@ namespace TripleProject.ViewComponents
         {
             List<int> galleryList = new List<int>();
 
-            if (GalleryId != "")
+            if (GalleryId != null && GalleryId.Contains(";"))
             {
                 galleryList = GalleryId.Split(";").Select(Int32.Parse).ToList();
             }

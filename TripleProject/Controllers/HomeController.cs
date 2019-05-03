@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 using TripleProject.Models;
+using TripleProject.ViewModels;
 
 namespace TripleProject.Controllers
 {
@@ -73,10 +74,23 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements")]
-        public async Task<IActionResult> AdvertisementsArchive()
+        public async Task<IActionResult> AdvertisementsArchive(int page = 1)
         {
-            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
-            return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
+            int pageSize = 3;
+
+            IQueryable<Advertisement> source = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
+            var count = await source.CountAsync();
+            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Advertisements = items
+            };
+            //var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
+            //return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
+            return View("Advertisements/Archive", viewModel);
         }
 
         [Route("advertisements/{id?}")]

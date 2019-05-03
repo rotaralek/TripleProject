@@ -17,11 +17,11 @@ namespace TripleProject.Areas.Admin.ViewComponents
             _context = context;
         }
 
-        public IViewComponentResult Invoke(string GalleryId)
+        public IViewComponentResult Invoke(string GalleryId = null)
         {
             List<int> galleryList = new List<int>();
 
-            if (GalleryId != "")
+            if (GalleryId != null)
             {
                 galleryList = GalleryId.Split(";").Select(Int32.Parse).ToList();
             }

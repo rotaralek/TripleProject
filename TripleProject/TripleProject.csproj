@@ -28,6 +28,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <None Include="wwwroot\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <None Include="wwwroot\tinymce\skins\lightgray\skin.min.css.map" />
+    <None Include="wwwroot\tinymce\skins\lightgray\skin.mobile.min.css.map" />
+    <None Include="wwwroot\tinymce\tinymce.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Areas\Admin\Views\Home\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -12,16 +12,22 @@
     <div class="col-md-5 mb-3">
         <div class="carousel slide" data-ride="carousel" id="carousel-controls">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
-                </div>
+                @if (Model.Image != null)
+                {
+                    <div class="carousel-item active">
+                        <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
+                    </div>
+                }
 
                 @await Component.InvokeAsync("Carousel", Model.GalleryId)
             </div>
 
             @{
                 List<int> galleryList = new List<int>();
-                galleryList = Model.GalleryId.Split(";").Select(Int32.Parse).ToList();
+                if (Model.GalleryId != null)
+                {
+                    galleryList = Model.GalleryId.Split(";").Select(Int32.Parse).ToList();
+                }
             }
 
             <ul class="carousel-indicators">
@@ -62,7 +68,7 @@
                 @Html.DisplayNameFor(model => model.Quantity)
             </dt>
             <dd>
-                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1"/>
+                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" />
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Category)
@@ -90,6 +96,6 @@
 
 <div class="tab-content mb-3" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-text" role="tabpanel" aria-labelledby="nav-text-tab">
-        @Html.DisplayFor(model => model.Text)
+        @Html.Raw(Model.Text)
     </div>
 </div>

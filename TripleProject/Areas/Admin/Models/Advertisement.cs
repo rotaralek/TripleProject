@@ -15,7 +15,7 @@ namespace TripleProject.Areas.Admin.Models
         public string Title { get; set; }
 
         [Required]
-        [StringLength(1000)]
+        [StringLength(10000)]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
@@ -33,7 +33,7 @@ namespace TripleProject.Areas.Admin.Models
         public int? AttributeId { get; set; }
         public AdvertisementAttribute Attribute { get; set; }
 
-        public int ImageId { get; set; }
+        public int? ImageId { get; set; }
         public FileUpload Image { get; set; }
         public string GalleryId { get; set; }
         public FileUpload Gallery { get; set; }

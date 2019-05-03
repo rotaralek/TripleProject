@@ -25,9 +25,13 @@
             {
                 <div class="col-md-4 mb-3">
                     <article class="card">
-                        <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
-                            <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
-                        </a>
+
+                        @if (item.Image != null)
+                        {
+                            <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
+                                <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                            </a>
+                        }
 
                         <div class="card-body">
                             <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
