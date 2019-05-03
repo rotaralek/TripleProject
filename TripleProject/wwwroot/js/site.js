@@ -34,6 +34,7 @@
             },
             beforeSend: function () {
                 loading.removeClass('d-none');
+                form.find('.response').html('');
             },
             success: function (response) {
                 for (var i = 0; i < response.length; i++) {
@@ -44,9 +45,9 @@
                     imagesList += response[i]['id'];
 
                     if (multiple) {
-                        form.find('.response').append('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                        form.find('.response').append('<div class="square-image thumbnail img-thumbnail mr-2 mb-2" style="background-image: url(' + response[i]['path'] + ')"></div>');
                     } else {
-                        form.find('.response').html('<div class="square-image thumbnail img-thumbnail" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                        form.find('.response').html('<div class="square-image thumbnail img-thumbnail mr-2 mb-2" style="background-image: url(' + response[i]['path'] + ')"></div>');
                     }
                 }
 

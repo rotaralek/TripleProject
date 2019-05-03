@@ -176,26 +176,44 @@ namespace TripleProject.Areas.Admin.Controllers
             return _context.FileUploads.Any(e => e.Id == id);
         }
 
-        //[HttpGet]
         [Route("AjaxUpload")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AjaxUpload(List<IFormFile> files)
         {
             List<Object> images = new List<Object>();
+            int filesCounter = 1;
+            int lastFileId = 0;
 
             foreach (IFormFile file in files)
             {
-                string path = "/files/" + file.FileName;
+                FileUpload filesCount = _context.FileUploads.LastOrDefault<FileUpload>();
+
+                if (filesCount != null)
+                {
+                    lastFileId = filesCount.Id;
+                }
+
+                int newIntFileName = lastFileId + filesCounter;
+                string newFileName = Convert.ToString(newIntFileName);
+
+                string fileName = file.FileName;
+                string path = "/temporary-files/" + fileName;
+                string newPath = "/files/" + newFileName + Path.GetExtension(fileName);
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
 
-                FileUpload image = new FileUpload { Name = file.FileName, Path = path };
+                System.IO.File.Copy(_appEnvironment.WebRootPath + path, _appEnvironment.WebRootPath + newPath, true);
+                System.IO.File.Delete(_appEnvironment.WebRootPath + path);
+
+                FileUpload image = new FileUpload { Name = newFileName, Path = newPath };
                 _context.FileUploads.Add(image);
                 images.Add(image);
+
+                filesCounter++;
             }
 
             _context.SaveChanges();
