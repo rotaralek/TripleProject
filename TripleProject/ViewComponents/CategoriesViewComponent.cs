@@ -30,16 +30,16 @@ namespace TripleProject.ViewComponents
 
             foreach (var item in category)
             {
-                categoryTree += "<li class='nav-item border-bottom'>";
 
                 if (item.ParentId == null)
                 {
+                    categoryTree += "<li class='nav-item border-bottom'>";
                     categoryTree += "<a href='/advertisements/categories/" + item.Id + "/' class='nav-link'>" + item.Name + "</a>";
 
                     GetChildList(category, ref categoryTree, item.Id);
-                }
 
-                categoryTree += "</li>";
+                    categoryTree += "</li>";
+                }
             }
 
             categoryTree += "</ul>";
