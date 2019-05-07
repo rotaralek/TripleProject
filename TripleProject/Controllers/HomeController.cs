@@ -88,8 +88,7 @@ namespace TripleProject.Controllers
                 PageViewModel = pageViewModel,
                 Advertisements = items
             };
-            //var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
-            //return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
+
             return View("Advertisements/Archive", viewModel);
         }
 
@@ -112,6 +111,30 @@ namespace TripleProject.Controllers
             }
 
             return View("Advertisements/Single", advertisement);
+        }
+
+        [Route("advertisements/categories/{id?}")]
+        public IActionResult AdvertisementsCategory(int id)
+        {
+            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).Where(p => p.CategoryId == id);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Advertisements = applicationDbContext
+            };
+
+            return View("Advertisements/Category",  viewModel);
+        }
+
+        [Route("products/catalogs/{id?}")]
+        public IActionResult ProductsCatalog(int id)
+        {
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).Where(p => p.CatalogId == id);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Products = applicationDbContext
+            };
+
+            return View("Products/Catalog", viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

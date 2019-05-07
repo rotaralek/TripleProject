@@ -30,11 +30,11 @@ namespace TripleProject.ViewComponents
 
             foreach (var item in category)
             {
-                categoryTree += "<li class='nav-item dropdown'>";
+                categoryTree += "<li class='nav-item border-bottom'>";
 
                 if (item.ParentId == null)
                 {
-                    categoryTree += "<a asp-controller='Home' asp-action='AdvertisementsSingle' asp-route-id='@item.Id' class='nav-link'>" + item.Name + "</a>";
+                    categoryTree += "<a href='/advertisements/categories/" + item.Id + "/' class='nav-link'>" + item.Name + "</a>";
 
                     GetChildList(category, ref categoryTree, item.Id);
                 }
@@ -50,7 +50,7 @@ namespace TripleProject.ViewComponents
             bool hasChild = false;
             string localCategoryTree = "";
 
-            localCategoryTree += "<ul class='dropdown-menu bg-dark'>";
+            localCategoryTree += "<ul>";
 
             foreach (var item in category)
             {
@@ -59,8 +59,8 @@ namespace TripleProject.ViewComponents
                 {
                     hasChild = true;
 
-                    localCategoryTree += "<li class='nav-item dropdown'>";
-                    localCategoryTree += "<a asp-controller='Home' asp-action='AdvertisementsSingle' asp-route-id='@item.Id' class='nav-link'>" + item.Name + "</a>";
+                    localCategoryTree += "<li class='nav-item'>";
+                    localCategoryTree += "<a href='/advertisements/categories/" + item.Id + "' class='nav-link'>" + item.Name + "</a>";
                     GetChildList(category, ref localCategoryTree, item.Id);
                     localCategoryTree += "</li>";
                 }

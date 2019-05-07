@@ -9,6 +9,7 @@ namespace TripleProject.ViewModels
     public class IndexViewModel
     {
         public IEnumerable<Advertisement> Advertisements { get; set; }
+        public IEnumerable<Product> Products { get; set; }
         public PageViewModel PageViewModel { get; set; }
     }
 }

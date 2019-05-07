@@ -3,42 +3,38 @@
 @model TripleProject.ViewModels.IndexViewModel
 
 @{
-    ViewData["Title"] = "Advertisements";
+    ViewData["Title"] = "Products";
 }
 
-@addTagHelper "*, TripleProject"
-
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Advertisements</h1>
+    <h1 class="h2">Categories</h1>
 </div>
 
 <div class="row">
     <div class="col-md-3">
-        @await Component.InvokeAsync("Categories")
+        @await Component.InvokeAsync("Catalogs")
     </div>
 
     <div class="col-md-9">
         <div class="row">
-            @foreach (var item in Model.Advertisements)
+            @foreach (var item in Model.Products)
             {
                 <div class="col-md-4 mb-3">
                     <article class="card">
                         @if (item.Image != null)
                         {
-                            <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">
+                            <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
                                 <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
                             </a>
                         }
 
                         <div class="card-body">
-                            <h3><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
                             <p>@item.Price</p>
                         </div>
                     </article>
                 </div>
             }
         </div>
-
-        <page-link page-model="Model.PageViewModel" page-action="AdvertisementsArchive" page-controller="Home"></page-link>
     </div>
 </div>
