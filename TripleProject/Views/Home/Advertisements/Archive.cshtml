@@ -1,12 +1,8 @@
-﻿@*@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>*@
-@using TripleProject.Areas.Admin.Models
-@model TripleProject.ViewModels.IndexViewModel
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>
 
 @{
     ViewData["Title"] = "Advertisements";
 }
-
-@addTagHelper "*, TripleProject"
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Advertisements</h1>
@@ -19,7 +15,7 @@
 
     <div class="col-md-9">
         <div class="row">
-            @foreach (var item in Model.Advertisements)
+            @foreach (var item in Model)
             {
                 <div class="col-md-4 mb-3">
                     <article class="card">
@@ -38,7 +34,5 @@
                 </div>
             }
         </div>
-
-        <page-link page-model="Model.PageViewModel" page-action="AdvertisementsArchive" page-controller="Home"></page-link>
     </div>
 </div>

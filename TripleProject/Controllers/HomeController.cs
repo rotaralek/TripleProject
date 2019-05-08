@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 using TripleProject.Models;
-using TripleProject.ViewModels;
 
 namespace TripleProject.Controllers
 {
@@ -48,7 +47,8 @@ namespace TripleProject.Controllers
         [Route("products")]
         public async Task<IActionResult> ProductsArchive()
         {
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image);
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).OrderByDescending(p => p.Id);
+
             return View("Products/Archive", await applicationDbContext.ToListAsync());
         }
 
@@ -74,22 +74,11 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements")]
-        public async Task<IActionResult> AdvertisementsArchive(int page = 1)
+        public async Task<IActionResult> AdvertisementsArchive()
         {
-            int pageSize = 3;
+            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).OrderByDescending(p => p.Id); ;
 
-            IQueryable<Advertisement> source = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image);
-            var count = await source.CountAsync();
-            var items = await source.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                PageViewModel = pageViewModel,
-                Advertisements = items
-            };
-
-            return View("Advertisements/Archive", viewModel);
+            return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
         }
 
         [Route("advertisements/{id?}")]
@@ -114,27 +103,19 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements/categories/{id?}")]
-        public IActionResult AdvertisementsCategory(int id)
+        public async Task<IActionResult> AdvertisementsCategory(int? id)
         {
-            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).Where(p => p.CategoryId == id);
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                Advertisements = applicationDbContext
-            };
+            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).Where(p => p.CategoryId == id).OrderByDescending(p => p.Id); ;
 
-            return View("Advertisements/Category",  viewModel);
+            return View("Advertisements/Category", await applicationDbContext.ToListAsync());
         }
 
         [Route("products/catalogs/{id?}")]
-        public IActionResult ProductsCatalog(int id)
+        public async Task<IActionResult> ProductsCatalog(int? id)
         {
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).Where(p => p.CatalogId == id);
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                Products = applicationDbContext
-            };
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).Where(p => p.CatalogId == id).OrderByDescending(p => p.Id); ;
 
-            return View("Products/Catalog", viewModel);
+            return View("Products/Catalog", await applicationDbContext.ToListAsync());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

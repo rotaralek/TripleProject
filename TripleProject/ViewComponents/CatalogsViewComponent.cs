@@ -34,7 +34,7 @@ namespace TripleProject.ViewComponents
                 if (item.ParentId == null)
                 {
                     catalogTree += "<li class='nav-item border-bottom'>";
-                    catalogTree += "<a href='/products/Catalogs/" + item.Id + "/' class='nav-link'>" + item.Name + "</a>";
+                    catalogTree += "<a href='/products/catalogs/" + item.Id + "/' class='nav-link'>" + item.Name + "</a>";
 
                     GetChildList(catalog, ref catalogTree, item.Id);
 
@@ -60,7 +60,7 @@ namespace TripleProject.ViewComponents
                     hasChild = true;
 
                     localCatalogTree += "<li class='nav-item'>";
-                    localCatalogTree += "<a href='/products/Catalogs/" + item.Id + "' class='nav-link'>" + item.Name + "</a>";
+                    localCatalogTree += "<a href='/products/catalogs/" + item.Id + "' class='nav-link'>" + item.Name + "</a>";
                     GetChildList(catalog, ref localCatalogTree, item.Id);
                     localCatalogTree += "</li>";
                 }

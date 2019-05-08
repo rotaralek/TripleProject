@@ -1,13 +1,11 @@
-﻿@*@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>*@
-@using TripleProject.Areas.Admin.Models
-@model TripleProject.ViewModels.IndexViewModel
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Product>
 
 @{
     ViewData["Title"] = "Products";
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Categories</h1>
+    <h1 class="h2">Catalog</h1>
 </div>
 
 <div class="row">
@@ -17,7 +15,7 @@
 
     <div class="col-md-9">
         <div class="row">
-            @foreach (var item in Model.Products)
+            @foreach (var item in Model)
             {
                 <div class="col-md-4 mb-3">
                     <article class="card">
@@ -30,6 +28,8 @@
 
                         <div class="card-body">
                             <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+
+                            <p>@item.Description</p>
                             <p>@item.Price</p>
                         </div>
                     </article>

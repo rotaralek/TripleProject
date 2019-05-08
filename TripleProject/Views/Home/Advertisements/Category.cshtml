@@ -1,6 +1,4 @@
-﻿@*@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>*@
-@using TripleProject.Areas.Admin.Models
-@model TripleProject.ViewModels.IndexViewModel
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>
 
 @{
     ViewData["Title"] = "Advertisements";
@@ -17,7 +15,7 @@
 
     <div class="col-md-9">
         <div class="row">
-            @foreach (var item in Model.Advertisements)
+            @foreach (var item in Model)
             {
                 <div class="col-md-4 mb-3">
                     <article class="card">
