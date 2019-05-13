@@ -10,8 +10,8 @@ using TripleProject.Data;
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190425112529_v5")]
-    partial class v5
+    [Migration("20190513084207_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -192,13 +192,23 @@ namespace TripleProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AttributeId");
+
                     b.Property<int?>("CategoryId");
+
+                    b.Property<string>("GalleryId");
+
+                    b.Property<int?>("GalleryId1");
+
+                    b.Property<int?>("ImageId");
 
                     b.Property<decimal?>("Price");
 
+                    b.Property<int?>("Quantity");
+
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(1000);
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -206,9 +216,30 @@ namespace TripleProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AttributeId");
+
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("GalleryId1");
+
+                    b.HasIndex("ImageId");
+
                     b.ToTable("Advertisements");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.AdvertisementAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdvertisementAttributes");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Catalog", b =>
@@ -221,7 +252,11 @@ namespace TripleProject.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<int?>("ParentId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Catalogs");
                 });
@@ -236,12 +271,16 @@ namespace TripleProject.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
+                    b.Property<int?>("ParentId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("TripleProject.Areas.Admin.Models.File", b =>
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.FileUpload", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,7 +292,30 @@ namespace TripleProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Files");
+                    b.ToTable("FileUploads");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.Menu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("Order");
+
+                    b.Property<int?>("ParentId");
+
+                    b.Property<string>("Target");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Menus");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Page", b =>
@@ -264,7 +326,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(1000);
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -281,7 +343,18 @@ namespace TripleProject.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AttributeId");
+
                     b.Property<int?>("CatalogId");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("GalleryId");
+
+                    b.Property<int?>("GalleryId1");
+
+                    b.Property<int?>("ImageId");
 
                     b.Property<decimal?>("Price");
 
@@ -289,7 +362,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasMaxLength(1000);
+                        .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -297,9 +370,30 @@ namespace TripleProject.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AttributeId");
+
                     b.HasIndex("CatalogId");
 
+                    b.HasIndex("GalleryId1");
+
+                    b.HasIndex("ImageId");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.ProductAttribute", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductAttributes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -349,16 +443,61 @@ namespace TripleProject.Migrations
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Advertisement", b =>
                 {
+                    b.HasOne("TripleProject.Areas.Admin.Models.AdvertisementAttribute", "Attribute")
+                        .WithMany("Advertisements")
+                        .HasForeignKey("AttributeId");
+
                     b.HasOne("TripleProject.Areas.Admin.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Advertisements")
                         .HasForeignKey("CategoryId");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Gallery")
+                        .WithMany()
+                        .HasForeignKey("GalleryId1");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.Catalog", b =>
+                {
+                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.Category", b =>
+                {
+                    b.HasOne("TripleProject.Areas.Admin.Models.Category", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.Menu", b =>
+                {
+                    b.HasOne("TripleProject.Areas.Admin.Models.Menu", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Product", b =>
                 {
+                    b.HasOne("TripleProject.Areas.Admin.Models.ProductAttribute", "Attribute")
+                        .WithMany("Products")
+                        .HasForeignKey("AttributeId");
+
                     b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("CatalogId");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Gallery")
+                        .WithMany()
+                        .HasForeignKey("GalleryId1");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId");
                 });
 #pragma warning restore 612, 618
         }
