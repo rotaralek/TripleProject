@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TripleProject.Areas.Admin.Models;
+using TripleProject.Areas.Admin.ViewModels;
 
 namespace TripleProject.Data
 {
