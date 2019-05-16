@@ -72,7 +72,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Identity\Services\" />
     <Folder Include="wwwroot\files\" />
-    <Folder Include="wwwroot\temporary-files\" />
   </ItemGroup>
 
   <ItemGroup>
