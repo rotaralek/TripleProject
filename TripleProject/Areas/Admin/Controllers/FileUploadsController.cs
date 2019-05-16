@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using TripleProject.Data;
 
 namespace TripleProject.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class FileUploadsController : Controller
     {
