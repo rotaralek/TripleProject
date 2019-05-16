@@ -1,4 +1,86 @@
-﻿tinymce.init({
-    selector: '.tinymce',
-    height: 300
-});
+﻿(function ($) {
+    "use strict";
+
+    /*
+     *  File Upload
+     */
+    $(document).on('change', '.ajax-file-upload #file', function () {
+        var form = $(this).closest('form');
+        var loading = form.find('.spinner-border')
+        var file = form.find('input[name=file]')
+        var files = file[0].files;
+        var imagesList = [];
+        var multiple = false;
+
+        var formData = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            formData.append('files', files[i]);
+        }
+
+        if (file.attr('multiple')) {
+            multiple = true;
+        }
+
+        $.ajax({
+            url: '/AjaxUpload',
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            cache: false,
+            processData: false,
+            headers: {
+                "Accept": "application/json",
+                "RequestVerificationToken": form.find("input[name='__RequestVerificationToken']").val()
+            },
+            beforeSend: function () {
+                loading.removeClass('d-none');
+                form.find('.response').html('');
+            },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    if (i != 0) {
+                        imagesList += ';';
+                    }
+
+                    imagesList += response[i]['id'];
+
+                    if (multiple) {
+                        form.find('.response').append('<div class="square-image thumbnail img-thumbnail mr-2 mb-2" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                    } else {
+                        form.find('.response').html('<div class="square-image thumbnail img-thumbnail mr-2 mb-2" style="background-image: url(' + response[i]['path'] + ')"></div>');
+                    }
+                }
+
+                if (multiple) {
+                    $(document).find('#GalleryId').attr('value', imagesList);
+                } else {
+                    $(document).find('#ImageId').attr('value', imagesList);
+                }
+
+                loading.addClass('d-none');
+            }
+        });
+    });
+
+    /*
+     * TinyMce
+     */
+    tinymce.init({
+        selector: 'textarea.tinymce',
+        height: 500,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        content_css: [
+            '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+            '//www.tiny.cloud/css/codepen.min.css'
+        ]
+    });
+})(jQuery);
