@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TripleProject.Areas.Admin.ViewModels;
 using TripleProject.Data;
@@ -16,10 +17,12 @@ namespace TripleProject.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         UserManager<IdentityUser> _userManager;
+        RoleManager<IdentityRole> _roleManager;
 
-        public UsersController(UserManager<IdentityUser> userManager)
+        public UsersController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         //Get: Admin/Users
@@ -27,7 +30,7 @@ namespace TripleProject.Areas.Admin.Controllers
         {
             return View(await _userManager.Users.ToListAsync());
         }
-        
+
         // GET: Admin/Users/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -49,22 +52,45 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Users/Create
         public IActionResult Create()
         {
+            ViewData["RoleName"] = new SelectList(_roleManager.Roles, "NormalizedName", "Name");
+
             return View();
         }
 
         // POST: Admin/Users/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Email,PhoneNumber")] IdentityUser user)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Email,PhoneNumber,RoleName,Password,ConfirmPassword")] UserRoleViewModel userRole)
         {
             if (ModelState.IsValid)
             {
-                await _userManager.CreateAsync(user);
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = userRole.UserName,
+                    Email = userRole.Email,
+                    PhoneNumber = userRole.PhoneNumber
+                };
 
-                return RedirectToAction(nameof(Index));
+                IdentityResult result = await _userManager.CreateAsync(user, userRole.Password);
+
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, userRole.RoleName);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
             }
 
-            return View(user);
+            ViewData["RoleName"] = new SelectList(_roleManager.Roles, "NormalizedName", "Name", userRole.RoleName);
+
+            return View(userRole);
         }
 
         // GET: Admin/Users/Edit/5
@@ -76,21 +102,42 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var user = await _userManager.FindByIdAsync(id);
+            var roles = await _userManager.GetRolesAsync(user);
+            var newRole = "";
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            if (roles == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var role in roles)
+            {
+                newRole = role;
+            }
+
+            UserRoleViewModel userRole = new UserRoleViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            ViewData["RoleName"] = new SelectList(_roleManager.Roles, "NormalizedName", "Name", newRole);
+
+            return View(userRole);
         }
 
         // POST: Admin/Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,Email,PhoneNumber")] IdentityUser user)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,Email,PhoneNumber,RoleName,Password,ConfirmPassword")] UserRoleViewModel userRole)
         {
-            if (id != user.Id)
+            if (id != userRole.Id)
             {
                 return NotFound();
             }
@@ -99,8 +146,10 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    var User = await _userManager.FindByIdAsync(user.Id);
-                    User.UserName = user.UserName;
+                    var User = await _userManager.FindByIdAsync(userRole.Id);
+                    User.UserName = userRole.UserName;
+                    User.Email = userRole.Email;
+                    User.PhoneNumber = userRole.PhoneNumber;
                     var result = await _userManager.UpdateAsync(User);
 
                     if (!result.Succeeded)
@@ -109,7 +158,16 @@ namespace TripleProject.Areas.Admin.Controllers
                         return View();
                     }
 
-                    return RedirectToAction("Index");
+                    var roles = await _userManager.GetRolesAsync(User);
+
+                    foreach (var role in roles)
+                    {
+                        await _userManager.RemoveFromRoleAsync(User, role);
+                    }
+
+                    await _userManager.AddToRoleAsync(User, userRole.RoleName);
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception)
                 {
@@ -117,7 +175,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
             }
 
-            return View(user);
+            ViewData["RoleName"] = new SelectList(_roleManager.Roles, "NormalizedName", "Name", userRole.RoleName);
+
+            return View(userRole);
         }
 
         // GET: Admin/Users/Delete/5
