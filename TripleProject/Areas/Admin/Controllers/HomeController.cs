@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TripleProject.Areas.Admin.Controllers
 {
-    //[Authorize(Roles = "admin")]
-    [Authorize]
+    [Authorize(Policy = "RequireAdministratorRole")]
     [Area("Admin")]
     public class HomeController : Controller
     {

@@ -11,7 +11,7 @@ using TripleProject.Data;
 
 namespace TripleProject.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "RequireAdministratorRole")]
     [Area("Admin")]
     public class RolesController : Controller
     {

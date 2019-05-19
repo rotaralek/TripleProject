@@ -12,7 +12,7 @@ using TripleProject.Data;
 
 namespace TripleProject.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "RequireAdministratorRole")]
     [Area("Admin")]
     public class UsersController : Controller
     {
@@ -76,6 +76,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(user, userRole.RoleName);
+                    await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(userRole.RoleName, "true"));
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -159,13 +160,19 @@ namespace TripleProject.Areas.Admin.Controllers
                     }
 
                     var roles = await _userManager.GetRolesAsync(User);
-
                     foreach (var role in roles)
                     {
                         await _userManager.RemoveFromRoleAsync(User, role);
                     }
 
+                    var claims = await _userManager.GetClaimsAsync(User);
+                    foreach (var claim in claims)
+                    {
+                        await _userManager.RemoveClaimAsync(User, claim);
+                    }
+
                     await _userManager.AddToRoleAsync(User, userRole.RoleName);
+                    await _userManager.AddClaimAsync(User, new System.Security.Claims.Claim(userRole.RoleName, "true"));
 
                     return RedirectToAction(nameof(Index));
                 }
