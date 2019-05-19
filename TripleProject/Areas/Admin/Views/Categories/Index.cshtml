@@ -42,6 +42,25 @@
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
+                @foreach (var subItem in Model)
+                {
+                    if (item.Id == subItem.ParentId)
+                    {
+                        <tr>
+                            <td class="pl-5">
+                                @Html.DisplayFor(modelItem => subItem.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => subItem.Parent.Name)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@subItem.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@subItem.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@subItem.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
             }
         }
     </tbody>
