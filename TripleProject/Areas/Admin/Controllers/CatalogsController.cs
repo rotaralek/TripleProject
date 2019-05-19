@@ -25,7 +25,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Catalogs
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Catalogs.Include(c => c.Parent);
+            var applicationDbContext = _context.Catalogs.Include(c => c.Parent).OrderBy(c => c.Name);
             return View(await applicationDbContext.ToListAsync());
         }
 
