@@ -4,16 +4,16 @@
     ViewData["Title"] = "Advertisements";
 }
 
-<div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Advertisements</h1>
-</div>
-
-<div class="row">
+<div class="row pt-4">
     <div class="col-md-3">
+        <h1 class="h3">Advertisements</h1>
+
         @await Component.InvokeAsync("Categories")
     </div>
 
     <div class="col-md-9">
+        @await Component.InvokeAsync("AdvertisementsCarousel")
+
         <div class="row">
             @foreach (var item in Model)
             {
@@ -27,7 +27,7 @@
                         }
 
                         <div class="card-body">
-                            <h3><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <h3 class="h5"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
                             <p>@item.Price</p>
                         </div>
                     </article>

@@ -4,16 +4,16 @@
     ViewData["Title"] = "Products";
 }
 
-<div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Products</h1>
-</div>
-
-<div class="row">
+<div class="row pt-4">
     <div class="col-md-3">
+        <h1 class="h3">Products</h1>
+
         @await Component.InvokeAsync("Catalogs")
     </div>
 
     <div class="col-md-9">
+        @await Component.InvokeAsync("ProductsCarousel")
+
         <div class="row">
             @foreach (var item in Model)
             {
@@ -22,12 +22,12 @@
                         @if (item.Image != null)
                         {
                             <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
-                                <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                                <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
                             </a>
                         }
 
                         <div class="card-body">
-                            <h3><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <h3 class="h5"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
 
                             <p>@item.Description</p>
                             <p>@item.Price</p>

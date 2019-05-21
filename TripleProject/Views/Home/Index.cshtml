@@ -4,11 +4,30 @@
 
 <div class="row pt-4">
     <div class="col-md-4">
-        <h3>Categories</h3>
-        <h3>Catalogs</h3>
+        <nav>
+            <ul class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="nav-advertisements-tab" data-toggle="tab" href="#nav-advertisements" role="tab" aria-controls="nav-advertisements" aria-selected="true">Advertisements</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="nav-shop-tab" data-toggle="tab" href="#nav-shop" role="tab" aria-controls="nav-shop" aria-selected="false">Shop</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="tab-content mb-3" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-advertisements" role="tabpanel" aria-labelledby="nav-advertisements-tab">
+                @await Component.InvokeAsync("Categories")
+            </div>
+
+            <div class="tab-pane fade" id="nav-shop" role="tabpanel" aria-labelledby="nav-shop-tab">
+                @await Component.InvokeAsync("Catalogs")
+            </div>
+        </div>
     </div>
 
     <div class="col-md-8">
-
+        @await Component.InvokeAsync("AdvertisementsCarousel")
     </div>
 </div>

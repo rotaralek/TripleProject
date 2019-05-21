@@ -60,6 +60,8 @@
     <Compile Remove="Migrations\20190503111839_v23.Designer.cs" />
     <Compile Remove="Migrations\20190503114310_v24.cs" />
     <Compile Remove="Migrations\20190503114310_v24.Designer.cs" />
+    <Compile Remove="Migrations\20190521062732_v2.cs" />
+    <Compile Remove="Migrations\20190521062732_v2.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -150,6 +152,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\_ViewStart.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ProductsCarousel\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\AdvertisementsCarousel\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\Carousel\Default.cshtml">

@@ -48,7 +48,7 @@ gulp.task("min:css", function () {
 gulp.task("min", ["min:js", "min:css"]);
 
 gulp.task("sass", function () {
-    return gulp.src(paths.webroot + '/css/style.scss')
+    return gulp.src(paths.webroot + '/css/*.scss')
         .pipe(sass())
         .pipe(gulp.dest(paths.webroot + "/css"))
 });

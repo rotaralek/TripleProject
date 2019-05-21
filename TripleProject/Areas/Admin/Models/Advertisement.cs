@@ -19,10 +19,10 @@ namespace TripleProject.Areas.Admin.Models
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
-        [Range(0, 9999.99)]
+        [Range(0, 999999999.99)]
         public decimal? Price { get; set; }
 
-        [Range(0, 1000)]
+        [Range(0, 999999999)]
         public int? Quantity { get; set; }
 
         [Display(Name = "Category")]
