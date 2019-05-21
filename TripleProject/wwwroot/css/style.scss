@@ -3,7 +3,7 @@ $white-half: rgba(255,255,255,0.5);
 $red: #fb0102;
 $red-light: #c82333;
 $green: #24b122;
-$grey-dark: #353535 ;
+$grey-dark: #353535;
 $grey-light: #f5f5f5;
 /*
 	Import
@@ -304,5 +304,47 @@ footer {
 
     &.thumbnail-sm {
         width: 50px;
+    }
+}
+
+/*
+    Owl slider
+*/
+.owl-carousel {
+    .owl-dots {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: center;
+        justify-content: center;
+        padding-left: 0;
+        margin-right: 15%;
+        margin-left: 15%;
+        list-style: none;
+
+        .owl-dot {
+            box-sizing: content-box;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+            width: 30px;
+            height: 3px;
+            margin-right: 3px;
+            margin-left: 3px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: $grey-dark;
+            background-clip: padding-box;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            opacity: .5;
+            transition: opacity 0.6s ease;
+
+            &:focus {
+                outline: none;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+        }
     }
 }
