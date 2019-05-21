@@ -86,7 +86,7 @@
     $(document).find('.owl-carousel').each(function () {
         $(this).owlCarousel({
             loop: true,
-            margin: 15,
+            margin: 30,
             nav: false,
             responsive: {
                 0: {
