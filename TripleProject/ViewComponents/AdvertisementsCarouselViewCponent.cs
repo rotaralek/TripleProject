@@ -20,7 +20,7 @@ namespace TripleProject.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            IEnumerable<Advertisement> advertisements = _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.Id);
+            IEnumerable<Advertisement> advertisements = _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.Id).Take(5);
 
             return View("Default", advertisements);
         }
