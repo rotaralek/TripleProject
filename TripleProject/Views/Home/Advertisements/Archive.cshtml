@@ -22,7 +22,7 @@
                         @if (item.Image != null)
                         {
                             <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">
-                                <div class="square-image half card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                                <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
                             </a>
                         }
 
