@@ -48,11 +48,11 @@
                 <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" />
             </dd>
             <dt>
-                >@Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.Category)
             </dt>
             <dd>
-                <a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@Model.CategoryId">@Html.DisplayFor(model=> model.Category.Name)</a>
-</dd>
+                <a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@Model.CategoryId">@Html.DisplayFor(model => model.Category.Name)</a>
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Attribute)
             </dt>
