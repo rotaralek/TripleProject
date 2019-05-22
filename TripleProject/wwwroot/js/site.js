@@ -84,21 +84,30 @@
      * Crousel miltiple
      */
     $(document).find('.owl-carousel').each(function () {
-        $(this).owlCarousel({
-            loop: true,
-            margin: 30,
-            nav: false,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 3
+        if ($(this).hasClass('owl-carousel-mono')) {
+            $(this).owlCarousel({
+                loop: true,
+                margin: 30,
+                nav: false,
+                items: 1
+            });
+        } else {
+            $(this).owlCarousel({
+                loop: true,
+                margin: 30,
+                nav: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 3
+                    },
+                    1000: {
+                        items: 3
+                    }
                 }
-            }
-        });
+            });
+        }
     })
 })(jQuery);

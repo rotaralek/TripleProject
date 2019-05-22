@@ -5,19 +5,19 @@
 }
 
 <div class="row pt-4">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <h1 class="h3">Products</h1>
 
         @await Component.InvokeAsync("Catalogs")
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-8">
         @await Component.InvokeAsync("ProductsCarousel")
 
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-md-4 mb-3">
+                <div class="col-md-6 mb-3">
                     <article class="card">
                         @if (item.Image != null)
                         {

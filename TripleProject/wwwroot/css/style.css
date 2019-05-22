@@ -243,12 +243,3 @@ footer {
       outline: none; }
     .owl-carousel .owl-dots .owl-dot.active {
       opacity: 1; }
-
-/*
-    Bootstrap slider
-*/
-.carousel-indicators li {
-  background-color: #353535; }
-
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  display: none; }
