@@ -9,20 +9,20 @@ using TripleProject.Data;
 
 namespace TripleProject.ViewComponents
 {
-    public class AdvertisementsViewComponent : ViewComponent
+    public class PopularProductsViewComponent : ViewComponent
     {
         private readonly ApplicationDbContext _context;
 
-        public AdvertisementsViewComponent(ApplicationDbContext context)
+        public PopularProductsViewComponent(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IViewComponentResult Invoke()
         {
-            IEnumerable<Advertisement> advertisements = _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.Id).Take(5);
+            IEnumerable<Product> products = _context.Products.Include(p => p.Image).OrderByDescending(p => p.Views).Take(5);
 
-            return View("Default", advertisements);
+            return View("Default", products);
         }
     }
 }

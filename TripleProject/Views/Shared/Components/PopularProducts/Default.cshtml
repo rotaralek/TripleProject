@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Product>
+
+<h2 class="h3">Popular Products</h2>
+
+<div class="owl-carousel mb-4">
+    @foreach (var item in Model)
+    {
+        <article class="card">
+            @if (item.Image != null)
+            {
+                <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
+                    <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                </a>
+            }
+
+            <div class="card-body">
+                <h3 class="h5"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                <p>@item.Description</p>
+                <p class="text-red h5">@item.Price @item.Currency</p>
+            </div>
+        </article>
+    }
+</div>
