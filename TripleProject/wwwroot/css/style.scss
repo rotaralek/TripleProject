@@ -32,7 +32,7 @@ a {
     }
 }
 /*
-	Header color
+	Colors
  */
 .bg-red {
     background-color: $red;
@@ -46,6 +46,10 @@ a {
         background-color: $green;
         border-color: $green;
     }
+}
+
+.text-red {
+    color: $red;
 }
 /*
 	Main menu

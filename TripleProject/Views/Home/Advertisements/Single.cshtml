@@ -25,7 +25,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
-            <dd>
+            <dd class="text-red h5">
                 @Html.DisplayFor(model => model.Price)
             </dd>
             <dt>
@@ -35,7 +35,7 @@
                 <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" />
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Category)
+                <a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@Model.CategoryId">@Html.DisplayNameFor(model => model.Category)</a>
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Category.Name)

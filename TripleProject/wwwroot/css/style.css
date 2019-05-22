@@ -21,7 +21,7 @@ a {
     color: #fb0102; }
 
 /*
-	Header color
+	Colors
  */
 .bg-red {
   background-color: #fb0102; }
@@ -32,6 +32,9 @@ a {
   .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
     background-color: #24b122;
     border-color: #24b122; }
+
+.text-red {
+  color: #fb0102; }
 
 /*
 	Main menu

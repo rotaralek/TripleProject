@@ -25,7 +25,7 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
-            <dd>
+            <dd class="text-red h5">
                 @Html.DisplayFor(model => model.Price)
             </dd>
             <dt>
@@ -38,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.Catalog)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Catalog.Name)
+                <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@Model.CatalogId">@Html.DisplayFor(model => model.Catalog.Name)</a>
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Attribute)

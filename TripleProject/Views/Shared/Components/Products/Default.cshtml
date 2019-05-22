@@ -25,9 +25,8 @@
 
                 <div class="card-body">
                     <h3 class="h5"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-
                     <p>@item.Description</p>
-                    <p>@item.Price</p>
+                    <p class="text-red h5">@item.Price</p>
                 </div>
             </article>
         </div>
