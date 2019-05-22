@@ -24,6 +24,9 @@ namespace TripleProject.ViewComponents
             if (GalleryId != null && GalleryId.Contains(";"))
             {
                 galleryList = GalleryId.Split(";").Select(Int32.Parse).ToList();
+            } else
+            {
+                galleryList.Add(Int32.Parse(GalleryId));
             }
 
             IEnumerable<FileUpload> gallery = _context.FileUploads.Where(i => galleryList.Contains(i.Id)).ToList();
