@@ -62,10 +62,11 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.DateTime = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -98,7 +99,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
         {
             if (id != product.Id)
             {
@@ -109,6 +110,11 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (product.DateTime == null)
+                    {
+                        product.DateTime = DateTime.Now;
+                    }
+
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }

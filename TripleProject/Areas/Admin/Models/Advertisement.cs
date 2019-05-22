@@ -41,5 +41,8 @@ namespace TripleProject.Areas.Admin.Models
         public FileUpload Gallery { get; set; }
 
         public int? Views { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        public DateTime? DateTime { get; set; }
     }
 }

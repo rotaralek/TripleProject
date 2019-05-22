@@ -21,10 +21,17 @@
     </div>
 
     <div class="col-md-7 mb-3">
-        <div class="views-trigger" data-type="advertisement" data-id="@Model.Id">
-            <i class="material-icons">visibility</i>
-            <span>@Html.DisplayFor(model => model.Views)</span>
-            <form asp-antiforgery="true"></form>
+        <div class="d-flex">
+            <div class="views-trigger mr-3" data-type="advertisement" data-id="@Model.Id">
+                <i class="material-icons">visibility</i>
+                <span>@Html.DisplayFor(model => model.Views)</span>
+                <form asp-antiforgery="true"></form>
+            </div>
+
+            <div class="date">
+                <i class="material-icons">access_time</i>
+                <time datetime="@Model.DateTime">@Model.DateTime</time>
+            </div>
         </div>
 
         <dl class="dl-horizontal">
