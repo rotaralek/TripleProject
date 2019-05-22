@@ -10,7 +10,7 @@
             <div class="card-img-overlay-bottom">
                 <h3 class="h5"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
                 <p>@item.Price</p>
-                <p class="text-red h5">@item.Price</p>
+                <p class="text-red h5">@item.Price @item.Currency</p>
                 <p><a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@item.CategoryId">@item.Category.Name</a></p>
                 <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id" class="btn btn-primary">Buy now</a>
             </div>

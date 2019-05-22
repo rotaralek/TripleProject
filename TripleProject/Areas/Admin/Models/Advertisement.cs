@@ -22,6 +22,8 @@ namespace TripleProject.Areas.Admin.Models
         [Range(0, 999999999.99)]
         public decimal? Price { get; set; }
 
+        public Currency? Currency { get; set; }
+
         [Range(0, 999999999)]
         public int? Quantity { get; set; }
 

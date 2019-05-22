@@ -24,15 +24,17 @@ namespace TripleProject.Areas.Admin.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Display(Name = "Catalog")]
-        public int? CatalogId { get; set; }
-        public Catalog Catalog { get; set; }
-
         [Range(0, 999999999.99)]
         public decimal? Price { get; set; }
 
+        public Currency? Currency { get; set; }
+
         [Range(0, 999999999)]
         public int? Quantity { get; set; }
+
+        [Display(Name = "Catalog")]
+        public int? CatalogId { get; set; }
+        public Catalog Catalog { get; set; }
 
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
@@ -42,5 +44,12 @@ namespace TripleProject.Areas.Admin.Models
         public FileUpload Image { get; set; }
         public string GalleryId { get; set; }
         public FileUpload Gallery { get; set; }
+    }
+
+    public enum Currency
+    {
+        MDL,
+        EUR,
+        USD
     }
 }
