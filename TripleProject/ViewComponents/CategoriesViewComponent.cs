@@ -26,7 +26,7 @@ namespace TripleProject.ViewComponents
 
         public static void GetCategoryList(IEnumerable<Category> category, ref string categoryTree)
         {
-            categoryTree += "<ul class='nav navbar-nav'>";
+            categoryTree += "<ul class='nav navbar-nav sidebar-nav'>";
 
             foreach (var item in category)
             {
@@ -50,7 +50,7 @@ namespace TripleProject.ViewComponents
             bool hasChild = false;
             string localCategoryTree = "";
 
-            localCategoryTree += "<ul>";
+            localCategoryTree += "<i class='material-icons'>keyboard_arrow_right</i><ul class='sub-menu bg-white'>";
 
             foreach (var item in category)
             {
@@ -59,7 +59,7 @@ namespace TripleProject.ViewComponents
                 {
                     hasChild = true;
 
-                    localCategoryTree += "<li class='nav-item'>";
+                    localCategoryTree += "<li class='nav-item border-bottom'>";
                     localCategoryTree += "<a href='/advertisements/categories/" + item.Id + "' class='nav-link'>" + item.Name + "</a>";
                     GetChildList(category, ref localCategoryTree, item.Id);
                     localCategoryTree += "</li>";

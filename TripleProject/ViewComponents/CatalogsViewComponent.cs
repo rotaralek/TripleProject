@@ -26,7 +26,7 @@ namespace TripleProject.ViewComponents
 
         public static void GetCatalogList(IEnumerable<Catalog> catalog, ref string catalogTree)
         {
-            catalogTree += "<ul class='nav navbar-nav'>";
+            catalogTree += "<ul class='nav navbar-nav sidebar-nav'>";
 
             foreach (var item in catalog)
             {
@@ -50,7 +50,7 @@ namespace TripleProject.ViewComponents
             bool hasChild = false;
             string localCatalogTree = "";
 
-            localCatalogTree += "<ul>";
+            localCatalogTree += "<ul class='sub-menu bg-white'>";
 
             foreach (var item in catalog)
             {
@@ -59,7 +59,7 @@ namespace TripleProject.ViewComponents
                 {
                     hasChild = true;
 
-                    localCatalogTree += "<li class='nav-item'>";
+                    localCatalogTree += "<li class='nav-item border-bottom'>";
                     localCatalogTree += "<a href='/products/catalogs/" + item.Id + "' class='nav-link'>" + item.Name + "</a>";
                     GetChildList(catalog, ref localCatalogTree, item.Id);
                     localCatalogTree += "</li>";

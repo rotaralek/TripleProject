@@ -24,7 +24,8 @@ namespace TripleProject.ViewComponents
             if (GalleryId != null && GalleryId.Contains(";"))
             {
                 galleryList = GalleryId.Split(";").Select(Int32.Parse).ToList();
-            } else
+            }
+            else if (GalleryId != null)
             {
                 galleryList.Add(Int32.Parse(GalleryId));
             }
