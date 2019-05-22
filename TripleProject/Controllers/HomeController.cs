@@ -120,6 +120,57 @@ namespace TripleProject.Controllers
             return View("Products/Catalog", await applicationDbContext.ToListAsync());
         }
 
+        [Route("AjaxViewsIncrement")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjaxViewsIncrement(string type, int id)
+        {
+            List<Object> response = new List<Object>();
+
+            switch (type)
+            {
+                case "product":
+                    Product product = await _context.Products.FindAsync(id);
+
+                    if (product.Views != null)
+                    {
+                        product.Views = product.Views + 1;
+                    }
+                    else
+                    {
+                        product.Views = 1;
+                    }
+
+                    response.Add(product.Views);
+                    _context.Update(product);
+                    break;
+                case "advertisement":
+                    Advertisement advertisement = await _context.Advertisements.FindAsync(id);
+
+                    if (advertisement.Views != null)
+                    {
+                        advertisement.Views = advertisement.Views + 1;
+                    }
+                    else
+                    {
+                        advertisement.Views = 1;
+                    }
+
+                    response.Add(advertisement.Views);
+                    _context.Update(advertisement);
+                    break;
+                default:
+                    response.Add(type);
+                    response.Add(id);
+                    response.Add("Error");
+                    break;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new JsonResult(response);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

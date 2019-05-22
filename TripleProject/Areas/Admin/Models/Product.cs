@@ -44,6 +44,8 @@ namespace TripleProject.Areas.Admin.Models
         public FileUpload Image { get; set; }
         public string GalleryId { get; set; }
         public FileUpload Gallery { get; set; }
+
+        public int? Views { get; set; }
     }
 
     public enum Currency

@@ -110,4 +110,38 @@
             });
         }
     })
+
+    /*
+     * Views trigger
+     */
+    $(window).on('load', function () {
+        if ($(document).find('.views-trigger').length) {
+            var viewsContainer = $(document).find('.views-trigger');
+            var type = viewsContainer.attr('data-type');
+            var id = viewsContainer.attr('data-id');
+
+            console.log(type);
+            console.log(id);
+
+            $.ajax({
+                url: '/AjaxViewsIncrement',
+                type: 'POST',
+                data: {
+                    type: type,
+                    id: id
+                },
+                dataType: "json",
+                cache: false,
+                headers: {
+                    "Accept": "application/json",
+                    "RequestVerificationToken": viewsContainer.find("input[name='__RequestVerificationToken']").val()
+                },
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        }
+    });
 })(jQuery);
