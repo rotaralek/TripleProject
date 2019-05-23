@@ -17,7 +17,7 @@
         <div class="row">
             @foreach (var item in Model)
             {
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 col-sm-6 mb-3">
                     <article class="card">
                         @if (item.Image != null)
                         {
@@ -27,9 +27,9 @@
                         }
 
                         <div class="card-body">
-                            <h3 class="h5"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                            <p class="text-red h5">@item.Price @item.Currency</p>
-                            <div class="date">
+                            <h3 class="h6"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <p class="text-red h6">@item.Price @item.Currency</p>
+                            <div class="date text-muted">
                                 <i class="material-icons">access_time</i>
                                 <time datetime="@item.DateTime">@item.DateTime</time>
                             </div>

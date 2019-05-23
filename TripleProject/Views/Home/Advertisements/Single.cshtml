@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-5 mb-3">
+    <div class="col-md-6 mb-3">
         <div class="owl-carousel owl-carousel-mono">
             @if (Model.Image != null)
             {
@@ -20,15 +20,15 @@
         </div>
     </div>
 
-    <div class="col-md-7 mb-3">
-        <div class="d-flex">
-            <div class="views-trigger mr-3" data-type="advertisement" data-id="@Model.Id">
+    <div class="col-md-6 mb-3">
+        <div class="d-flex justify-content-end">
+            <div class="views-trigger mr-3 text-muted" data-type="advertisement" data-id="@Model.Id">
                 <i class="material-icons">visibility</i>
                 <span>@Html.DisplayFor(model => model.Views)</span>
                 <form asp-antiforgery="true"></form>
             </div>
 
-            <div class="date">
+            <div class="date text-muted">
                 <i class="material-icons">access_time</i>
                 <time datetime="@Model.DateTime">@Model.DateTime</time>
             </div>
@@ -38,14 +38,14 @@
             <dt>
                 @Html.DisplayNameFor(model => model.Price)
             </dt>
-            <dd class="text-red h5">
+            <dd class="text-red h3">
                 @Html.DisplayFor(model => model.Price) @Html.DisplayFor(model => model.Currency)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Quantity)
             </dt>
-            <dd>
-                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" />
+            <dd class="form-inline">
+                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Category)

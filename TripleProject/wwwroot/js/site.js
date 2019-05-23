@@ -84,6 +84,8 @@
      * Crousel miltiple
      */
     $(document).find('.owl-carousel').each(function () {
+        var slidesPerLine = parseInt($(this).attr('data-slides-per-line'));
+
         if ($(this).hasClass('owl-carousel-mono')) {
             $(this).owlCarousel({
                 loop: true,
@@ -101,10 +103,10 @@
                         items: 1
                     },
                     600: {
-                        items: 3
+                        items: slidesPerLine - 1
                     },
                     1000: {
-                        items: 3
+                        items: slidesPerLine
                     }
                 }
             });
