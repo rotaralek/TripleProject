@@ -1,0 +1,53 @@
+﻿<div class="mb-5">
+    <nav aria-label="Page navigation" role="navigation">
+        <span class="sr-only">Навигация по страницам</span>
+        <ul class="pagination justify-content-center ft-wpbs">
+            <li class="page-item disabled hidden-md-down d-none d-lg-block">
+                <span class="page-link">Page @ViewData["page"] from @ViewData["pages"]</span>
+            </li>
+            @{
+                int page = (int)ViewData["page"];
+                int pages = (int)ViewData["pages"];
+                string type = (string)ViewData["type"];
+            }
+
+            @if (page > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First Page"><span class="hidden-sm-down d-none d-md-block">« First</span></a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(page-1)" aria-label="Previous Page"><span class="hidden-sm-down d-none d-md-block">‹ Previous</span></a>
+                </li>
+            }
+
+            @for (int i = 1; i <= pages; i++)
+            {
+                @if (i == page)
+                {
+                    <li class="page-item active">
+                        <span class="page-link"><span class="sr-only">Current page </span>@i</span>
+                    </li>
+                }
+                else if (i == (page + 1) || i == (page - 1))
+                {
+                    <li class="page-item">
+                        <a href="?page=@i" class="page-link"><span class="sr-only">Page </span>@i</a>
+                    </li>
+                }
+            }
+
+            @if (page < pages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(page < pages ? page + 1 : pages)" aria-label="Next Page"><span class="hidden-sm-down d-none d-md-block">Next ›</span></a>
+                </li>
+
+                <li class="page-item">
+                    <a class="page-link" href="?page=@pages" aria-label="Last Page"><span class="hidden-sm-down d-none d-md-block">Last »</span></a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>

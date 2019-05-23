@@ -47,9 +47,15 @@ namespace TripleProject.Controllers
         }
 
         [Route("products")]
-        public async Task<IActionResult> ProductsArchive()
+        public async Task<IActionResult> ProductsArchive(int page = 1)
         {
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).OrderByDescending(p => p.Id);
+            int itemsPerPage = 2;
+            int skip = itemsPerPage * (page - 1);
+
+            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage);
+
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
 
             return View("Products/Archive", await applicationDbContext.ToListAsync());
         }

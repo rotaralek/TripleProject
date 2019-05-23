@@ -14,7 +14,7 @@
     <div class="col-md-8">
         @await Component.InvokeAsync("ProductsCarousel")
 
-        <div class="row">
+        <div class="row mb-3">
             @foreach (var item in Model)
             {
                 <div class="col-md-6 mb-3">
@@ -35,5 +35,13 @@
                 </div>
             }
         </div>
+
+        @{ 
+            string type = "product";
+            int page = (int)ViewData["page"];
+            int itemsPerPage = (int)ViewData["itemsPerPage"];
+        }
+
+        @await Component.InvokeAsync("Pagination", new { type, page, itemsPerPage })
     </div>
 </div>
