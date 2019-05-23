@@ -76,3 +76,5 @@
         @Html.Raw(Model.Text)
     </div>
 </div>
+
+@await Component.InvokeAsync("SimilarAdvertisements", new { Model.CategoryId, Model.Id })
