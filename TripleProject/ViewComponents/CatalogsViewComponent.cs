@@ -50,7 +50,7 @@ namespace TripleProject.ViewComponents
             bool hasChild = false;
             string localCatalogTree = "";
 
-            localCatalogTree += "<ul class='sub-menu bg-white'>";
+            localCatalogTree += "<i class='material-icons'>keyboard_arrow_right</i><ul class='sub-menu bg-white'>";
 
             foreach (var item in catalog)
             {
