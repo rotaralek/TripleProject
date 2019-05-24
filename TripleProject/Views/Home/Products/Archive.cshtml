@@ -36,12 +36,12 @@
             }
         </div>
 
-        @{ 
-            string type = "product";
+        @{
+            int count = (int)ViewData["count"];
             int page = (int)ViewData["page"];
-            int itemsPerPage = (int)ViewData["itemsPerPage"];
+            decimal itemsPerPage = (int)ViewData["itemsPerPage"];
         }
 
-        @await Component.InvokeAsync("Pagination", new { type, page, itemsPerPage })
+        @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })
     </div>
 </div>

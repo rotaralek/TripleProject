@@ -30,9 +30,18 @@ namespace TripleProject.Areas.Admin.Controllers
         }
 
         // GET: Admin/FileUploads
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _context.FileUploads.ToListAsync());
+            int itemsPerPage = 10;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.FileUploads.CountAsync();
+            var applicationDbContext = await _context.FileUploads.Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View(applicationDbContext);
         }
 
         // GET: Admin/FileUploads/Details/5

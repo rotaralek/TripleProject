@@ -49,15 +49,16 @@ namespace TripleProject.Controllers
         [Route("products")]
         public async Task<IActionResult> ProductsArchive(int page = 1)
         {
-            int itemsPerPage = 2;
+            int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
+            int count = await _context.Products.CountAsync();
+            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
 
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage);
-
+            ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["itemsPerPage"] = itemsPerPage;
 
-            return View("Products/Archive", await applicationDbContext.ToListAsync());
+            return View("Products/Archive", applicationDbContext);
         }
 
         [Route("products/{id?}")]
@@ -82,11 +83,18 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements")]
-        public async Task<IActionResult> AdvertisementsArchive()
+        public async Task<IActionResult> AdvertisementsArchive(int page = 1)
         {
-            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).OrderByDescending(p => p.Id); ;
+            int itemsPerPage = 12;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.Advertisements.CountAsync();
+            var applicationDbContext = await _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
 
-            return View("Advertisements/Archive", await applicationDbContext.ToListAsync());
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View("Advertisements/Archive", applicationDbContext);
         }
 
         [Route("advertisements/{id?}")]
@@ -111,19 +119,33 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements/categories/{id?}")]
-        public async Task<IActionResult> AdvertisementsCategory(int? id)
+        public async Task<IActionResult> AdvertisementsCategory(int? id, int page = 1)
         {
-            var applicationDbContext = _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).Where(p => p.CategoryId == id).OrderByDescending(p => p.Id); ;
+            int itemsPerPage = 12;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.Advertisements.Where(p => p.CategoryId == id).CountAsync();
+            var applicationDbContext = await _context.Advertisements.Include(p => p.Attribute).Include(p => p.Category).Include(p => p.Image).Where(p => p.CategoryId == id).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
 
-            return View("Advertisements/Category", await applicationDbContext.ToListAsync());
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View("Advertisements/Category", applicationDbContext);
         }
 
         [Route("products/catalogs/{id?}")]
-        public async Task<IActionResult> ProductsCatalog(int? id)
+        public async Task<IActionResult> ProductsCatalog(int? id, int page = 1)
         {
-            var applicationDbContext = _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).Where(p => p.CatalogId == id).OrderByDescending(p => p.Id); ;
+            int itemsPerPage = 12;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.Products.Where(p => p.CatalogId == id).CountAsync();
+            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Include(p => p.Image).Where(p => p.CatalogId == id).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
 
-            return View("Products/Catalog", await applicationDbContext.ToListAsync());
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View("Products/Catalog", applicationDbContext);
         }
 
         [Route("AjaxViewsIncrement")]

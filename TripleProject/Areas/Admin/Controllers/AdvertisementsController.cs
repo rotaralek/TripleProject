@@ -23,10 +23,18 @@ namespace TripleProject.Areas.Admin.Controllers
         }
 
         // GET: Admin/Advertisements
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            var applicationDbContext = _context.Advertisements.Include(a => a.Attribute).Include(a => a.Category);
-            return View(await applicationDbContext.ToListAsync());
+            int itemsPerPage = 10;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.Advertisements.CountAsync();
+            var applicationDbContext = await _context.Advertisements.Include(a => a.Attribute).Include(a => a.Category).Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View(applicationDbContext);
         }
 
         // GET: Admin/Advertisements/Details/5

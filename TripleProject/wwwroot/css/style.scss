@@ -398,3 +398,19 @@ footer {
         }
     }
 }
+
+/*
+    Pagination
+*/
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: $grey-dark;
+    border-color: $grey-dark;
+}
+.page-link, .page-numbers {
+    color: $grey-dark;
+    &:hover {
+        color: $red;
+    }
+}

@@ -37,3 +37,11 @@
         }
     </tbody>
 </table>
+
+@{
+    int count = (int)ViewData["count"];
+    int page = (int)ViewData["page"];
+    decimal itemsPerPage = (int)ViewData["itemsPerPage"];
+}
+
+@await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })

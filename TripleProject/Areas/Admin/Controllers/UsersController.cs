@@ -26,9 +26,18 @@ namespace TripleProject.Areas.Admin.Controllers
         }
 
         //Get: Admin/Users
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View(await _userManager.Users.ToListAsync());
+            int itemsPerPage = 10;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _userManager.Users.CountAsync();
+            var applicationDbContext = await _userManager.Users.Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View(applicationDbContext);
         }
 
         // GET: Admin/Users/Details/5

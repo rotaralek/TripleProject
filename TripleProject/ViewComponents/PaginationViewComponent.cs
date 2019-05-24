@@ -18,32 +18,23 @@ namespace TripleProject.ViewComponents
             _context = context;
         }
 
-        public IViewComponentResult Invoke(string type, int page, int itemsPerPage)
+        public IViewComponentResult Invoke(int count, int page, decimal itemsPerPage)
         {
-            int itemsCount;
             int pages;
             decimal totalPages;
 
-
-            switch (type)
+            if (count == 0)
             {
-                case "product":
-                    itemsCount = _context.Products.Count();
-                    break;
-                case "advertisement":
-                    itemsCount = _context.Advertisements.Count();
-                    break;
-                default:
-                    itemsCount = 0;
-                    break;
+                ViewData["count"] = 0;
+                return View();
             }
 
-            totalPages = itemsCount / itemsPerPage;
-            pages = (int)Math.Ceiling(totalPages) + 1;
+            totalPages = count / itemsPerPage;
+            pages = (int)Math.Ceiling(totalPages);
 
+            ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["pages"] = pages;
-            ViewData["type"] = type;
 
             return View();
         }

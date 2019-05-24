@@ -279,3 +279,17 @@ footer {
       outline: none; }
     .owl-carousel .owl-dots .owl-dot.active {
       opacity: 1; }
+
+/*
+    Pagination
+*/
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #353535;
+  border-color: #353535; }
+
+.page-link, .page-numbers {
+  color: #353535; }
+  .page-link:hover, .page-numbers:hover {
+    color: #fb0102; }

@@ -1,6 +1,11 @@
-﻿<div class="mb-5">
+﻿@if ((int)ViewData["count"] == 0)
+{
+    return;
+}
+
+<div class="mb-5">
     <nav aria-label="Page navigation" role="navigation">
-        <span class="sr-only">Навигация по страницам</span>
+        <span class="sr-only">Pagination</span>
         <ul class="pagination justify-content-center ft-wpbs">
             <li class="page-item disabled hidden-md-down d-none d-lg-block">
                 <span class="page-link">Page @ViewData["page"] from @ViewData["pages"]</span>
@@ -8,7 +13,6 @@
             @{
                 int page = (int)ViewData["page"];
                 int pages = (int)ViewData["pages"];
-                string type = (string)ViewData["type"];
             }
 
             @if (page > 1)
