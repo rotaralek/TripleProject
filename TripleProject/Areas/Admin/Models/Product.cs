@@ -47,6 +47,7 @@ namespace TripleProject.Areas.Admin.Models
 
         public int? Views { get; set; }
 
+        [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateTime { get; set; }
     }
