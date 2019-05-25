@@ -158,21 +158,22 @@
 
     $(document).on('scroll', function (e) {
         var mainHeader = $(document).find('.tell-main-header');
-
         var documentOffset = $(this).scrollTop();
         var redLineOffset = mainHeader.position().top;
-
-        console.log(documentOffset);
-        console.log(defaultHeaderValue);
+        var redLineHeight = mainHeader.innerHeight();
 
         if (defaultHeaderValue < redLineOffset) {
             defaultHeaderValue = redLineOffset;
         }
 
         if (documentOffset >= defaultHeaderValue) {
-            mainHeader.addClass('fixed-top');
+            if (!mainHeader.hasClass('fixed-top')) {
+                mainHeader.addClass('fixed-top');
+                mainHeader.after('<div class="header-size" style="height:' + redLineHeight + 'px"></div>');
+            }
         } else {
             mainHeader.removeClass('fixed-top');
+            $(document).find('.header-size').remove();
         }
     });
 })(jQuery);
