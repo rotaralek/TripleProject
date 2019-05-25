@@ -146,4 +146,33 @@
             });
         }
     });
+
+    /*
+     * Header fix on scroll
+     */
+    var defaultHeaderValue = 0;
+
+    $(document).find('.tell-main-header').css({
+        transition: "all 300ms ease"
+    });
+
+    $(document).on('scroll', function (e) {
+        var mainHeader = $(document).find('.tell-main-header');
+
+        var documentOffset = $(this).scrollTop();
+        var redLineOffset = mainHeader.position().top;
+
+        console.log(documentOffset);
+        console.log(defaultHeaderValue);
+
+        if (defaultHeaderValue < redLineOffset) {
+            defaultHeaderValue = redLineOffset;
+        }
+
+        if (documentOffset >= defaultHeaderValue) {
+            mainHeader.addClass('fixed-top');
+        } else {
+            mainHeader.removeClass('fixed-top');
+        }
+    });
 })(jQuery);

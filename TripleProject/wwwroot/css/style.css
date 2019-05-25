@@ -120,10 +120,6 @@ a {
 .tell-currency-info {
   font-size: 0.75em; }
 
-@media (max-width: 992px) {
-  .fixed-top {
-    position: relative; } }
-
 /*
 	Single article
  */
