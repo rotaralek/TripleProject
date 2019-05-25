@@ -6,65 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190424123904_v1.cs" />
-    <Compile Remove="Migrations\20190424123904_v1.Designer.cs" />
-    <Compile Remove="Migrations\20190424125459_v1.cs" />
-    <Compile Remove="Migrations\20190424125459_v1.Designer.cs" />
-    <Compile Remove="Migrations\20190424145934_v2.cs" />
-    <Compile Remove="Migrations\20190424145934_v2.Designer.cs" />
-    <Compile Remove="Migrations\20190425104719_v3.cs" />
-    <Compile Remove="Migrations\20190425104719_v3.Designer.cs" />
-    <Compile Remove="Migrations\20190425112204_v4.cs" />
-    <Compile Remove="Migrations\20190425112204_v4.Designer.cs" />
-    <Compile Remove="Migrations\20190425112529_v5.cs" />
-    <Compile Remove="Migrations\20190425112529_v5.Designer.cs" />
-    <Compile Remove="Migrations\20190425113645_v.cs" />
-    <Compile Remove="Migrations\20190425113645_v.Designer.cs" />
-    <Compile Remove="Migrations\20190425113707_v6.cs" />
-    <Compile Remove="Migrations\20190425113707_v6.Designer.cs" />
-    <Compile Remove="Migrations\20190425114929_v7.cs" />
-    <Compile Remove="Migrations\20190425114929_v7.Designer.cs" />
-    <Compile Remove="Migrations\20190425115310_v8.cs" />
-    <Compile Remove="Migrations\20190425115310_v8.Designer.cs" />
-    <Compile Remove="Migrations\20190425120051_v9.cs" />
-    <Compile Remove="Migrations\20190425120051_v9.Designer.cs" />
-    <Compile Remove="Migrations\20190425120438_v10.cs" />
-    <Compile Remove="Migrations\20190425120438_v10.Designer.cs" />
-    <Compile Remove="Migrations\20190425121552_v11.cs" />
-    <Compile Remove="Migrations\20190425121552_v11.Designer.cs" />
-    <Compile Remove="Migrations\20190426073157_v12.cs" />
-    <Compile Remove="Migrations\20190426073157_v12.Designer.cs" />
-    <Compile Remove="Migrations\20190426074959_v13.cs" />
-    <Compile Remove="Migrations\20190426074959_v13.Designer.cs" />
-    <Compile Remove="Migrations\20190426102425_v14.cs" />
-    <Compile Remove="Migrations\20190426102425_v14.Designer.cs" />
-    <Compile Remove="Migrations\20190426124941_v15.cs" />
-    <Compile Remove="Migrations\20190426124941_v15.Designer.cs" />
-    <Compile Remove="Migrations\20190430083419_v16.cs" />
-    <Compile Remove="Migrations\20190430083419_v16.Designer.cs" />
-    <Compile Remove="Migrations\20190430105331_v17.cs" />
-    <Compile Remove="Migrations\20190430105331_v17.Designer.cs" />
-    <Compile Remove="Migrations\20190501120437_v18.cs" />
-    <Compile Remove="Migrations\20190501120437_v18.Designer.cs" />
-    <Compile Remove="Migrations\20190501124028_v19.cs" />
-    <Compile Remove="Migrations\20190501124028_v19.Designer.cs" />
-    <Compile Remove="Migrations\20190501135237_v20.cs" />
-    <Compile Remove="Migrations\20190501135237_v20.Designer.cs" />
-    <Compile Remove="Migrations\20190502063552_21.cs" />
-    <Compile Remove="Migrations\20190502063552_21.Designer.cs" />
-    <Compile Remove="Migrations\20190502064329_v21.cs" />
-    <Compile Remove="Migrations\20190502064329_v21.Designer.cs" />
-    <Compile Remove="Migrations\20190502064647_v22.cs" />
-    <Compile Remove="Migrations\20190502064647_v22.Designer.cs" />
-    <Compile Remove="Migrations\20190503111839_v23.cs" />
-    <Compile Remove="Migrations\20190503111839_v23.Designer.cs" />
-    <Compile Remove="Migrations\20190503114310_v24.cs" />
-    <Compile Remove="Migrations\20190503114310_v24.Designer.cs" />
-    <Compile Remove="Migrations\20190521062732_v2.cs" />
-    <Compile Remove="Migrations\20190521062732_v2.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />

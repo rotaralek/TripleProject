@@ -61,26 +61,6 @@ namespace TripleProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Catalogs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Catalogs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Catalogs_Catalogs_ParentId",
-                        column: x => x.ParentId,
-                        principalTable: "Catalogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Categories",
                 columns: table => new
                 {
@@ -279,12 +259,15 @@ namespace TripleProject.Migrations
                     Title = table.Column<string>(maxLength: 100, nullable: false),
                     Text = table.Column<string>(maxLength: 10000, nullable: false),
                     Price = table.Column<decimal>(nullable: true),
+                    Currency = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
                     CategoryId = table.Column<int>(nullable: true),
                     AttributeId = table.Column<int>(nullable: true),
                     ImageId = table.Column<int>(nullable: true),
                     GalleryId = table.Column<string>(nullable: true),
-                    GalleryId1 = table.Column<int>(nullable: true)
+                    GalleryId1 = table.Column<int>(nullable: true),
+                    Views = table.Column<int>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -324,13 +307,16 @@ namespace TripleProject.Migrations
                     Title = table.Column<string>(maxLength: 100, nullable: false),
                     Text = table.Column<string>(maxLength: 10000, nullable: false),
                     Description = table.Column<string>(maxLength: 1000, nullable: true),
-                    CatalogId = table.Column<int>(nullable: true),
                     Price = table.Column<decimal>(nullable: true),
+                    Currency = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
+                    CatalogId = table.Column<int>(nullable: true),
                     AttributeId = table.Column<int>(nullable: true),
                     ImageId = table.Column<int>(nullable: true),
                     GalleryId = table.Column<string>(nullable: true),
-                    GalleryId1 = table.Column<int>(nullable: true)
+                    GalleryId1 = table.Column<int>(nullable: true),
+                    Views = table.Column<int>(nullable: true),
+                    DateTime = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,12 +325,6 @@ namespace TripleProject.Migrations
                         name: "FK_Products_ProductAttributes_AttributeId",
                         column: x => x.AttributeId,
                         principalTable: "ProductAttributes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Catalogs_CatalogId",
-                        column: x => x.CatalogId,
-                        principalTable: "Catalogs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -359,6 +339,59 @@ namespace TripleProject.Migrations
                         principalTable: "FileUploads",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Catalogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    ProductId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Catalogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Catalogs_Catalogs_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "Catalogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Catalogs_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProductsCatalogs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<int>(nullable: false),
+                    CatalogId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProductsCatalogs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProductsCatalogs_Catalogs_CatalogId",
+                        column: x => x.CatalogId,
+                        principalTable: "Catalogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductsCatalogs_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -426,6 +459,11 @@ namespace TripleProject.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Catalogs_ProductId",
+                table: "Catalogs",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Categories_ParentId",
                 table: "Categories",
                 column: "ParentId");
@@ -441,11 +479,6 @@ namespace TripleProject.Migrations
                 column: "AttributeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CatalogId",
-                table: "Products",
-                column: "CatalogId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Products_GalleryId1",
                 table: "Products",
                 column: "GalleryId1");
@@ -454,6 +487,16 @@ namespace TripleProject.Migrations
                 name: "IX_Products_ImageId",
                 table: "Products",
                 column: "ImageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsCatalogs_CatalogId",
+                table: "ProductsCatalogs",
+                column: "CatalogId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsCatalogs_ProductId",
+                table: "ProductsCatalogs",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -483,7 +526,7 @@ namespace TripleProject.Migrations
                 name: "Pages");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ProductsCatalogs");
 
             migrationBuilder.DropTable(
                 name: "AdvertisementAttributes");
@@ -498,10 +541,13 @@ namespace TripleProject.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "ProductAttributes");
+                name: "Catalogs");
 
             migrationBuilder.DropTable(
-                name: "Catalogs");
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "ProductAttributes");
 
             migrationBuilder.DropTable(
                 name: "FileUploads");

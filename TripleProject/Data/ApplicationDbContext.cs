@@ -19,10 +19,44 @@ namespace TripleProject.Data
         public DbSet<TripleProject.Areas.Admin.Models.AdvertisementAttribute> AdvertisementAttributes { get; set; }
         public DbSet<TripleProject.Areas.Admin.Models.ProductAttribute> ProductAttributes { get; set; }
         public DbSet<TripleProject.Areas.Admin.Models.Menu> Menus { get; set; }
+        public DbSet<TripleProject.Areas.Admin.Models.ProductCatalog> ProductsCatalogs { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<ProductCatalog>().HasKey(pc => new { pc.ProductId, pc.CatalogId });
+
+            //modelBuilder.Entity<Product>()
+            //.HasOne(pc => pc.Catalogs)
+            //.WithMany()
+            //.OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Catalog>()
+            //.HasOne(pc => pc.Products)
+            //.WithMany()
+            //.OnDelete(DeleteBehavior.Restrict);
+
+            // modelBuilder.Entity<ProductCatalog>()
+            //.HasOne(bbt => bbt.Product)
+            //.WithMany(b => b.ProductsCatalogs)
+            //.HasForeignKey(bbt => bbt.ProductId);
+
+            // modelBuilder.Entity<ProductCatalog>()
+            //.HasOne(bbt => bbt.Catalog)
+            //.WithMany(b => b.ProductsCatalogs)
+            //.HasForeignKey(bbt => bbt.CatalogId);
+
+            modelBuilder.Entity<Product>()
+            .HasMany(c => c.Catalogs);
+
+            modelBuilder.Entity<Catalog>()
+            .HasMany(c => c.Products);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

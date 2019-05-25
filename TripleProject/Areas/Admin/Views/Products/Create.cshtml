@@ -36,13 +36,13 @@
             </div>
 
             <div class="row">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                     <label asp-for="Price" class="control-label"></label>
                     <input asp-for="Price" class="form-control" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
 
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                     <label asp-for="Currency" class="control-label"></label>
                     <select asp-for="Currency" class="form-control">
                         <option value="0">MDL</option>
@@ -50,17 +50,24 @@
                         <option value="2">USD</option>
                     </select>
                 </div>
+
+                <div class="form-group col-sm-4">
+                    <label asp-for="Quantity" class="control-label"></label>
+                    <input asp-for="Quantity" class="form-control" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="CatalogId" class="control-label"></label>
-                <select asp-for="CatalogId" class="form-control" asp-items="ViewBag.CatalogId">
+                <select asp-for="CatalogId" class="form-control" asp-items="ViewBag.CatalogId" multiple>
+                    <option value="">None</option>
+                </select>
+            </div>*@
+
+            <div class="form-group">
+                <label asp-for="Catalogs" class="control-label"></label>
+                <select asp-for="Catalogs" class="form-control" asp-items="ViewBag.Catalogs" multiple>
                     <option value="">None</option>
                 </select>
             </div>
@@ -72,16 +79,18 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Views" class="control-label"></label>
-                <input asp-for="Views" class="form-control" readonly />
-                <span asp-validation-for="Views" class="text-danger"></span>
-            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label asp-for="DateTime" class="control-label"></label>
+                    <input asp-for="DateTime" class="form-control" readonly />
+                    <span asp-validation-for="DateTime" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="DateTime" class="control-label"></label>
-                <input asp-for="DateTime" class="form-control" readonly />
-                <span asp-validation-for="DateTime" class="text-danger"></span>
+                <div class="form-group col-sm-6">
+                    <label asp-for="Views" class="control-label"></label>
+                    <input asp-for="Views" class="form-control" readonly />
+                    <span asp-validation-for="Views" class="text-danger"></span>
+                </div>
             </div>
 
             <div class="form-group">

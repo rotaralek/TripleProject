@@ -258,9 +258,13 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("ParentId");
 
+                    b.Property<int?>("ProductId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Catalogs");
                 });
@@ -406,6 +410,25 @@ namespace TripleProject.Migrations
                     b.ToTable("ProductAttributes");
                 });
 
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.ProductCatalog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CatalogId");
+
+                    b.Property<int>("ProductId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CatalogId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductsCatalogs");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -475,6 +498,10 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.Product")
+                        .WithMany("Catalogs")
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Category", b =>
@@ -497,7 +524,7 @@ namespace TripleProject.Migrations
                         .WithMany("Products")
                         .HasForeignKey("AttributeId");
 
-                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
+                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog")
                         .WithMany("Products")
                         .HasForeignKey("CatalogId");
 
@@ -508,6 +535,19 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
+                });
+
+            modelBuilder.Entity("TripleProject.Areas.Admin.Models.ProductCatalog", b =>
+                {
+                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
+                        .WithMany()
+                        .HasForeignKey("CatalogId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

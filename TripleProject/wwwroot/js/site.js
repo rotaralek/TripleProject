@@ -150,30 +150,32 @@
     /*
      * Header fix on scroll
      */
-    var defaultHeaderValue = 0;
+    if ($(document).find('.tell-main-header').length) {
+        var defaultHeaderValue = 0;
 
-    $(document).find('.tell-main-header').css({
-        transition: "all 300ms ease"
-    });
+        $(document).find('.tell-main-header').css({
+            transition: "all 300ms ease"
+        });
 
-    $(document).on('scroll', function (e) {
-        var mainHeader = $(document).find('.tell-main-header');
-        var documentOffset = $(this).scrollTop();
-        var redLineOffset = mainHeader.position().top;
-        var redLineHeight = mainHeader.innerHeight();
+        $(document).on('scroll', function (e) {
+            var mainHeader = $(document).find('.tell-main-header');
+            var documentOffset = $(this).scrollTop();
+            var redLineOffset = mainHeader.position().top;
+            var redLineHeight = mainHeader.innerHeight();
 
-        if (defaultHeaderValue < redLineOffset) {
-            defaultHeaderValue = redLineOffset;
-        }
-
-        if (documentOffset >= defaultHeaderValue) {
-            if (!mainHeader.hasClass('fixed-top')) {
-                mainHeader.addClass('fixed-top');
-                mainHeader.after('<div class="header-size" style="height:' + redLineHeight + 'px"></div>');
+            if (defaultHeaderValue < redLineOffset) {
+                defaultHeaderValue = redLineOffset;
             }
-        } else {
-            mainHeader.removeClass('fixed-top');
-            $(document).find('.header-size').remove();
-        }
-    });
+
+            if (documentOffset >= defaultHeaderValue) {
+                if (!mainHeader.hasClass('fixed-top')) {
+                    mainHeader.addClass('fixed-top');
+                    mainHeader.after('<div class="header-size" style="height:' + redLineHeight + 'px"></div>');
+                }
+            } else {
+                mainHeader.removeClass('fixed-top');
+                $(document).find('.header-size').remove();
+            }
+        });
+    }
 })(jQuery);
