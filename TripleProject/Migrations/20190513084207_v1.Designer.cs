@@ -10,7 +10,7 @@ using TripleProject.Data;
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190527143308_v1")]
+    [Migration("20190513084207_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,10 +196,6 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("CategoryId");
 
-                    b.Property<int?>("Currency");
-
-                    b.Property<DateTime?>("DateTime");
-
                     b.Property<string>("GalleryId");
 
                     b.Property<int?>("GalleryId1");
@@ -217,8 +213,6 @@ namespace TripleProject.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<int?>("Views");
 
                     b.HasKey("Id");
 
@@ -260,13 +254,9 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("ParentId");
 
-                    b.Property<int?>("ProductId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Catalogs");
                 });
@@ -357,10 +347,6 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("CatalogId");
 
-                    b.Property<int?>("Currency");
-
-                    b.Property<DateTime?>("DateTime");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000);
 
@@ -382,11 +368,11 @@ namespace TripleProject.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int?>("Views");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeId");
+
+                    b.HasIndex("CatalogId");
 
                     b.HasIndex("GalleryId1");
 
@@ -408,25 +394,6 @@ namespace TripleProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductAttributes");
-                });
-
-            modelBuilder.Entity("TripleProject.Areas.Admin.Models.ProductCatalog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CatalogId");
-
-                    b.Property<int>("ProductId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CatalogId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductsCatalogs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -498,10 +465,6 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
-
-                    b.HasOne("TripleProject.Areas.Admin.Models.Product")
-                        .WithMany("Catalogs")
-                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Category", b =>
@@ -524,6 +487,10 @@ namespace TripleProject.Migrations
                         .WithMany("Products")
                         .HasForeignKey("AttributeId");
 
+                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
+                        .WithMany("Products")
+                        .HasForeignKey("CatalogId");
+
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Gallery")
                         .WithMany()
                         .HasForeignKey("GalleryId1");
@@ -531,19 +498,6 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
-                });
-
-            modelBuilder.Entity("TripleProject.Areas.Admin.Models.ProductCatalog", b =>
-                {
-                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
-                        .WithMany()
-                        .HasForeignKey("CatalogId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TripleProject.Areas.Admin.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

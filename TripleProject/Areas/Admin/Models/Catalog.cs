@@ -19,9 +19,5 @@ namespace TripleProject.Areas.Admin.Models
         public virtual ICollection<Catalog> Children { get; set; }
 
         public ICollection<Product> Products { get; set; }
-
-        //public ICollection<ProductCatalog> ProductCatalogs { get; set; }
-        //public int? ProductId { get; set; }
-        //public ICollection<ProductCatalog> ProductsCatalogs { get; set; }
     }
 }

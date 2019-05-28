@@ -43,10 +43,10 @@
                 <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
             </dd>
             <dt>
-                @*@Html.DisplayNameFor(model => model.Catalog)*@
+                @Html.DisplayNameFor(model => model.Catalog)
             </dt>
             <dd>
-                <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@Model.CatalogId">@*@Html.DisplayFor(model => model.Catalog.Name)*@</a>
+                <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@Model.CatalogId">@Html.DisplayFor(model => model.Catalog.Name)</a>
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Attribute)

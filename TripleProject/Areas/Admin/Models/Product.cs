@@ -34,8 +34,7 @@ namespace TripleProject.Areas.Admin.Models
 
         [Display(Name = "Catalog")]
         public int? CatalogId { get; set; }
-        //public ICollection<ProductCatalog> ProductCatalogs { get; set; }
-        public ICollection<Catalog> Catalogs { get; set; }
+        public Catalog Catalog { get; set; }
 
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
@@ -51,11 +50,6 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateTime { get; set; }
-
-        public Product()
-        {
-            Catalogs = new List<Catalog>();
-        }
     }
 
     public enum Currency

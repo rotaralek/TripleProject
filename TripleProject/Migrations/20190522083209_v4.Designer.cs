@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripleProject.Data;
 
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190522083209_v4")]
+    partial class v4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,8 +198,6 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("Currency");
 
-                    b.Property<DateTime?>("DateTime");
-
                     b.Property<string>("GalleryId");
 
                     b.Property<int?>("GalleryId1");
@@ -215,8 +215,6 @@ namespace TripleProject.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<int?>("Views");
 
                     b.HasKey("Id");
 
@@ -353,8 +351,6 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("Currency");
 
-                    b.Property<DateTime?>("DateTime");
-
                     b.Property<string>("Description")
                         .HasMaxLength(1000);
 
@@ -375,8 +371,6 @@ namespace TripleProject.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100);
-
-                    b.Property<int?>("Views");
 
                     b.HasKey("Id");
 

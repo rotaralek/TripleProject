@@ -28,8 +28,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Products.CountAsync();
-            //var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Skip(skip).Take(itemsPerPage).ToListAsync();
-            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -46,13 +45,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            //var product = await _context.Products
-            //    .Include(p => p.Attribute)
-            //    .Include(p => p.Catalog)
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-
             var product = await _context.Products
                 .Include(p => p.Attribute)
+                .Include(p => p.Catalog)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)
@@ -66,10 +61,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name");
             ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name");
-            ViewData["Catalogs"] = new SelectList(_context.Catalogs, "Id", "Name");
-            //ViewData["ProductCatalog"] = new SelectList(_context.ProductCatalog, "Id", "Name");
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name");
 
             return View();
         }
@@ -79,7 +72,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,CatalogId, Catalogs,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +83,6 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
-            ViewData["Catalogs"] = new SelectList(_context.Catalogs, "Id", "Name", product.Catalogs);
             ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
 
             return View(product);
@@ -109,9 +101,9 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+
             ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
-            ViewData["Catalogs"] = new SelectList(_context.Catalogs, "Id", "Name", product.Catalogs);
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
 
             return View(product);
         }
@@ -153,8 +145,10 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+
             ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
+            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+
             return View(product);
         }
 
@@ -166,13 +160,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            //var product = await _context.Products
-            //    .Include(p => p.Attribute)
-            //    .Include(p => p.Catalog)
-            //    .FirstOrDefaultAsync(m => m.Id == id);
-
             var product = await _context.Products
                 .Include(p => p.Attribute)
+                .Include(p => p.Catalog)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)
