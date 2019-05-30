@@ -4,7 +4,7 @@
 <div class="" id="">
     @{
         string menuTree = "";
-        TripleProject.ViewComponents.CatalogsViewComponent.GetCatalogList(Model, ref menuTree);
+        CatalogsViewComponent.GetCatalogList(Model, ref menuTree);
     }
 
     @Html.Raw(menuTree)

@@ -20,8 +20,7 @@ namespace TripleProject.ViewComponents
 
         public IViewComponentResult Invoke(int categoryId, int id)
         {
-            IEnumerable<Advertisement> advertisements = _context.Advertisements.Include(a => a.Image).Where(a => a.CategoryId == categoryId && a.Id != id).OrderByDescending(p => p.Id).Take(5);
-
+            IEnumerable<Advertisement> advertisements = _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).OrderByDescending(p => p.Id).Take(5);
             return View("Default", advertisements);
         }
     }

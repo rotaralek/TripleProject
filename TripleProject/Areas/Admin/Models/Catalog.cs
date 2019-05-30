@@ -18,6 +18,7 @@ namespace TripleProject.Areas.Admin.Models
         public virtual Catalog Parent { get; set; }
         public virtual ICollection<Catalog> Children { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        [Display(Name = "Products")]
+        public ICollection<ProductCatalog> ProductsCatalogs { get; set; }
     }
 }

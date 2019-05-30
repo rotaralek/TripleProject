@@ -20,7 +20,7 @@ namespace TripleProject.ViewComponents
 
         public IViewComponentResult Invoke(int catalogId, int id)
         {
-            IEnumerable<Product> products = _context.Products.Include(p => p.Image).Where(p => p.CatalogId == catalogId && p.Id != id).OrderByDescending(p => p.Id).Take(5);
+            IEnumerable<Product> products = _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).OrderByDescending(p => p.Id).Take(5);
 
             return View("Default", products);
         }

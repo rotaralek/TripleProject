@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripleProject.Data;
 
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190528103254_v7")]
+    partial class v7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,6 +194,8 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("AttributeId");
 
+                    b.Property<int?>("CategoryId");
+
                     b.Property<int?>("Currency");
 
                     b.Property<DateTime?>("DateTime");
@@ -220,6 +224,8 @@ namespace TripleProject.Migrations
 
                     b.HasIndex("AttributeId");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("GalleryId1");
 
                     b.HasIndex("ImageId");
@@ -240,19 +246,6 @@ namespace TripleProject.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AdvertisementAttributes");
-                });
-
-            modelBuilder.Entity("TripleProject.Areas.Admin.Models.AdvertisementCategory", b =>
-                {
-                    b.Property<int>("AdvertisementId");
-
-                    b.Property<int>("CategoryId");
-
-                    b.HasKey("AdvertisementId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("AdvertisementsCategories");
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Catalog", b =>
@@ -358,6 +351,8 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("AttributeId");
 
+                    b.Property<int?>("CatalogId");
+
                     b.Property<int?>("Currency");
 
                     b.Property<DateTime?>("DateTime");
@@ -388,6 +383,8 @@ namespace TripleProject.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeId");
+
+                    b.HasIndex("CatalogId");
 
                     b.HasIndex("GalleryId1");
 
@@ -475,6 +472,10 @@ namespace TripleProject.Migrations
                         .WithMany("Advertisements")
                         .HasForeignKey("AttributeId");
 
+                    b.HasOne("TripleProject.Areas.Admin.Models.Category", "Category")
+                        .WithMany("Advertisements")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Gallery")
                         .WithMany()
                         .HasForeignKey("GalleryId1");
@@ -482,19 +483,6 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Image")
                         .WithMany()
                         .HasForeignKey("ImageId");
-                });
-
-            modelBuilder.Entity("TripleProject.Areas.Admin.Models.AdvertisementCategory", b =>
-                {
-                    b.HasOne("TripleProject.Areas.Admin.Models.Advertisement", "Advertisement")
-                        .WithMany("AdvertisemetsCategories")
-                        .HasForeignKey("AdvertisementId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("TripleProject.Areas.Admin.Models.Category", "Category")
-                        .WithMany("AdvertisemetsCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TripleProject.Areas.Admin.Models.Catalog", b =>
@@ -523,6 +511,10 @@ namespace TripleProject.Migrations
                     b.HasOne("TripleProject.Areas.Admin.Models.ProductAttribute", "Attribute")
                         .WithMany("Products")
                         .HasForeignKey("AttributeId");
+
+                    b.HasOne("TripleProject.Areas.Admin.Models.Catalog", "Catalog")
+                        .WithMany("Products")
+                        .HasForeignKey("CatalogId");
 
                     b.HasOne("TripleProject.Areas.Admin.Models.FileUpload", "Gallery")
                         .WithMany()

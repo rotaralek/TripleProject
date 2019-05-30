@@ -28,7 +28,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Products.CountAsync();
-            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.Catalog).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.ProductsCatalogs).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -47,9 +47,8 @@ namespace TripleProject.Areas.Admin.Controllers
 
             var product = await _context.Products
                 .Include(p => p.Attribute)
-                .Include(p => p.Catalog)
+                .Include(p => p.ProductsCatalogs)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (product == null)
             {
                 return NotFound();
@@ -61,7 +60,6 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name");
             ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name");
 
             return View();
@@ -72,18 +70,29 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Description,ProductsCatalogs,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs)
         {
             if (ModelState.IsValid)
             {
                 product.DateTime = DateTime.Now;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
+
+                foreach (var item in ProductsCatalogs)
+                {
+                    ProductCatalog productCatalog = new ProductCatalog()
+                    {
+                        ProductId = product.Id,
+                        CatalogId = item
+                    };
+
+                    _context.ProductsCatalogs.Add(productCatalog);
+                }
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
 
             return View(product);
         }
@@ -102,8 +111,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
             ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+            ViewData["ProductsCatalogs"] = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
 
             return View(product);
         }
@@ -113,7 +122,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Description,CatalogId,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Description,ProductsCatalogs,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs)
         {
             if (id != product.Id)
             {
@@ -131,6 +140,29 @@ namespace TripleProject.Areas.Admin.Controllers
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+
+                    var productCatalogList = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
+
+                    foreach (var item in productCatalogList)
+                    {
+                        var productCatalog = await _context.ProductsCatalogs.FirstOrDefaultAsync(p => p.ProductId == id);
+                        _context.ProductsCatalogs.Remove(productCatalog);
+
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (var item in ProductsCatalogs)
+                    {
+                        ProductCatalog productCatalog = new ProductCatalog()
+                        {
+                            ProductId = product.Id,
+                            CatalogId = item
+                        };
+
+                        _context.ProductsCatalogs.Add(productCatalog);
+                    }
+
+                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,9 +178,6 @@ namespace TripleProject.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CatalogId"] = new SelectList(_context.Catalogs, "Id", "Name", product.CatalogId);
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
-
             return View(product);
         }
 
@@ -161,10 +190,7 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Attribute)
-                .Include(p => p.Catalog)
                 .FirstOrDefaultAsync(m => m.Id == id);
-
             if (product == null)
             {
                 return NotFound();

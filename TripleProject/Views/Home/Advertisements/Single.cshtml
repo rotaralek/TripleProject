@@ -48,10 +48,18 @@
                 <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.AdvertisemetsCategories)
             </dt>
             <dd>
-                <a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@Model.CategoryId">@Html.DisplayFor(model => model.Category.Name)</a>
+                @{
+                    IList<int> categoryIds = new List<int>();
+                }
+                @foreach (var category in Model.AdvertisemetsCategories)
+                {
+                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@category.AdvertisementId">@category.Category.Name</a>
+
+                    categoryIds.Add(category.AdvertisementId);
+                }
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Attribute)
@@ -77,4 +85,4 @@
     </div>
 </div>
 
-@await Component.InvokeAsync("SimilarAdvertisements", new { Model.CategoryId, Model.Id })
+@await Component.InvokeAsync("SimilarAdvertisements", new { categoryIds, Model.Id })

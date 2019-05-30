@@ -15,7 +15,6 @@
                     <i class="material-icons">access_time</i>
                     <time datetime="@item.DateTime">@item.DateTime</time>
                 </div>
-                <p><a asp-controller="Home" asp-action="AdvertisementsCategory" asp-route-id="@item.CategoryId">@item.Category.Name</a></p>
                 <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id" class="btn btn-primary">Buy now</a>
             </div>
         </div>

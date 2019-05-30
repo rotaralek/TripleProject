@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190528070253_v7.cs" />
+    <Compile Remove="Migrations\20190528070253_v7.Designer.cs" />
+    <Compile Remove="Migrations\20190528083435_v8.cs" />
+    <Compile Remove="Migrations\20190528083435_v8.Designer.cs" />
+    <Compile Remove="Migrations\20190528083931_v9.cs" />
+    <Compile Remove="Migrations\20190528083931_v9.Designer.cs" />
+    <Compile Remove="Migrations\20190528084047_v7.cs" />
+    <Compile Remove="Migrations\20190528084047_v7.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -39,6 +50,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\Roles\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Shared\Components\CategoriesCheckboxTree\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Admin\Views\Shared\Components\CatalogsCheckboxTree\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\Shared\Components\Gallery\Default.cshtml">

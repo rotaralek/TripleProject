@@ -33,8 +33,7 @@ namespace TripleProject.Areas.Admin.Models
         public int? Quantity { get; set; }
 
         [Display(Name = "Catalog")]
-        public int? CatalogId { get; set; }
-        public Catalog Catalog { get; set; }
+        public ICollection<ProductCatalog> ProductsCatalogs { get; set; }
 
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }

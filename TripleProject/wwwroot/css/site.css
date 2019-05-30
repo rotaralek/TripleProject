@@ -139,3 +139,6 @@
     width: 200px; }
   .square-image.thumbnail-sm {
     width: 50px; }
+
+.sub-menu {
+  list-style: none; }

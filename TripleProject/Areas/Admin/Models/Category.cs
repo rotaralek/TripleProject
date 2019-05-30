@@ -18,6 +18,6 @@ namespace TripleProject.Areas.Admin.Models
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> Children { get; set; }
 
-        public ICollection<Advertisement> Advertisements { get; set; }
+        public ICollection<AdvertisementCategory> AdvertisemetsCategories { get; set; }
     }
 }

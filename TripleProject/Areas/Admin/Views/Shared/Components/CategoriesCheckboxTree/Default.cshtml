@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Category>
+@using TripleProject.Areas.Admin.ViewComponents
+
+<div>
+    @{
+        string tree = "";
+        CategoriesCheckboxTreeViewComponent.GetCatalogList(Model, ViewBag.AdvertisementsCategories, ref tree);
+    }
+
+    @Html.Raw(tree)
+</div>

@@ -1,13 +1,10 @@
 ﻿@model TripleProject.Areas.Admin.Models.Product
-
 @{
     ViewData["Title"] = Model.Title;
 }
-
 <div class="pb-2 mt-4 mb-3 border-bottom">
     <h1 class="h2">@Model.Title</h1>
 </div>
-
 <div class="row">
     <div class="col-md-6 mb-3">
         <div class="owl-carousel owl-carousel-mono">
@@ -15,11 +12,9 @@
             {
                 <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
             }
-
             @await Component.InvokeAsync("Carousel", Model.GalleryId)
         </div>
     </div>
-
     <div class="col-md-6 mb-3">
         <div class="d-flex justify-content-end">
             <div class="views-trigger text-muted" data-type="product" data-id="@Model.Id">
@@ -28,7 +23,6 @@
                 <form asp-antiforgery="true"></form>
             </div>
         </div>
-
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Price)
@@ -43,10 +37,18 @@
                 <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Catalog)
+                @Html.DisplayNameFor(model => model.ProductsCatalogs)
             </dt>
             <dd>
-                <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@Model.CatalogId">@Html.DisplayFor(model => model.Catalog.Name)</a>
+                @{ 
+                    IList<int> catalogIds = new List<int>();
+                }
+                @foreach (var catalog in Model.ProductsCatalogs)
+                {
+                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.ProductId">@catalog.Catalog.Name</a>
+
+                    catalogIds.Add(catalog.ProductId);
+                }
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Attribute)
@@ -57,27 +59,23 @@
         </dl>
     </div>
 </div>
-
 <nav>
     <ul class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="nav-description-tab" data-toggle="tab" href="#nav-description" role="tab" aria-controls="nav-description" aria-selected="true">@Html.DisplayNameFor(model => model.Description)</a>
         </li>
-
         <li class="nav-item">
             <a class="nav-link" id="nav-text-tab" data-toggle="tab" href="#nav-text" role="tab" aria-controls="nav-text" aria-selected="false">@Html.DisplayNameFor(model => model.Text)</a>
         </li>
     </ul>
 </nav>
-
 <div class="tab-content mb-3" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-description" role="tabpanel" aria-labelledby="nav-description-tab">
         @Html.Raw(Model.Description)
     </div>
-
     <div class="tab-pane fade" id="nav-text" role="tabpanel" aria-labelledby="nav-text-tab">
         @Html.Raw(Model.Text)
     </div>
 </div>
 
-@await Component.InvokeAsync("SimilarProducts", new { Model.CatalogId, Model.Id })
+@await Component.InvokeAsync("SimilarProducts", new { catalogIds, Model.Id })

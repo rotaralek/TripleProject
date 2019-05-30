@@ -28,7 +28,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Advertisements.CountAsync();
-            var applicationDbContext = await _context.Advertisements.Include(a => a.Attribute).Include(a => a.Category).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Advertisements.Include(a => a.Attribute).Include(a => a.AdvertisemetsCategories).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -47,7 +47,7 @@ namespace TripleProject.Areas.Admin.Controllers
 
             var advertisement = await _context.Advertisements
                 .Include(a => a.Attribute)
-                .Include(a => a.Category)
+                .Include(a => a.AdvertisemetsCategories)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {
@@ -61,7 +61,7 @@ namespace TripleProject.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name");
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+
             return View();
         }
 
@@ -70,17 +70,29 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Price,Currency,Quantity,CategoryId,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement)
+        public async Task<IActionResult> Create([Bind("Id,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
         {
             if (ModelState.IsValid)
             {
                 advertisement.DateTime = DateTime.Now;
                 _context.Add(advertisement);
                 await _context.SaveChangesAsync();
+
+                foreach (var item in AdvertisementsCategories)
+                {
+                    AdvertisementCategory advertisementCategory = new AdvertisementCategory()
+                    {
+                        AdvertisementId = advertisement.Id,
+                        CategoryId = item
+                    };
+
+                    _context.AdvertisementsCategories.Add(advertisementCategory);
+                }
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
             return View(advertisement);
         }
 
@@ -98,7 +110,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
+            ViewData["AdvertisementsCategories"] = await _context.AdvertisementsCategories.Where(a => a.AdvertisementId == id).ToListAsync();
+
             return View(advertisement);
         }
 
@@ -107,7 +120,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Price,Currency,Quantity,CategoryId,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
         {
             if (id != advertisement.Id)
             {
@@ -122,7 +135,31 @@ namespace TripleProject.Areas.Admin.Controllers
                     {
                         advertisement.DateTime = DateTime.Now;
                     }
+
                     _context.Update(advertisement);
+                    await _context.SaveChangesAsync();
+
+                    var advertisementCategoryList = await _context.AdvertisementsCategories.Where(p => p.AdvertisementId == id).ToListAsync();
+
+                    foreach (var item in advertisementCategoryList)
+                    {
+                        var advertisementCategory = await _context.AdvertisementsCategories.FirstOrDefaultAsync(p => p.AdvertisementId == id);
+                        _context.AdvertisementsCategories.Remove(advertisementCategory);
+
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (var item in AdvertisementsCategories)
+                    {
+                        AdvertisementCategory advertisementCategory = new AdvertisementCategory()
+                        {
+                            AdvertisementId = advertisement.Id,
+                            CategoryId = item
+                        };
+
+                        _context.AdvertisementsCategories.Add(advertisementCategory);
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -138,8 +175,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", advertisement.CategoryId);
+
             return View(advertisement);
         }
 
@@ -152,8 +188,6 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var advertisement = await _context.Advertisements
-                .Include(a => a.Attribute)
-                .Include(a => a.Category)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {

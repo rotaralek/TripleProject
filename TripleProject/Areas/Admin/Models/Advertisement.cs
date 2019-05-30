@@ -28,8 +28,7 @@ namespace TripleProject.Areas.Admin.Models
         public int? Quantity { get; set; }
 
         [Display(Name = "Category")]
-        public int? CategoryId { get; set; }
-        public Category Category { get; set; }
+        public ICollection<AdvertisementCategory> AdvertisemetsCategories { get; set; }
 
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
