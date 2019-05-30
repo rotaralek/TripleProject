@@ -41,13 +41,13 @@
             </dt>
             <dd>
                 @{ 
-                    IList<int> catalogIds = new List<int>();
+                   int catalogId = 0;
                 }
                 @foreach (var catalog in Model.ProductsCatalogs)
                 {
-                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.ProductId">@catalog.Catalog.Name</a>
+                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.CatalogId">@catalog.Catalog.Name</a>
 
-                    catalogIds.Add(catalog.ProductId);
+                    catalogId = catalog.CatalogId;
                 }
             </dd>
             <dt>
@@ -78,4 +78,4 @@
     </div>
 </div>
 
-@await Component.InvokeAsync("SimilarProducts", new { catalogIds, Model.Id })
+@await Component.InvokeAsync("SimilarProducts", new { catalogId, Model.Id })

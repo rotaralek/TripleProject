@@ -52,13 +52,13 @@
             </dt>
             <dd>
                 @{
-                    IList<int> categoryIds = new List<int>();
+                    int categoryId = 0;
                 }
                 @foreach (var category in Model.AdvertisemetsCategories)
                 {
-                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@category.AdvertisementId">@category.Category.Name</a>
+                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@category.CategoryId">@category.Category.Name</a>
 
-                    categoryIds.Add(category.AdvertisementId);
+                    categoryId = category.CategoryId;
                 }
             </dd>
             <dt>
@@ -85,4 +85,4 @@
     </div>
 </div>
 
-@await Component.InvokeAsync("SimilarAdvertisements", new { categoryIds, Model.Id })
+@await Component.InvokeAsync("SimilarAdvertisements", new { categoryId, Model.Id })
