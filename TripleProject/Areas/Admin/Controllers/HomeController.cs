@@ -23,6 +23,7 @@ namespace TripleProject.Areas.Admin.Controllers
             _sharedLocalizer = sharedLocalizer;
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
