@@ -1,17 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - TripleProject</title>
-
     <environment include="Development">
         <link rel="stylesheet" href="~/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/material-icons.css" />
         <link rel="stylesheet" href="~/css/owl.carousel.min.css" />
         <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     </environment>
-
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/material-icons.css" />
@@ -29,51 +31,45 @@
                             <div class="text-white-50">20 мая 2019, понедельник</div><div><span class="float-right ml-2"><i class="material-icons text-danger">arrow_downward</i><span class="text-white-50"><b>EUR</b> 20.03<em class="hidden-sm hidden-md"> (-0.06)</em></span></span><span class="float-right"><i class="material-icons text-success">arrow_upward</i><span class="text-white-50"><b>USD</b> 17.94<em class="hidden-sm hidden-md"> (+0.01)</em></span></span></div>
                         </div>
                     </div>
-
                     <nav class="navbar navbar-expand-lg p-0 navbar-dark">
                         <div class="collapse navbar-collapse" id="tell-toggle-menu-tell_second_menu">
                             <div class="dropdown dropdown-search ml-lg-3 ">
                                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle d-none d-lg-block" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">search</i>
                                 </button>
-
                                 <div class="dropdown-menu dropdown-menu-right pt-3 pr-3 pb-0 pl-3" aria-labelledby="dropdownMenuButton">
                                     <form method="GET" action="/">
                                         <div class="form-row">
                                             <div class="form-group col-md-8">
                                                 <input type="text" name="s" class="form-control" placeholder="" value="">
                                             </div>
-
                                             <div class="form-group col">
-                                                <button type="submit" class="btn btn-outline-dark btn-block">Поиск</button>
+                                                <button type="submit" class="btn btn-outline-dark btn-block">@SharedLocalizer["Search"]</button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-
                             <form method="GET" action="/" class="d-lg-none">
                                 <div class="form-row">
                                     <div class="form-group col-md-8">
                                         <input type="text" name="s" class="form-control" placeholder="" value="">
                                     </div>
-
                                     <div class="form-group col">
-                                        <button type="submit" class="btn btn-outline-light btn-block">Поиск</button>
+                                        <button type="submit" class="btn btn-outline-light btn-block">@SharedLocalizer["Search"]</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </nav>
                 </div>
-
-                <div class="navbar-expand">
+                <div class="navbar-expand d-sm-flex">
                     <partial name="_LoginPartial" />
+                    <partial name="_SelectLanguage" />
                 </div>
             </div>
         </div>
     </header>
-
     <header class="bg-red header tell-main-header" style="z-index: 1038;">
         <div class="container">
             <div class=" ">
@@ -82,7 +78,6 @@
                         <a asp-controller="Home" asp-action="Index" asp-route-id="" class="navbar-brand p-0"><img src="http://baltionline.md/wp-content/uploads/2019/03/logo-286-46-1.png" height="46" width="284" alt="BaltiOnline.md"></a>
                         <button class="navbar-toggler d-lg-none navbar-red" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-hover="dropdown"><span class="navbar-toggler-icon"></span></button>
                     </div>
-
                     <nav class="navbar navbar-expand-lg p-0 navbar-red">
                         @await Component.InvokeAsync("Menu")
                     </nav>
@@ -90,19 +85,15 @@
             </div>
         </div>
     </header>
-
     <partial name="_CookieConsentPartial" />
-
     <div class="container body-content flex-grow-1" role="main">
         @RenderBody()
     </div>
-
     <footer class="bg-light">
         <div class="container">
             <p>&copy; 2019 - market.baltionline.md</p>
         </div>
     </footer>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
@@ -110,7 +101,6 @@
         <script src="~/tinymce/tinymce.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-
     <environment exclude="Development">
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
@@ -118,7 +108,6 @@
         <script src="~/tinymce/tinymce.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>

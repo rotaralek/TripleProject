@@ -12,10 +12,16 @@ namespace TripleProject.Areas.Admin.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
+        [Display(Name = "Parent")]
         public int? ParentId { get; set; }
+
+        [Display(Name = "Parent")]
         public virtual Catalog Parent { get; set; }
+
+        [Display(Name = "Children")]
         public virtual ICollection<Catalog> Children { get; set; }
 
         [Display(Name = "Products")]

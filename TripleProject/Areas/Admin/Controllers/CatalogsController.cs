@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 
@@ -60,6 +61,7 @@ namespace TripleProject.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name");
+
             return View();
         }
 
@@ -76,7 +78,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
+
             return View(catalog);
         }
 
@@ -93,7 +95,9 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
+
             return View(catalog);
         }
 
@@ -129,7 +133,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
+
             return View(catalog);
         }
 

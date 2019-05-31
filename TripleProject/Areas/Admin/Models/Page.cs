@@ -12,11 +12,13 @@ namespace TripleProject.Areas.Admin.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         [Required]
         [StringLength(10000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Text")]
         public string Text { get; set; }
     }
 }

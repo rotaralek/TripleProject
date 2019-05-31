@@ -1,4 +1,7 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
 @{
     ViewData["Title"] = "_Header";
 }
@@ -7,8 +10,9 @@
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="">Market</a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="#navbarNav" aria-expanded="false" aria-label="Toggle navigation" data-hover="dropdown"><span class="navbar-toggler-icon"></span></button>
 
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <input class="form-control form-control-dark w-100" type="text" placeholder="@SharedLocalizer["Search"]" aria-label="@SharedLocalizer["Search"]">
 
     <partial name="_LoginPartial" />
+    <partial name="_SelectLanguage" />
 </nav>
 

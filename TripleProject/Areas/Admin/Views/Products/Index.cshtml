@@ -1,24 +1,19 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Product>
-
-@{
-    ViewData["Title"] = "Index";
-}
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Products</h1>
+    <h1 class="h2">@ViewData["Title"]</h1>
 </div>
-
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create New"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Catalog)*@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
@@ -40,9 +35,6 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @*@Html.DisplayFor(modelItem => item.Catalog.Name)*@
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
@@ -52,19 +44,17 @@
                     @Html.DisplayFor(modelItem => item.Attribute.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 @{
     int count = (int)ViewData["count"];
     int page = (int)ViewData["page"];
     decimal itemsPerPage = (int)ViewData["itemsPerPage"];
 }
-
 @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })

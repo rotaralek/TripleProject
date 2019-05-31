@@ -1,8 +1,9 @@
 @using Microsoft.AspNetCore.Identity
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
 @if (SignInManager.IsSignedIn(User))
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm navbarNav-2" class="navbar-right">
@@ -10,9 +11,8 @@
             <li class="nav-item text-nowrap">
                 <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Manage/Index">Hello @UserManager.GetUserName(User)!</a>
             </li>
-
             <li class="nav-item text-nowrap">
-                <button type="submit" class="btn btn-link navbar-btn navbar-link text-white-50">Logout</button>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link text-white-50">@SharedLocalizer["Logout"]</button>
             </li>
         </ul>
     </form>
@@ -21,12 +21,10 @@ else
 {
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Register">@SharedLocalizer["Register"]</a>
         </li>
-
         <li class="nav-item text-nowrap">
-            <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Login">@SharedLocalizer["Login"]</a>
         </li>
     </ul>
 }
-
