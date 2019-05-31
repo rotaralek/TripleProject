@@ -3,6 +3,11 @@
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
+@{
+    ViewData["Title"] = SharedLocalizer["Edit"];
+}
+
+
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">@SharedLocalizer["Edit"]</h1>
 </div>

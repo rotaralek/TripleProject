@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 <div class="owl-carousel owl-carousel-mono mb-4">
     @foreach (var item in Model)
@@ -15,7 +18,7 @@
                     <i class="material-icons">access_time</i>
                     <time datetime="@item.DateTime">@item.DateTime</time>
                 </div>
-                <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id" class="btn btn-primary">Buy now</a>
+                <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id" class="btn btn-primary">@SharedLocalizer["Buy now"]</a>
             </div>
         </div>
     }

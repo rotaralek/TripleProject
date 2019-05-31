@@ -12,12 +12,17 @@ namespace TripleProject.Areas.Admin.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Name")]
         public string Name { get; set; }
 
+        [Display(Name = "Parent")]
         public int? ParentId { get; set; }
+        [Display(Name = "Parent")]
         public virtual Category Parent { get; set; }
+        [Display(Name = "Children")]
         public virtual ICollection<Category> Children { get; set; }
 
+        [Display(Name = "Advertisemets")]
         public ICollection<AdvertisementCategory> AdvertisemetsCategories { get; set; }
     }
 }

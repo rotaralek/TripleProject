@@ -13,15 +13,20 @@ namespace TripleProject.Areas.Admin.ViewModels
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "UserName")]
         public string UserName { get; set; }
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Email")]
         public string Email { get; set; }
+        [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
         [Required]
+        [Display(Name = "RoleName")]
         public string RoleName { get; set; }
+        [Display(Name = "Role")]
         public IdentityRole Role { get; set; }
 
         [Required]

@@ -1,55 +1,55 @@
-﻿@if ((int)ViewData["count"] == 0)
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@if ((int)ViewData["count"] == 0)
 {
     return;
 }
-
 <div class="mb-5">
     <nav aria-label="Page navigation" role="navigation">
         <span class="sr-only">Pagination</span>
         <ul class="pagination justify-content-center ft-wpbs">
             <li class="page-item disabled hidden-md-down d-none d-lg-block">
-                <span class="page-link">@ViewData["_Page"] @ViewData["page"] @ViewData["_From"] @ViewData["pages"]</span>
+                <span class="page-link">@SharedLocalizer["Page"] @ViewData["page"] @SharedLocalizer["from"] @ViewData["pages"]</span>
             </li>
             @{
                 int page = (int)ViewData["page"];
                 int pages = (int)ViewData["pages"];
             }
-
             @if (page > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=1" aria-label="First Page"><span class="hidden-sm-down d-none d-md-block">« @ViewData["_First"]</span></a>
+                    <a class="page-link" href="?page=1" aria-label="First Page"><span class="hidden-sm-down d-none d-md-block">« @SharedLocalizer["First"]</span></a>
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(page-1)" aria-label="Previous Page"><span class="hidden-sm-down d-none d-md-block">‹ @ViewData["_Previous"]</span></a>
+                    <a class="page-link" href="?page=@(page-1)" aria-label="Previous Page"><span class="hidden-sm-down d-none d-md-block">‹ @SharedLocalizer["Previous"]</span></a>
                 </li>
             }
-
             @for (int i = 1; i <= pages; i++)
             {
                 @if (i == page)
                 {
                     <li class="page-item active">
-                        <span class="page-link"><span class="sr-only">@ViewData["_CurrentPage"] </span>@i</span>
+                        <span class="page-link"><span class="sr-only">@SharedLocalizer["Current page"] </span>@i</span>
                     </li>
                 }
                 else if (i == (page + 1) || i == (page - 1))
                 {
                     <li class="page-item">
-                        <a href="?page=@i" class="page-link"><span class="sr-only">@ViewData["_Page"] </span>@i</a>
+                        <a href="?page=@i" class="page-link"><span class="sr-only">@SharedLocalizer["Page"] </span>@i</a>
                     </li>
                 }
             }
-
             @if (page < pages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(page < pages ? page + 1 : pages)" aria-label="Next Page"><span class="hidden-sm-down d-none d-md-block">@ViewData["_Next"] ›</span></a>
+                    <a class="page-link" href="?page=@(page < pages ? page + 1 : pages)" aria-label="Next Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Next"] ›</span></a>
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="?page=@pages" aria-label="Last Page"><span class="hidden-sm-down d-none d-md-block">@ViewData["_Last"] »</span></a>
+                    <a class="page-link" href="?page=@pages" aria-label="Last Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Last"] »</span></a>
                 </li>
             }
         </ul>

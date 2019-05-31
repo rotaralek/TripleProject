@@ -1,14 +1,18 @@
 ﻿@model TripleProject.Areas.Admin.ViewModels.FileUploadViewModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = SharedLocalizer["Create"];
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Create</h1>
+    <h1 class="h2">@SharedLocalizer["Create"]</h1>
 </div>
 
-<h4>FileUpload</h4>
+<h4>@SharedLocalizer["File"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -20,13 +24,13 @@
                 <span asp-validation-for="ItemUpload" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="@SharedLocalizer["Create"]" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@SharedLocalizer["Back to List"]</a>
 </div>
 

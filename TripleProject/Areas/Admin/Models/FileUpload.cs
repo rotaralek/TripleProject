@@ -10,7 +10,9 @@ namespace TripleProject.Areas.Admin.Models
     public class FileUpload 
     {
         public int Id { get; set; }
+        [Display(Name = "Name")]
         public string Name { get; set; }
+        [Display(Name = "Path")]
         public string Path { get; set; }
     }
 }

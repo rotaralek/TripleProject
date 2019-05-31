@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Advertisement>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
-<h2 class="h3 mt-5 mb-4">Recent Advertisements</h2>
-
+<h2 class="h3 mt-5 mb-4">@SharedLocalizer["Recent advertisements"]</h2>
 <div class="owl-carousel mb-4" data-slides-per-line="4">
     @foreach (var item in Model)
     {
@@ -12,7 +14,6 @@
                     <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
                 </a>
             }
-
             <div class="card-body">
                 <h3 class="h6"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
                 <p class="text-red h6">@item.Price @item.Currency</p>

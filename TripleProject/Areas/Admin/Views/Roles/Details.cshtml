@@ -1,15 +1,18 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = SharedLocalizer["Details"];
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Details</h1>
+    <h1 class="h2">@SharedLocalizer["Details"]</h1>
 </div>
 
 <div>
-    <h4>Role</h4>
+    <h4>@SharedLocalizer["Role"]</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,6 +24,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id">@SharedLocalizer["Edit"]</a> |
+    <a asp-action="Index">@SharedLocalizer["Back to List"]</a>
 </div>

@@ -120,9 +120,6 @@
   <data name="Ads" xml:space="preserve">
     <value>Объявления</value>
   </data>
-  <data name="Advetisements" xml:space="preserve">
-    <value>Объявления</value>
-  </data>
   <data name="An error occurred while processing your request." xml:space="preserve">
     <value>Произошла ошибка при обработке вашего запроса.</value>
   </data>
@@ -262,10 +259,10 @@
     <value>Цена</value>
   </data>
   <data name="Product" xml:space="preserve">
-    <value>Продукт</value>
+    <value>Товар</value>
   </data>
   <data name="Products" xml:space="preserve">
-    <value>Продукты</value>
+    <value>Товары</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Колличество</value>
@@ -302,5 +299,89 @@
   </data>
   <data name="None" xml:space="preserve">
     <value>Отсутствует</value>
+  </data>
+  <data name="Advertisement" xml:space="preserve">
+    <value>Объявления</value>
+  </data>
+  <data name="Advertisements" xml:space="preserve">
+    <value>Объявления</value>
+  </data>
+  <data name="Buy now" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Confirm password" xml:space="preserve">
+    <value>Повторите пароль</value>
+  </data>
+  <data name="Create a new account." xml:space="preserve">
+    <value>Создать новый аккаунт.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Эл. адрес</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Забыли пароль?</value>
+  </data>
+  <data name="Home Page" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="Log in" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Порядок</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
+  <data name="Popular products" xml:space="preserve">
+    <value>Популярные товары</value>
+  </data>
+  <data name="Recent advertisements" xml:space="preserve">
+    <value>Новые объявления</value>
+  </data>
+  <data name="Recent products" xml:space="preserve">
+    <value>Новые товары</value>
+  </data>
+  <data name="Register as a new user" xml:space="preserve">
+    <value>Зарегистрируйтесь как новый пользователь</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>Роль</value>
+  </data>
+  <data name="Similar advertisements" xml:space="preserve">
+    <value>Похожие объявления</value>
+  </data>
+  <data name="Similar products" xml:space="preserve">
+    <value>Похожие товары</value>
+  </data>
+  <data name="Target" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="Url" xml:space="preserve">
+    <value>Ссылка</value>
+  </data>
+  <data name="Use a local account to log in." xml:space="preserve">
+    <value>Используйте локальную учетную запись для входа.</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Пользователь</value>
   </data>
 </root>

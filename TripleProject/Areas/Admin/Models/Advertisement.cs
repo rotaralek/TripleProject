@@ -12,19 +12,24 @@ namespace TripleProject.Areas.Admin.Models
 
         [Required]
         [StringLength(100)]
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         [Required]
         [StringLength(10000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Text")]
         public string Text { get; set; }
 
         [Range(0, 999999999.99)]
+        [Display(Name = "Price")]
         public decimal? Price { get; set; }
 
+        [Display(Name = "Currency")]
         public Currency? Currency { get; set; }
 
         [Range(0, 999999999)]
+        [Display(Name = "Quantity")]
         public int? Quantity { get; set; }
 
         [Display(Name = "Category")]
@@ -32,13 +37,19 @@ namespace TripleProject.Areas.Admin.Models
 
         [Display(Name = "Attribute")]
         public int? AttributeId { get; set; }
+        [Display(Name = "Attribute")]
         public AdvertisementAttribute Attribute { get; set; }
 
+        [Display(Name = "Image")]
         public int? ImageId { get; set; }
+        [Display(Name = "Image")]
         public FileUpload Image { get; set; }
+        [Display(Name = "Gallery")]
         public string GalleryId { get; set; }
+        [Display(Name = "Gallery")]
         public FileUpload Gallery { get; set; }
 
+        [Display(Name = "Views")]
         public int? Views { get; set; }
 
         [Display(Name = "Date")]

@@ -1,39 +1,35 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
+@{
+    ViewData["Title"] = SharedLocalizer["Home Page"];
+}
 <div class="row pt-4">
     <div class="col-md-4">
         <nav>
             <ul class="nav nav-tabs" id="nav-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="nav-advertisements-tab" data-toggle="tab" href="#nav-advertisements" role="tab" aria-controls="nav-advertisements" aria-selected="true"><b>Advertisements</b></a>
+                    <a class="nav-link active" id="nav-advertisements-tab" data-toggle="tab" href="#nav-advertisements" role="tab" aria-controls="nav-advertisements" aria-selected="true"><b>@SharedLocalizer["Advertisements"]</b></a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" id="nav-shop-tab" data-toggle="tab" href="#nav-shop" role="tab" aria-controls="nav-shop" aria-selected="false"><b>Shop</b></a>
+                    <a class="nav-link" id="nav-shop-tab" data-toggle="tab" href="#nav-shop" role="tab" aria-controls="nav-shop" aria-selected="false"><b>@SharedLocalizer["Shop"]</b></a>
                 </li>
             </ul>
         </nav>
-
         <div class="tab-content mb-3" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-advertisements" role="tabpanel" aria-labelledby="nav-advertisements-tab">
                 @await Component.InvokeAsync("Categories")
             </div>
-
             <div class="tab-pane fade" id="nav-shop" role="tabpanel" aria-labelledby="nav-shop-tab">
                 @await Component.InvokeAsync("Catalogs")
             </div>
         </div>
     </div>
-
     <div class="col-md-8">
         @await Component.InvokeAsync("ProductsCarousel")
     </div>
 </div>
-
 @await Component.InvokeAsync("RecentAdvertisements")
-
 @await Component.InvokeAsync("RecentProducts")
-
 @await Component.InvokeAsync("PopularProducts")

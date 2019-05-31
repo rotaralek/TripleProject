@@ -3,6 +3,10 @@
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
+@{
+    ViewData["Title"] = SharedLocalizer["Delete"];
+}
+
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">@SharedLocalizer["Delete"]</h1>
 </div>
@@ -30,5 +34,5 @@
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="@SharedLocalizer["Delete"]" class="btn btn-primary" /> |
         <a asp-action="Index">@SharedLocalizer["Back to List"]</a>
-</form>
+    </form>
 </div>

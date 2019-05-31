@@ -1,15 +1,18 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Page>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = SharedLocalizer["Pages"];
 }
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Pages</h1>
+    <h1 class="h2">@SharedLocalizer["Pages"]</h1>
 </div>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create New"]</a>
 </p>
 
 <table class="table">
@@ -29,10 +32,12 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">
+                        @SharedLocalizer["Edit"]</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        @SharedLocalizer["Details"]</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
+</td>
             </tr>
         }
     </tbody>
