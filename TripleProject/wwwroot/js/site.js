@@ -178,4 +178,18 @@
             }
         });
     }
+
+    /*
+     * Cookie policy toggle
+     */
+    $(document).on('click', '#cookieConsent button[data-cookie-string]', function (e) {
+        document.cookie = e.target.dataset.cookieString;
+        $(document).find('#cookieConsent').addClass('invisible');
+    });
+
+    if ($(document).find('#cookieConsent').length) {
+        setTimeout(function () {
+            $(document).find('#cookieConsent button[data-cookie-string]').trigger('click');
+        }, 5000);
+    }
 })(jQuery);
