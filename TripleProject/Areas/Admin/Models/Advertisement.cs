@@ -11,7 +11,12 @@ namespace TripleProject.Areas.Admin.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(300)]
+        [Display(Name = "Slug")]
+        public string Slug { get; set; }
+
+        [Required]
+        [StringLength(200)]
         [Display(Name = "Title")]
         public string Title { get; set; }
 

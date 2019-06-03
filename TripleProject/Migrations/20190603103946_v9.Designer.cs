@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TripleProject.Data;
 
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190603103946_v9")]
+    partial class v9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,17 +208,13 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("Quantity");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300);
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<int?>("Views");
 
@@ -267,13 +265,9 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<int?>("ParentId");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -290,13 +284,9 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<int?>("ParentId");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300);
 
                     b.HasKey("Id");
 
@@ -351,7 +341,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasMaxLength(300);
+                        .HasMaxLength(100);
 
                     b.Property<string>("Text")
                         .IsRequired()
@@ -359,7 +349,7 @@ namespace TripleProject.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -391,17 +381,13 @@ namespace TripleProject.Migrations
 
                     b.Property<int?>("Quantity");
 
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasMaxLength(300);
-
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(10000);
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(200);
+                        .HasMaxLength(100);
 
                     b.Property<int?>("Views");
 

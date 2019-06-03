@@ -70,7 +70,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
         {
             if (ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
         {
             if (id != advertisement.Id)
             {

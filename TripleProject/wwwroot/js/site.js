@@ -192,4 +192,82 @@
             $(document).find('#cookieConsent button[data-cookie-string]').trigger('click');
         }, 5000);
     }
+
+    /*
+     * Slug creator
+     */
+    $(document).on('keyup', '.slug-trigger', function () {
+        var slugField = $(document).find('.slug-field');
+
+        if (slugField.attr("readonly")) {
+            return;
+        }
+
+        var fieldVal = $(this).val();
+        var fieldValLength = fieldVal.length;
+        var translitVal = "";
+        var slug = "";
+
+        //Change cyrillic to translit
+        for (var i = 0; i < fieldValLength; i++) {
+            var letter = "";
+
+            for (var c in cyrillicToTranslit) {
+                if (fieldVal[i] == c) {
+                    letter = cyrillicToTranslit[c]
+                }
+            }
+
+            if (letter == "") {
+                letter = fieldVal[i];
+            }
+
+            translitVal += letter;
+        }
+
+        slug = translitVal;
+
+        slugField.val(slug);
+    });
+
+    var cyrillicToTranslit = {
+        "а": "a",
+        "б": "b",
+        "в": "v",
+        "ґ": "g",
+        "г": "g",
+        "д": "d",
+        "е": "e",
+        "ё": "e",
+        "є": "ye",
+        "ж": "zh",
+        "з": "z",
+        "и": "i",
+        "і": "i",
+        "ї": "yi",
+        "й": "i",
+        "к": "k",
+        "л": "l",
+        "м": "m",
+        "н": "n",
+        "о": "o",
+        "п": "p",
+        "р": "r",
+        "с": "s",
+        "т": "t",
+        "у": "u",
+        "ф": "f",
+        "х": "h",
+        "ц": "c",
+        "ч": "ch",
+        "ш": "sh",
+        "щ": "sh'",
+        "ъ": "",
+        "ы": "i",
+        "ь": "",
+        "э": "e",
+        "ю": "yu",
+        "я": "ya",
+        " ": "-"
+    };
 })(jQuery);

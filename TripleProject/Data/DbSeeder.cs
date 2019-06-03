@@ -12,6 +12,7 @@ namespace TripleProject.Data
         {
             context.Database.EnsureCreated();
 
+            //Create role
             IdentityRole role = new IdentityRole()
             {
                 Name = "admin"
@@ -19,6 +20,7 @@ namespace TripleProject.Data
 
             roleManager.CreateAsync(role).Wait();
 
+            //Create user
             IdentityUser user = new IdentityUser()
             {
                 UserName = "a.rotari@tellus.md",
