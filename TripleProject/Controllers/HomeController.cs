@@ -41,7 +41,7 @@ namespace TripleProject.Controllers
             }
 
             var page = await _context.Pages
-                .FirstOrDefaultAsync(m => m.Title == id);
+                .FirstOrDefaultAsync(m => m.Slug == id);
             if (page == null)
             {
                 return NotFound();

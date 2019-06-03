@@ -390,4 +390,7 @@
   <data name="Accept" xml:space="preserve">
     <value>Принять</value>
   </data>
+  <data name="View" xml:space="preserve">
+    <value>Просмотр</value>
+  </data>
 </root>

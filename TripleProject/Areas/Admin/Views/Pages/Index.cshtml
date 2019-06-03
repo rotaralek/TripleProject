@@ -33,11 +33,16 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">
-                        @SharedLocalizer["Edit"]</a> |
+                        @SharedLocalizer["Edit"]
+                    </a> |
                     <a asp-action="Details" asp-route-id="@item.Id">
-                        @SharedLocalizer["Details"]</a> |
+                        @SharedLocalizer["Details"]
+                    </a> |
+                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-id="@item.Slug">
+                        @SharedLocalizer["View"]
+                    </a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
-</td>
+                </td>
             </tr>
         }
     </tbody>

@@ -204,6 +204,7 @@
         }
 
         var fieldVal = $(this).val();
+        fieldVal = fieldVal.toLowerCase();
         var fieldValLength = fieldVal.length;
         var translitVal = "";
         var slug = "";
