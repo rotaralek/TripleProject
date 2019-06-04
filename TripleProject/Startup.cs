@@ -103,7 +103,7 @@ namespace TripleProject
 
             app.UseAuthentication();
 
-            DbSeeder.SeedDb(context, roleManager, userManager);
+            DbSeeder.SeedDbAsync(context, roleManager, userManager).Wait();
 
             app.UseMvc(routes =>
             {

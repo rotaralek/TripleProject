@@ -41,9 +41,7 @@ namespace TripleProject.Areas.Admin.Models
         public ICollection<AdvertisementCategory> AdvertisemetsCategories { get; set; }
 
         [Display(Name = "Attribute")]
-        public int? AttributeId { get; set; }
-        [Display(Name = "Attribute")]
-        public AdvertisementAttribute Attribute { get; set; }
+        public ICollection<AdvertisementAttribute> AdvertisementsAttributes { get; set; }
 
         [Display(Name = "Image")]
         public int? ImageId { get; set; }

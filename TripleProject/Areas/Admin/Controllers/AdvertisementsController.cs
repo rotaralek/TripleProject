@@ -28,7 +28,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Advertisements.CountAsync();
-            var applicationDbContext = await _context.Advertisements.Include(a => a.Attribute).Include(a => a.AdvertisemetsCategories).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Advertisements.Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -46,8 +46,6 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var advertisement = await _context.Advertisements
-                .Include(a => a.Attribute)
-                .Include(a => a.AdvertisemetsCategories)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {
@@ -60,8 +58,6 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Advertisements/Create
         public IActionResult Create()
         {
-            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name");
-
             return View();
         }
 
@@ -70,7 +66,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AdvertisementsAttributes,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories, int[] AdvertisementsAttributes)
         {
             if (ModelState.IsValid)
             {
@@ -78,6 +74,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 _context.Add(advertisement);
                 await _context.SaveChangesAsync();
 
+                //Categories
                 foreach (var item in AdvertisementsCategories)
                 {
                     AdvertisementCategory advertisementCategory = new AdvertisementCategory()
@@ -87,6 +84,18 @@ namespace TripleProject.Areas.Admin.Controllers
                     };
 
                     _context.AdvertisementsCategories.Add(advertisementCategory);
+                }
+
+                //Attributes
+                foreach (var item in AdvertisementsAttributes)
+                {
+                    AdvertisementAttribute advertisementAttribute = new AdvertisementAttribute()
+                    {
+                        AdvertisementId = advertisement.Id,
+                        AttributeId = item
+                    };
+
+                    _context.AdvertisementsAttributes.Add(advertisementAttribute);
                 }
 
                 await _context.SaveChangesAsync();
@@ -109,7 +118,8 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["AttributeId"] = new SelectList(_context.AdvertisementAttributes, "Id", "Name", advertisement.AttributeId);
+
+            ViewData["AdvertisementsAttributes"] = await _context.AdvertisementsAttributes.Where(a => a.AdvertisementId == id).ToListAsync();
             ViewData["AdvertisementsCategories"] = await _context.AdvertisementsCategories.Where(a => a.AdvertisementId == id).ToListAsync();
 
             return View(advertisement);
@@ -120,7 +130,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Price,Currency,Quantity,AdvertisementsCategories,AdvertisementsAttributes,AttributeId,ImageId,GalleryId,DateTime")] Advertisement advertisement, int[] AdvertisementsCategories, int[] AdvertisementsAttributes)
         {
             if (id != advertisement.Id)
             {
@@ -139,6 +149,7 @@ namespace TripleProject.Areas.Admin.Controllers
                     _context.Update(advertisement);
                     await _context.SaveChangesAsync();
 
+                    //Categories
                     var advertisementCategoryList = await _context.AdvertisementsCategories.Where(p => p.AdvertisementId == id).ToListAsync();
 
                     foreach (var item in advertisementCategoryList)
@@ -158,6 +169,28 @@ namespace TripleProject.Areas.Admin.Controllers
                         };
 
                         _context.AdvertisementsCategories.Add(advertisementCategory);
+                    }
+
+                    //Attributes
+                    var advertisementAttributeList = await _context.AdvertisementsAttributes.Where(p => p.AdvertisementId == id).ToListAsync();
+
+                    foreach (var item in advertisementAttributeList)
+                    {
+                        var advertisementAttribute = await _context.AdvertisementsAttributes.FirstOrDefaultAsync(p => p.AdvertisementId == id);
+                        _context.AdvertisementsAttributes.Remove(advertisementAttribute);
+
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (var item in AdvertisementsAttributes)
+                    {
+                        AdvertisementAttribute advertisementAttribute = new AdvertisementAttribute()
+                        {
+                            AdvertisementId = advertisement.Id,
+                            AttributeId = item
+                        };
+
+                        _context.AdvertisementsAttributes.Add(advertisementAttribute);
                     }
 
                     await _context.SaveChangesAsync();

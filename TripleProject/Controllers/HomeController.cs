@@ -13,6 +13,7 @@ using Microsoft.Extensions.Localization;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 using TripleProject.Models;
+using Attribute = TripleProject.Areas.Admin.Models.Attribute;
 
 namespace TripleProject.Controllers
 {
@@ -74,7 +75,7 @@ namespace TripleProject.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Attribute)
+                .Include(p => p.ProductsAttributes)
                 .Include(p => p.ProductsCatalogs)
                 .Include(p => p.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -86,6 +87,9 @@ namespace TripleProject.Controllers
 
             IEnumerable<Catalog> catalog = await _context.Catalogs.ToListAsync();
             ViewData["Catalogs"] = catalog;
+
+            IEnumerable<Attribute> attribute = await _context.Attributes.ToListAsync();
+            ViewData["Attributes"] = attribute;
 
             return View("Products/Single", product);
         }
@@ -114,7 +118,7 @@ namespace TripleProject.Controllers
             }
 
             var advertisement = await _context.Advertisements
-                .Include(p => p.Attribute)
+                .Include(p => p.AdvertisementsAttributes)
                 .Include(p => p.AdvertisemetsCategories)
                 .Include(p => p.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -125,6 +129,9 @@ namespace TripleProject.Controllers
 
             IEnumerable<Category> category = await _context.Categories.ToListAsync();
             ViewData["Categories"] = category;
+
+            IEnumerable<Attribute> attribute = await _context.Attributes.ToListAsync();
+            ViewData["Attributes"] = attribute;
 
             return View("Advertisements/Single", advertisement);
         }

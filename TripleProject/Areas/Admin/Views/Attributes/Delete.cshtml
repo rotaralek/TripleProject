@@ -1,4 +1,4 @@
-﻿@model TripleProject.Areas.Admin.Models.Product
+﻿@model TripleProject.Areas.Admin.Models.Attribute
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
@@ -10,34 +10,17 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">@ViewData["Title"]</h1>
 </div>
+
 <h3>@SharedLocalizer["Are you sure you want to delete this?"]</h3>
 <div>
-    <h4>@SharedLocalizer["Product"]</h4>
+    <h4>@SharedLocalizer["Attribute"]</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
+            @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
 

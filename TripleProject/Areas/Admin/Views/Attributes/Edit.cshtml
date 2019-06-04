@@ -1,4 +1,4 @@
-﻿@model TripleProject.Areas.Admin.Models.Catalog
+﻿@model TripleProject.Areas.Admin.Models.Attribute
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
@@ -7,12 +7,11 @@
     ViewData["Title"] = SharedLocalizer["Edit"];
 }
 
-
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">@ViewData["Title"]</h1>
 </div>
 
-<h4>@SharedLocalizer["Catalog"]</h4>
+<h4>@SharedLocalizer["Attribute"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,11 +29,15 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ParentId" class="control-label"></label>
                 <select asp-for="ParentId" class="form-control" asp-items="ViewBag.ParentId">
                     <option value="">@SharedLocalizer["None"]</option>
                 </select>
-                <span asp-validation-for="ParentId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="@SharedLocalizer["Save"]" class="btn btn-primary" />

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Attribute>
+@using TripleProject.Areas.Admin.ViewComponents
+
+<div>
+    @{
+        string tree = "";
+        AdvertisementsAttributesCheckboxTreeViewComponent.GetAttributeList(Model, ViewBag.AdvertisementsAttributes, ref tree);
+    }
+
+    @Html.Raw(tree)
+</div>

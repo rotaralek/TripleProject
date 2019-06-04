@@ -40,8 +40,8 @@
                 @Html.DisplayNameFor(model => model.ProductsCatalogs)
             </dt>
             <dd>
-                @{ 
-                   int catalogId = 0;
+                @{
+                    int catalogId = 0;
                 }
                 @foreach (var catalog in Model.ProductsCatalogs)
                 {
@@ -51,11 +51,13 @@
                 }
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Attribute)
+                @Html.DisplayNameFor(model => model.ProductsAttributes)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Attribute.Name)
-            </dd>
+                @foreach (var attribute in Model.ProductsAttributes)
+                {
+                    <p>@attribute.Attribute.Name</p>
+                }
         </dl>
     </div>
 </div>

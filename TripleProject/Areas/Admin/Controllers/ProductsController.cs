@@ -29,7 +29,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Products.CountAsync();
-            var applicationDbContext = await _context.Products.Include(p => p.Attribute).Include(p => p.ProductsCatalogs).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Products.Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -47,8 +47,6 @@ namespace TripleProject.Areas.Admin.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Attribute)
-                .Include(p => p.ProductsCatalogs)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
             {
@@ -61,8 +59,6 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Products/Create
         public IActionResult Create()
         {
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name");
-
             return View();
         }
 
@@ -71,7 +67,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +75,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
+                //Catalogs
                 foreach (var item in ProductsCatalogs)
                 {
                     ProductCatalog productCatalog = new ProductCatalog()
@@ -88,6 +85,18 @@ namespace TripleProject.Areas.Admin.Controllers
                     };
 
                     _context.ProductsCatalogs.Add(productCatalog);
+                }
+
+                //Attributes
+                foreach (var item in ProductsAttributes)
+                {
+                    ProductAttribute productAttribute = new ProductAttribute()
+                    {
+                        ProductId = product.Id,
+                        AttributeId = item
+                    };
+
+                    _context.ProductsAttributes.Add(productAttribute);
                 }
 
                 await _context.SaveChangesAsync();
@@ -112,7 +121,7 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            ViewData["AttributeId"] = new SelectList(_context.ProductAttributes, "Id", "Name", product.AttributeId);
+            ViewData["ProductsAttributes"] = await _context.ProductsAttributes.Where(p => p.ProductId == id).ToListAsync();
             ViewData["ProductsCatalogs"] = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
 
             return View(product);
@@ -123,7 +132,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (id != product.Id)
             {
@@ -142,6 +151,7 @@ namespace TripleProject.Areas.Admin.Controllers
                     _context.Update(product);
                     await _context.SaveChangesAsync();
 
+                    //Catalogs
                     var productCatalogList = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
 
                     foreach (var item in productCatalogList)
@@ -161,6 +171,28 @@ namespace TripleProject.Areas.Admin.Controllers
                         };
 
                         _context.ProductsCatalogs.Add(productCatalog);
+                    }
+
+                    //Attributes
+                    var productAttributeList = await _context.ProductsAttributes.Where(p => p.ProductId == id).ToListAsync();
+
+                    foreach (var item in productAttributeList)
+                    {
+                        var productAttribute = await _context.ProductsAttributes.FirstOrDefaultAsync(p => p.ProductId == id);
+                        _context.ProductsAttributes.Remove(productAttribute);
+
+                        await _context.SaveChangesAsync();
+                    }
+
+                    foreach (var item in ProductsAttributes)
+                    {
+                        ProductAttribute productAttribute = new ProductAttribute()
+                        {
+                            ProductId = product.Id,
+                            AttributeId = item
+                        };
+
+                        _context.ProductsAttributes.Add(productAttribute);
                     }
 
                     await _context.SaveChangesAsync();

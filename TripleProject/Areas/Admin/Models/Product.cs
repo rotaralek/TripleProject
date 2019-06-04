@@ -47,10 +47,7 @@ namespace TripleProject.Areas.Admin.Models
         public ICollection<ProductCatalog> ProductsCatalogs { get; set; }
 
         [Display(Name = "Attribute")]
-        public int? AttributeId { get; set; }
-
-        [Display(Name = "Attribute")]
-        public ProductAttribute Attribute { get; set; }
+        public ICollection<ProductAttribute> ProductsAttributes { get; set; }
 
         public int? ImageId { get; set; }
         public FileUpload Image { get; set; }
