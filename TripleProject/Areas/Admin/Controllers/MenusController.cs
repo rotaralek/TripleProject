@@ -25,8 +25,8 @@ namespace TripleProject.Areas.Admin.Controllers
         // GET: Admin/Menus
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Menus.Include(m => m.Parent);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = await _context.Menus.Include(m => m.Parent).ToListAsync();
+            return View(applicationDbContext);
         }
 
         // GET: Admin/Menus/Details/5

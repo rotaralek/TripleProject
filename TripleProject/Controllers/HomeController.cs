@@ -57,7 +57,7 @@ namespace TripleProject.Controllers
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Products.CountAsync();
-            var applicationDbContext = await _context.Products.Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Products.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -100,7 +100,7 @@ namespace TripleProject.Controllers
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Advertisements.CountAsync();
-            var applicationDbContext = await _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.Id).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -142,7 +142,7 @@ namespace TripleProject.Controllers
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).CountAsync();
-            var applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -157,7 +157,7 @@ namespace TripleProject.Controllers
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).CountAsync();
-            var applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;

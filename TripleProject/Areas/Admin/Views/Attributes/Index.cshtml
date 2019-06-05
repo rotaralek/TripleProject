@@ -29,8 +29,8 @@
     <tbody>
         @foreach (var item in Model)
         {
-            if (item.ParentId == null)
-            {
+            //if (item.ParentId == null)
+            //{
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
@@ -44,7 +44,7 @@
                         <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
                     </td>
                 </tr>
-                @foreach (var subItem in Model)
+                @*@foreach (var subItem in Model)
                 {
                     if (item.Id == subItem.ParentId)
                     {
@@ -82,7 +82,7 @@
                         }
                     }
                 }
-            }
+            }*@
         }
     </tbody>
 </table>

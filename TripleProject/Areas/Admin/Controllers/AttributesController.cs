@@ -28,7 +28,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Attributes.CountAsync();
-            var applicationDbContext = await _context.Attributes.Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Attributes.Skip(skip).OrderBy(p => p.Name).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
