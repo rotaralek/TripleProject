@@ -29,7 +29,7 @@ namespace TripleProject.Areas.Admin.ViewComponents
 
         public static void GetAttributeList(IEnumerable<Attribute> attribute, IEnumerable<AdvertisementAttribute> advertisementAttribute, ref string tree)
         {
-            tree += "<ul class='nav navbar-nav sidebar-nav'>";
+            tree += "<ul class='nav navbar-nav sidebar-nav auto-parent-select'>";
 
             foreach (var item in attribute)
             {

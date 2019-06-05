@@ -28,7 +28,7 @@ namespace TripleProject.Areas.Admin.ViewComponents
 
         public static void GetCatalogList(IEnumerable<Category> category, IEnumerable<AdvertisementCategory> advertisementCategory, ref string tree)
         {
-            tree += "<ul class='nav navbar-nav sidebar-nav'>";
+            tree += "<ul class='nav navbar-nav sidebar-nav auto-parent-select'>";
 
             foreach (var item in category)
             {

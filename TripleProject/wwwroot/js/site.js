@@ -210,6 +210,46 @@
         var slug = "";
 
         //Change cyrillic to translit
+        var cyrillicToTranslit = {
+            "а": "a",
+            "б": "b",
+            "в": "v",
+            "ґ": "g",
+            "г": "g",
+            "д": "d",
+            "е": "e",
+            "ё": "e",
+            "є": "ye",
+            "ж": "zh",
+            "з": "z",
+            "и": "i",
+            "і": "i",
+            "ї": "yi",
+            "й": "i",
+            "к": "k",
+            "л": "l",
+            "м": "m",
+            "н": "n",
+            "о": "o",
+            "п": "p",
+            "р": "r",
+            "с": "s",
+            "т": "t",
+            "у": "u",
+            "ф": "f",
+            "х": "h",
+            "ц": "c",
+            "ч": "ch",
+            "ш": "sh",
+            "щ": "sh'",
+            "ъ": "",
+            "ы": "i",
+            "ь": "",
+            "э": "e",
+            "ю": "yu",
+            "я": "ya",
+            " ": "-"
+        };
         for (var i = 0; i < fieldValLength; i++) {
             var letter = "";
 
@@ -231,44 +271,38 @@
         slugField.val(slug);
     });
 
-    var cyrillicToTranslit = {
-        "а": "a",
-        "б": "b",
-        "в": "v",
-        "ґ": "g",
-        "г": "g",
-        "д": "d",
-        "е": "e",
-        "ё": "e",
-        "є": "ye",
-        "ж": "zh",
-        "з": "z",
-        "и": "i",
-        "і": "i",
-        "ї": "yi",
-        "й": "i",
-        "к": "k",
-        "л": "l",
-        "м": "m",
-        "н": "n",
-        "о": "o",
-        "п": "p",
-        "р": "r",
-        "с": "s",
-        "т": "t",
-        "у": "u",
-        "ф": "f",
-        "х": "h",
-        "ц": "c",
-        "ч": "ch",
-        "ш": "sh",
-        "щ": "sh'",
-        "ъ": "",
-        "ы": "i",
-        "ь": "",
-        "э": "e",
-        "ю": "yu",
-        "я": "ya",
-        " ": "-"
+    //auto-parent-select for checkboxes
+    $(document).on('click', '.auto-parent-select input[type=checkbox]', function () {
+        checkParent(this);
+        checkChild(this);
+        uncheckChild(this);
+    });
+
+    var checkParent = function (item) {
+        if ($(item).is(":checked")) {
+            var newItem = $(item).closest('.sub-menu').closest('.nav-item').find('> .form-check > label > input[type=checkbox]')
+            newItem.each(function () {
+                $(this).prop('checked', true);
+            });
+
+            checkParent(newItem);
+        }
+    };
+
+    var checkChild = function (item) {
+        if ($(item).is(":checked")) {
+            var newItem = $(item).closest('.nav-item').find('input[type=checkbox]')
+            newItem.each(function () {
+                $(this).prop('checked', true);
+            });
+
+            checkParent(newItem);
+        }
+    };
+
+    var uncheckChild = function (item) {
+        if (!$(item).is(":checked")) {
+            $(item).closest('.nav-item').find('input[type=checkbox]').prop('checked', false);
+        }
     };
 })(jQuery);
