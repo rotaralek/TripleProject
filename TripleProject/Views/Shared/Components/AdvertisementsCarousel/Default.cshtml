@@ -12,12 +12,11 @@
             <div class="square-image part-50" style="background-image: url(@image)"></div>
             <div class="card-img-overlay-bottom">
                 <h3 class="h5"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                <p>@item.Price</p>
                 <p class="text-red h6">@item.Price @item.Currency</p>
-                <div class="date text-muted">
+                <p class="date text-muted">
                     <i class="material-icons">access_time</i>
                     <time datetime="@item.DateTime">@item.DateTime</time>
-                </div>
+                </p>
                 <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id" class="btn btn-primary">@SharedLocalizer["Buy now"]</a>
             </div>
         </div>
