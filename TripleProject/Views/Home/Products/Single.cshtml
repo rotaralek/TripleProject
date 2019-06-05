@@ -1,4 +1,7 @@
 ﻿@model TripleProject.Areas.Admin.Models.Product
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -59,6 +62,8 @@
                     <p>@attribute.Attribute.Name</p>
                 }
         </dl>
+
+        <button type="button" class="btn btn-primary">@SharedLocalizer["Buy now"]</button>
     </div>
 </div>
 <nav>

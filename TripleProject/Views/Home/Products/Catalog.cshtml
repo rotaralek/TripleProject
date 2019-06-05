@@ -1,19 +1,17 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Product>
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = SharedLocalizer["Products"];
 }
-
 <div class="row pt-4">
     <div class="col-md-4">
-        <h1 class="h3">Catalog</h1>
-
+        <h1 class="h3">@SharedLocalizer["Catalog"]</h1>
         @await Component.InvokeAsync("Catalogs")
     </div>
-
     <div class="col-md-8">
         @await Component.InvokeAsync("ProductsCarousel")
-
         <div class="row">
             @foreach (var item in Model)
             {
@@ -25,7 +23,6 @@
                                 <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
                             </a>
                         }
-
                         <div class="card-body">
                             <h3 class="h5"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
                             <p>@item.Description</p>
@@ -35,13 +32,11 @@
                 </div>
             }
         </div>
-
         @{
             int count = (int)ViewData["count"];
             int page = (int)ViewData["page"];
             decimal itemsPerPage = (int)ViewData["itemsPerPage"];
         }
-
         @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })
     </div>
 </div>
