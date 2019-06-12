@@ -29,7 +29,7 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Catalogs.CountAsync();
-            var applicationDbContext = await _context.Catalogs.Include(c => c.Parent).OrderBy(c=> c.Name).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Catalogs.ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
@@ -133,6 +133,8 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
 
             return View(catalog);
         }

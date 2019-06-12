@@ -76,7 +76,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name", category.ParentId);
+
             return View(category);
         }
 
@@ -93,7 +95,9 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+
             ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name", category.ParentId);
+
             return View(category);
         }
 

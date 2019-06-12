@@ -209,6 +209,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            ViewData["AdvertisementsAttributes"] = await _context.AdvertisementsAttributes.Where(a => a.AdvertisementId == id).ToListAsync();
+            ViewData["AdvertisementsCategories"] = await _context.AdvertisementsCategories.Where(a => a.AdvertisementId == id).ToListAsync();
+
             return View(advertisement);
         }
 

@@ -130,6 +130,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["ParentId"] = new SelectList(_context.Attributes, "Id", "Name", attribute.ParentId);
+
             return View(attribute);
         }
 
