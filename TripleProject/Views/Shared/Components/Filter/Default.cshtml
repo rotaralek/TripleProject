@@ -1,0 +1,29 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Attribute>
+@using TripleProject.ViewComponents
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+<div class="mb-4">
+    <form method="post" class="mb-3">
+        <h3>@SharedLocalizer["Filter"]</h3>
+
+        <div class="card mb-3">
+            <div class="card-body">
+                <p>
+                    <label for="price">@SharedLocalizer["Price"]:</label>
+                    <input type="text" id="price" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                </p>
+
+                <div id="slider-range" class="mb-3"></div>
+            </div>
+        </div>
+
+        @{
+            string attributesTree = "";
+            TripleProject.ViewComponents.FilterViewComponent.GetAttributesList(Model, ref attributesTree);
+        }
+        @Html.Raw(attributesTree)
+
+        <button type="submit" class="btn btn-primary">@SharedLocalizer["Apply"]</button>
+    </form>
+</div>

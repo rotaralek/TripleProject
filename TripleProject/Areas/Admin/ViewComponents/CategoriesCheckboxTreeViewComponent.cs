@@ -73,7 +73,7 @@ namespace TripleProject.Areas.Admin.ViewComponents
             bool hasChild = false;
             string localTree = "";
 
-            localTree += "<ul class='sub-menu bg-white'>";
+            localTree += "<ul class='sub-item'>";
 
             foreach (var item in category)
             {

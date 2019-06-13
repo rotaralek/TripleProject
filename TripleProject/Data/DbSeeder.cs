@@ -60,7 +60,7 @@ namespace TripleProject.Data
 
                 Catalog catalog = new Catalog
                 {
-                    Slug = "catalog-" + i,
+                    Slug = "attribute-" + i,
                     Name = "Catalog " + i,
                     ParentId = parentId
                 };
@@ -82,14 +82,14 @@ namespace TripleProject.Data
                     parentId = 2;
                 }
 
-                Category catalog = new Category
+                Category category = new Category
                 {
                     Slug = "category-" + i,
                     Name = "Category " + i,
                     ParentId = parentId
                 };
 
-                context.Add(catalog);
+                context.Add(category);
 
                 await context.SaveChangesAsync();
             }

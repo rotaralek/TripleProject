@@ -21,16 +21,16 @@ namespace TripleProject.Areas.Admin.ViewComponents
         {
             ViewData["ProductsCatalogs"] = productsCatalogs;
 
-            IEnumerable<Catalog> catalog = _context.Catalogs.OrderBy(m => m.Name);
+            IEnumerable<Catalog> attribute = _context.Catalogs.OrderBy(m => m.Name);
 
-            return View("Default", catalog);
+            return View("Default", attribute);
         }
 
-        public static void GetCatalogList(IEnumerable<Catalog> catalog, IEnumerable<ProductCatalog> productCatalog, ref string tree)
+        public static void GetCatalogList(IEnumerable<Catalog> attribute, IEnumerable<ProductCatalog> productCatalog, ref string tree)
         {
             tree += "<ul class='nav navbar-nav sidebar-nav auto-parent-select'>";
 
-            foreach (var item in catalog)
+            foreach (var item in attribute)
             {
 
                 if (item.ParentId == null)
@@ -59,7 +59,7 @@ namespace TripleProject.Areas.Admin.ViewComponents
                         tree += "<div class='form-check'><label><input type='checkbox' name='ProductsCatalogs' value='" + item.Id + "' class='form-check-input'>" + item.Name + "</label></div>";
                     }
 
-                    GetChildList(catalog, productCatalog, ref tree, item.Id);
+                    GetChildList(attribute, productCatalog, ref tree, item.Id);
 
                     tree += "</li>";
                 }
@@ -68,14 +68,14 @@ namespace TripleProject.Areas.Admin.ViewComponents
             tree += "</ul>";
         }
 
-        public static void GetChildList(IEnumerable<Catalog> catalog, IEnumerable<ProductCatalog> productCatalog, ref string tree, int Id)
+        public static void GetChildList(IEnumerable<Catalog> attribute, IEnumerable<ProductCatalog> productCatalog, ref string tree, int Id)
         {
             bool hasChild = false;
             string localTree = "";
 
-            localTree += "<ul class='sub-menu bg-white'>";
+            localTree += "<ul class='sub-item'>";
 
-            foreach (var item in catalog)
+            foreach (var item in attribute)
             {
 
                 if (item.ParentId == Id)
@@ -106,7 +106,7 @@ namespace TripleProject.Areas.Admin.ViewComponents
                         localTree += "<div class='form-check'><label><input type='checkbox' name='ProductsCatalogs' value='" + item.Id + "' class='form-check-input'>" + item.Name + "</label></div>";
                     }
 
-                    GetChildList(catalog, productCatalog, ref localTree, item.Id);
+                    GetChildList(attribute, productCatalog, ref localTree, item.Id);
                     localTree += "</li>";
                 }
             }

@@ -9,6 +9,8 @@
     <div class="col-md-4">
         <h1 class="h3">@ViewData["Title"]</h1>
         @await Component.InvokeAsync("Categories")
+
+        @await Component.InvokeAsync("Filter")
     </div>
     <div class="col-md-8">
         @await Component.InvokeAsync("AdvertisementsCarousel")

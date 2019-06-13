@@ -280,7 +280,7 @@
 
     var checkParent = function (item) {
         if ($(item).is(":checked")) {
-            var newItem = $(item).closest('.sub-menu').closest('.nav-item').find('> .form-check > label > input[type=checkbox]')
+            var newItem = $(item).closest('.sub-item').closest('.nav-item').find('> .form-check > label > input[type=checkbox]')
             newItem.each(function () {
                 $(this).prop('checked', true);
             });
@@ -305,4 +305,25 @@
             $(item).closest('.nav-item').find('input[type=checkbox]').prop('checked', false);
         }
     };
+
+    /*
+     * Price slider
+     */
+    var priceSlider = function () {
+        var range = $(document).find("#slider-range");
+        var price = $(document).find("#price");
+
+        range.slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [75, 300],
+            slide: function (event, ui) {
+                price.val("$" + ui.values[0] + " - $" + ui.values[1]);
+            }
+        });
+
+        price.val("$" + range.slider("values", 0) + " - $" + range.slider("values", 1));
+    };
+    priceSlider();
 })(jQuery);

@@ -46,15 +46,15 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var catalog = await _context.Catalogs
+            var attribute = await _context.Catalogs
                 .Include(c => c.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (catalog == null)
+            if (attribute == null)
             {
                 return NotFound();
             }
 
-            return View(catalog);
+            return View(attribute);
         }
 
         // GET: Admin/Catalogs/Create
@@ -70,16 +70,16 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Name,ParentId")] Catalog catalog)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Name,ParentId")] Catalog attribute)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(catalog);
+                _context.Add(attribute);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(catalog);
+            return View(attribute);
         }
 
         // GET: Admin/Catalogs/Edit/5
@@ -90,15 +90,15 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var catalog = await _context.Catalogs.FindAsync(id);
-            if (catalog == null)
+            var attribute = await _context.Catalogs.FindAsync(id);
+            if (attribute == null)
             {
                 return NotFound();
             }
 
-            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
+            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", attribute.ParentId);
 
-            return View(catalog);
+            return View(attribute);
         }
 
         // POST: Admin/Catalogs/Edit/5
@@ -106,9 +106,9 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Name,ParentId")] Catalog catalog)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Name,ParentId")] Catalog attribute)
         {
-            if (id != catalog.Id)
+            if (id != attribute.Id)
             {
                 return NotFound();
             }
@@ -117,12 +117,12 @@ namespace TripleProject.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(catalog);
+                    _context.Update(attribute);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CatalogExists(catalog.Id))
+                    if (!CatalogExists(attribute.Id))
                     {
                         return NotFound();
                     }
@@ -134,9 +134,9 @@ namespace TripleProject.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", catalog.ParentId);
+            ViewData["ParentId"] = new SelectList(_context.Catalogs, "Id", "Name", attribute.ParentId);
 
-            return View(catalog);
+            return View(attribute);
         }
 
         // GET: Admin/Catalogs/Delete/5
@@ -147,15 +147,15 @@ namespace TripleProject.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var catalog = await _context.Catalogs
+            var attribute = await _context.Catalogs
                 .Include(c => c.Parent)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (catalog == null)
+            if (attribute == null)
             {
                 return NotFound();
             }
 
-            return View(catalog);
+            return View(attribute);
         }
 
         // POST: Admin/Catalogs/Delete/5
@@ -163,8 +163,8 @@ namespace TripleProject.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var catalog = await _context.Catalogs.FindAsync(id);
-            _context.Catalogs.Remove(catalog);
+            var attribute = await _context.Catalogs.FindAsync(id);
+            _context.Catalogs.Remove(attribute);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
