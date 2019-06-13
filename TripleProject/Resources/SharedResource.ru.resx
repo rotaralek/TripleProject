@@ -393,4 +393,10 @@
   <data name="View" xml:space="preserve">
     <value>Просмотр</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
 </root>

@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+<h3>@SharedLocalizer["Filter"]</h3>
+
+<form method="post">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">@SharedLocalizer["Apply"]</button>
+</form>

@@ -9,6 +9,8 @@
     <div class="col-md-4">
         <h1 class="h3">@ViewData["Title"]</h1>
         @await Component.InvokeAsync("Catalogs")
+
+        <partial name="_Filter" />
     </div>
     <div class="col-md-8">
         @await Component.InvokeAsync("ProductsCarousel")
