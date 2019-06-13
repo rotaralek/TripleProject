@@ -33,6 +33,13 @@ a {
     background-color: #24b122;
     border-color: #24b122; }
 
+.btn-outline-primary {
+  color: #fb0102;
+  border-color: #fb0102; }
+  .btn-outline-primary:hover, .btn-outline-primary:active, .btn-outline-primary:focus {
+    background-color: #24b122;
+    border-color: #24b122; }
+
 .text-red {
   color: #fb0102; }
 
@@ -289,3 +296,9 @@ footer {
   color: #353535; }
   .page-link:hover, .page-numbers:hover {
     color: #fb0102; }
+
+/*
+    Vertical nav
+*/
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  background-color: #fb0102; }

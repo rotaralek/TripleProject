@@ -1,12 +1,15 @@
 ﻿@page
 @model LoginWith2faModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Two-factor authentication";
+    ViewData["Title"] = SharedLocalizer["Two-factor authentication"];
 }
 
 <h2>@ViewData["Title"]</h2>
 <hr />
-<p>Your login is protected with an authenticator app. Enter your authenticator code below.</p>
+<p>@SharedLocalizer["Your login is protected with an authenticator app. Enter your authenticator code below."]</p>
 <div class="row">
     <div class="col-md-4">
         <form method="post" asp-route-returnUrl="@Model.ReturnUrl">
@@ -26,14 +29,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-default">Log in</button>
+                <button type="submit" class="btn btn-default">@SharedLocalizer["Log in"]</button>
             </div>
         </form>
     </div>
 </div>
 <p>
-    Don't have access to your authenticator device? You can 
-    <a asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">log in with a recovery code</a>.
+    @SharedLocalizer["Don't have access to your authenticator device? You can"]
+    <a asp-page="./LoginWithRecoveryCode" asp-route-returnUrl="@Model.ReturnUrl">@SharedLocalizer["log in with a recovery code"]</a>.
 </p>
 
 @section Scripts {

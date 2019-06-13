@@ -48,6 +48,16 @@ a {
     }
 }
 
+.btn-outline-primary {
+    color: $red;
+    border-color: $red;
+
+    &:hover, &:active, &:focus {
+        background-color: $green;
+        border-color: $green;
+    }
+}
+
 .text-red {
     color: $red;
 }
@@ -408,4 +418,11 @@ footer {
     &:hover {
         color: $red;
     }
+}
+
+/*
+    Vertical nav
+*/
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: $red;
 }

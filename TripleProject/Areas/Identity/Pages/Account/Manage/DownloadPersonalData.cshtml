@@ -1,7 +1,10 @@
 ﻿@page
 @model DownloadPersonalDataModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
-    ViewData["Title"] = "Download Your Data";
+    ViewData["Title"] = SharedLocalizer["Download Your Data"];
     ViewData["ActivePage"] = ManageNavPages.DownloadPersonalData;
 }
 
