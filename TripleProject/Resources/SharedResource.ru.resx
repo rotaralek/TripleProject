@@ -702,4 +702,10 @@
   <data name="Your password has been reset. Please" xml:space="preserve">
     <value>Ваш пароль был сброшен. Пожалуйста</value>
   </data>
+  <data name="1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
 </root>

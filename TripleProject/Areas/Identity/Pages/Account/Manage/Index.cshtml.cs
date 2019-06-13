@@ -27,6 +27,7 @@ namespace TripleProject.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
+        [Display(Name = "UserName")]
         public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
@@ -41,6 +42,7 @@ namespace TripleProject.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Phone]
