@@ -10,6 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190614084400_v2.cs" />
+    <Compile Remove="Migrations\20190614084400_v2.Designer.cs" />
+    <Compile Remove="Migrations\20190614084720_v2.cs" />
+    <Compile Remove="Migrations\20190614084720_v2.Designer.cs" />
+    <Compile Remove="Migrations\20190614085808_v2.cs" />
+    <Compile Remove="Migrations\20190614085808_v2.Designer.cs" />
+    <Compile Remove="Migrations\20190614090101_v2.cs" />
+    <Compile Remove="Migrations\20190614090101_v2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
@@ -45,19 +56,34 @@
     <Content Update="Areas\Admin\Views\Roles\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\Shared\Components\ProductsAttributesCheckboxTree\Default.cshtml">
+    <Content Update="Areas\Identity\Views\Products\Create.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\Shared\Components\AdvertisementsAttributesCheckboxTree\Default.cshtml">
+    <Content Update="Areas\Identity\Views\Products\Delete.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\Shared\Components\CategoriesCheckboxTree\Default.cshtml">
+    <Content Update="Areas\Identity\Views\Products\Details.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\Shared\Components\CatalogsCheckboxTree\Default.cshtml">
+    <Content Update="Areas\Identity\Views\Products\Edit.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Areas\Admin\Views\Shared\Components\Gallery\Default.cshtml">
+    <Content Update="Areas\Identity\Views\Products\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ProductsAttributesCheckboxTree\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\AdvertisementsAttributesCheckboxTree\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\CategoriesCheckboxTree\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\CatalogsCheckboxTree\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\Gallery\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Admin\Views\Roles\Index.cshtml">

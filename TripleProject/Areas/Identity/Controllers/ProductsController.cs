@@ -10,10 +10,9 @@ using Microsoft.Extensions.Localization;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 
-namespace TripleProject.Areas.Admin.Controllers
+namespace TripleProject.Areas.Identity.Controllers
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
-    [Area("Admin")]
+    [Area("Identity")]
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;

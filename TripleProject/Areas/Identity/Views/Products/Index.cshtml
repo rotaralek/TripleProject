@@ -1,11 +1,15 @@
-﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Menu>
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Product>
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject IHtmlLocalizer<TripleProject.SharedResource> SharedLocalizer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = SharedLocalizer["Menu"];
+    ViewData["Title"] = SharedLocalizer["Products"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<partial name="_Nav" />
 
 <div class="pt-3 pb-2 mb-3">
     <h1 class="h2">@ViewData["Title"] <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create"]</a></h1>
@@ -15,19 +19,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Url)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Target)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Order)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parent)
+                @Html.DisplayNameFor(model => model.Quantity)
             </th>
             <th></th>
         </tr>
@@ -37,26 +35,27 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Url)
+                    @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Target)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Order)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Parent.Id)
+                    @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |
+                    <a asp-area="" asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@SharedLocalizer["View"]</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+@{
+    int count = (int)ViewData["count"];
+    int page = (int)ViewData["page"];
+    decimal itemsPerPage = (int)ViewData["itemsPerPage"];
+}
+@await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })

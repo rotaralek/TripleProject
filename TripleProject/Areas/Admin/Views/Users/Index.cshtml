@@ -7,13 +7,9 @@
     ViewData["Title"] = SharedLocalizer["Users"];
 }
 
-<div class="pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">@ViewData["Title"]</h1>
+<div class="pt-3 pb-2 mb-3">
+    <h1 class="h2">@ViewData["Title"] <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create"]</a></h1>
 </div>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create New"]</a>
-</p>
 
 <table class="table">
     <thead>

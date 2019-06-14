@@ -1,31 +1,33 @@
 ﻿@model TripleProject.Areas.Admin.Models.Product
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject IHtmlLocalizer<TripleProject.SharedResource> SharedLocalizer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    ViewData["Title"] = SharedLocalizer["Create"];
+    ViewData["Title"] = SharedLocalizer["Edit"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<partial name="_Nav" />
 
 <div class="pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">@ViewData["Title"]</h1>
 </div>
-
 <h4>@SharedLocalizer["Product"]</h4>
-
 <hr />
-
 <div class="row">
     <div class="col-md-9">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="ImageId" />
             <input type="hidden" asp-for="GalleryId" />
             <div class="row">
                 <div class="col-md-9">
                     <div class="form-group">
                         <label asp-for="Slug" class="control-label"></label>
-                        <input asp-for="Slug" class="form-control slug-field" />
+                        <input asp-for="Slug" class="form-control slug-field" readonly />
                         <span asp-validation-for="Slug" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -86,19 +88,20 @@
                 <div class="col-md-3">
                     <div class="form-group overflow-auto" style="max-height: 500px;">
                         <label asp-for="ProductsCatalogs" class="control-label"></label>
-                        @await Component.InvokeAsync("CatalogsCheckboxTree")
+                        @await Component.InvokeAsync("CatalogsCheckboxTree", ViewBag.ProductsCatalogs)
                     </div>
+
                     <div class="form-group overflow-auto" style="max-height: 500px;">
                         <label asp-for="ProductsAttributes" class="control-label"></label>
-                        @await Component.InvokeAsync("ProductsAttributesCheckboxTree")
+                        @await Component.InvokeAsync("ProductsAttributesCheckboxTree", ViewBag.ProductsAttributes)
                     </div>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-md-3">
-        @await Component.InvokeAsync("Image", 0)
-        @await Component.InvokeAsync("Gallery")
+        @await Component.InvokeAsync("Image", Model.ImageId)
+        @await Component.InvokeAsync("Gallery", Model.GalleryId)
     </div>
 </div>
 <div>

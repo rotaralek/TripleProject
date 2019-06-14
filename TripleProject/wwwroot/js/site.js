@@ -310,6 +310,9 @@
      * Price slider
      */
     var priceSlider = function () {
+        if (!$(document).find("#slider-range").length) {
+            return;
+        }
         var range = $(document).find("#slider-range");
         var price = $(document).find("#price");
 

@@ -22,6 +22,10 @@ namespace TripleProject.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
+        public static string Advertisements => "Advertisements";
+
+        public static string Products => "Products";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string ChangePasswordNavClass(ViewContext viewContext) => PageNavClass(viewContext, ChangePassword);
@@ -35,7 +39,11 @@ namespace TripleProject.Areas.Identity.Pages.Account.Manage
         public static string PersonalDataNavClass(ViewContext viewContext) => PageNavClass(viewContext, PersonalData);
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
-    
+
+        public static string AdvertisementsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Advertisements);
+
+        public static string ProductsNavClass(ViewContext viewContext) => PageNavClass(viewContext, Products);
+
         public static string PageNavClass(ViewContext viewContext, string page)
         {
             var activePage = viewContext.ViewData["ActivePage"] as string

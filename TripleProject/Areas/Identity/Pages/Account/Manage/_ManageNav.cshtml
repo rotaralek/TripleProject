@@ -10,7 +10,7 @@
     <a id="change-password" asp-page="./ChangePassword" class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)">@SharedLocalizer["Password"]</a>
     @if (hasExternalLogins)
     {
-    <a id="external-login" asp-page="./ExternalLogins" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)">@SharedLocalizer["External logins"]</a>
+        <a id="external-login" asp-page="./ExternalLogins" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)">@SharedLocalizer["External logins"]</a>
     }
     <a asp-page="./TwoFactorAuthentication" class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)">@SharedLocalizer["Two-factor authentication"]</a>
     <a asp-page="./PersonalData" class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)">@SharedLocalizer["Personal data"]</a>

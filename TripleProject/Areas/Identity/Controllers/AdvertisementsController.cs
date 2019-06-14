@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 
-namespace TripleProject.Areas.Admin.Controllers
+namespace TripleProject.Areas.Identity.Controllers
 {
-    [Authorize(Policy = "RequireAdministratorRole")]
-    [Area("Admin")]
+    [Area("Identity")]
     public class AdvertisementsController : Controller
     {
         private readonly ApplicationDbContext _context;

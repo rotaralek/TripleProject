@@ -1,25 +1,37 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@inject UserManager<IdentityUser> UserManager
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<div class="pb-2 mt-4 mb-3 border-bottom">
-    <h1 class="h2">@SharedLocalizer["Manage your account"]</h1>
+<partial name="_Nav" />
+
+<div class="pb-2 mt-4 mb-3">
+    <h1 class="h2">@UserManager.GetUserName(User)</h1>
 </div>
 
+<hr/>
+
 <div>
-    <h4>@SharedLocalizer["Change your account settings"]</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
+
+    @if (ManageNavPages.AdvertisementsNavClass(ViewContext) != null)
+    {
+
+        @RenderBody()
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
         </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
-    </div>
+    }
 </div>
 
 @section Scripts {

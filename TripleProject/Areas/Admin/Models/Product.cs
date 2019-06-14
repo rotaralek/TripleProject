@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -60,6 +61,10 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Date")]
         [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateTime { get; set; }
+
+        [Display(Name = "User")]
+        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
     }
 
     public enum Currency
