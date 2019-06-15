@@ -17,69 +17,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parent)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            //if (item.ParentId == null)
-            //{
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Parent.Name)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
-                    </td>
-                </tr>
-                @*@foreach (var subItem in Model)
-                {
-                    if (item.Id == subItem.ParentId)
-                    {
-                        <tr>
-                            <td class="pl-4">
-                                @Html.DisplayFor(modelItem => subItem.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => subItem.Parent.Name)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@subItem.Id">@SharedLocalizer["Edit"]</a> |
-                                <a asp-action="Details" asp-route-id="@subItem.Id">@SharedLocalizer["Details"]</a> |
-                                <a asp-action="Delete" asp-route-id="@subItem.Id">@SharedLocalizer["Delete"]</a>
-                            </td>
-                        </tr>
-                        @foreach (var subSubItem in Model)
-                        {
-                            if (subItem.Id == subSubItem.ParentId)
-                            {
-                                <tr>
-                                    <td class="pl-5">
-                                        @Html.DisplayFor(modelItem => subSubItem.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => subSubItem.Parent.Name)
-                                    </td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@subSubItem.Id">@SharedLocalizer["Edit"]</a> |
-                                        <a asp-action="Details" asp-route-id="@subSubItem.Id">@SharedLocalizer["Details"]</a> |
-                                        <a asp-action="Delete" asp-route-id="@subSubItem.Id">@SharedLocalizer["Delete"]</a>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    }
-                }
-            }*@
+            string parent = "";
+            @if (item.ParentId != null)
+            {
+                parent = "pl-5";
+            }
+            <tr>
+                <td class="@parent">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
