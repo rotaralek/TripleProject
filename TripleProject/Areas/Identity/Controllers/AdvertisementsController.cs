@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,19 +16,22 @@ namespace TripleProject.Areas.Identity.Controllers
     public class AdvertisementsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AdvertisementsController(ApplicationDbContext context)
+        public AdvertisementsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Admin/Advertisements
         public async Task<IActionResult> Index(int page = 1)
         {
+            string userId = _userManager.GetUserId(User);
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
-            int count = await _context.Advertisements.CountAsync();
-            var applicationDbContext = await _context.Advertisements.OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            int count = await _context.Advertisements.Where(u => u.UserId == userId).CountAsync();
+            var applicationDbContext = await _context.Advertisements.Where( u => u.UserId == userId).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
