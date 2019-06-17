@@ -7,9 +7,10 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <nav class="pt-4">
-    <div class="nav nav-tabs mb-3">
-        <a asp-controller="Advertisements" asp-action="Index" class="nav-item nav-link @ManageNavPages.AdvertisementsNavClass(ViewContext)">@SharedLocalizer["Advertisements"]</a>
+    <div class="nav nav-tabs mb-3 bg-light">
+        <a asp-controller="Shops" asp-action="Index" class="nav-item nav-link">@SharedLocalizer["Shops"]</a>
         <a asp-controller="Products" asp-action="Index" class="nav-item nav-link @ManageNavPages.ProductsNavClass(ViewContext)">@SharedLocalizer["Products"]</a>
+        <a asp-controller="Advertisements" asp-action="Index" class="nav-item nav-link @ManageNavPages.AdvertisementsNavClass(ViewContext)">@SharedLocalizer["Advertisements"]</a>
         <a asp-page="/Account/Manage/Index" class="nav-item nav-link @ManageNavPages.IndexNavClass(ViewContext)">@SharedLocalizer["Profile"]</a>
     </div>
 </nav>

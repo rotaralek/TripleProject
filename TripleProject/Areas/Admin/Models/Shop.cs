@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TripleProject.Areas.Admin.Models
 {
-    public class Product
+    public class Shop
     {
         public int Id { get; set; }
 
@@ -33,22 +33,24 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Range(0, 999999999.99)]
-        [Display(Name = "Price")]
-        public decimal? Price { get; set; }
+        [StringLength(200)]
+        [Display(Name = "Location")]
+        public string Location { get; set; }
 
-        [Display(Name = "Currency")]
-        public Currency? Currency { get; set; }
+        [StringLength(200)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
-        [Range(0, 999999999)]
-        [Display(Name = "Quantity")]
-        public int? Quantity { get; set; }
+        [StringLength(100)]
+        [Display(Name = "Phone")]
+        public string Phone { get; set; }
 
-        [Display(Name = "Catalog")]
-        public ICollection<ProductCatalog> ProductsCatalogs { get; set; }
+        [StringLength(200)]
+        [Display(Name = "Working hours")]
+        public string WorkingHours { get; set; }
 
         [Display(Name = "Attribute")]
-        public ICollection<ProductAttribute> ProductsAttributes { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
         [Display(Name = "Image")]
         public int? ImageId { get; set; }
@@ -69,12 +71,5 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "User")]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
-    }
-
-    public enum Currency
-    {
-        MDL,
-        EUR,
-        USD
     }
 }

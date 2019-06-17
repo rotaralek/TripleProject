@@ -51,6 +51,41 @@ namespace TripleProject.Controllers
             return View("Pages/Single", page);
         }
 
+        [Route("shops")]
+        public async Task<IActionResult> ShopsArchive(int page = 1)
+        {
+            int itemsPerPage = 12;
+            int skip = itemsPerPage * (page - 1);
+            int count = await _context.Shops.CountAsync();
+            var applicationDbContext = await _context.Shops.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+
+            return View("Shops/Archive", applicationDbContext);
+        }
+
+        [Route("shops/{id?}")]
+        public async Task<IActionResult> ShopsSingle(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Shops
+                .Include(p => p.Image)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View("Shops/Single", product);
+        }
+
         [Route("products")]
         public async Task<IActionResult> ProductsArchive(int page = 1)
         {

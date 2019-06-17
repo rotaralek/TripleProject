@@ -708,4 +708,16 @@
   <data name="Phone number" xml:space="preserve">
     <value>Номер телефона</value>
   </data>
+  <data name="Location" xml:space="preserve">
+    <value>Место нахождения</value>
+  </data>
+  <data name="Shops" xml:space="preserve">
+    <value>Магазины</value>
+  </data>
+  <data name="Working hours" xml:space="preserve">
+    <value>Рабочие часы</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
+  </data>
 </root>

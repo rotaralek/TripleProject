@@ -21,6 +21,7 @@ namespace TripleProject.Data
         public DbSet<AdvertisementCategory> AdvertisementsCategories { get; set; }
         public DbSet<ProductAttribute> ProductsAttributes { get; set; }
         public DbSet<AdvertisementAttribute> AdvertisementsAttributes { get; set; }
+        public DbSet<Shop> Shops { get; set; }
         public DbSet<Menu> Menus { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

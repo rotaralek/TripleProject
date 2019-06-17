@@ -1,0 +1,41 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Shop>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@{
+    ViewData["Title"] = SharedLocalizer["Shops"];
+}
+<div class="row pt-4">
+    <div class="col-md-4">
+        <h1 class="h3">@ViewData["Title"]</h1>
+        @await Component.InvokeAsync("Filter")
+    </div>
+    <div class="col-md-8">
+        @await Component.InvokeAsync("ProductsCarousel")
+        <div class="row mb-3">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <article class="card">
+                        @if (item.Image != null)
+                        {
+                            <a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">
+                                <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                            </a>
+                        }
+                        <div class="card-body">
+                            <h3 class="h5"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                            <p>@item.Description</p>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+        @{
+            int count = (int)ViewData["count"];
+            int page = (int)ViewData["page"];
+            decimal itemsPerPage = (int)ViewData["itemsPerPage"];
+        }
+        @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })
+    </div>
+</div>

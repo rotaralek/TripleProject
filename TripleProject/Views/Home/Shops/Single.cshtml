@@ -1,4 +1,4 @@
-﻿@model TripleProject.Areas.Admin.Models.Product
+﻿@model TripleProject.Areas.Admin.Models.Shop
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
@@ -27,47 +27,13 @@
             </div>
         </div>
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="text-red h3">
-                @Html.DisplayFor(model => model.Price) @Html.DisplayFor(model => model.Currency)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </dt>
-            <dd class="form-inline">
-                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductsCatalogs)
-            </dt>
             <dd>
-                @{
-                    int catalogId = 0;
-                }
-                @foreach (var catalog in Model.ProductsCatalogs)
-                {
-                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.CatalogId">@catalog.Catalog.Name</a>
-
-                    catalogId = catalog.CatalogId;
-                }
             </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductsAttributes)
-            </dt>
-            <dd>
-                @foreach (var attribute in Model.ProductsAttributes)
-                {
-                    <p>@attribute.Attribute.Name</p>
-                }
         </dl>
 
         <div class="mb-3">
             @Html.Raw(Model.Description)
         </div>
-
-        <button type="button" class="btn btn-primary">@SharedLocalizer["Buy now"]</button>
     </div>
 </div>
 <nav>
@@ -82,5 +48,3 @@
         @Html.Raw(Model.Text)
     </div>
 </div>
-
-@await Component.InvokeAsync("SimilarProducts", new { catalogId, Model.Id })

@@ -18,6 +18,8 @@
     <Compile Remove="Migrations\20190614085808_v2.Designer.cs" />
     <Compile Remove="Migrations\20190614090101_v2.cs" />
     <Compile Remove="Migrations\20190614090101_v2.Designer.cs" />
+    <Compile Remove="Migrations\20190617121837_v3.cs" />
+    <Compile Remove="Migrations\20190617121837_v3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -69,6 +71,27 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Areas\Identity\Views\Products\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Views\Shops\Create.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Views\Shops\Delete.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Views\Shops\Details.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Views\Shops\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Areas\Identity\Views\Shops\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\Shops\Archive.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Home\Shops\Single.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\ProductsAttributesCheckboxTree\Default.cshtml">

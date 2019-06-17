@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Shop>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<TripleProject.SharedResource> SharedLocalizer
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = SharedLocalizer["Shops"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_Nav" />
+
+<div class="pt-3 pb-2 mb-3">
+    <h1 class="h2">@ViewData["Title"] <a asp-action="Create" class="btn btn-primary">@SharedLocalizer["Create"]</a></h1>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkingHours)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td class="pt-0 pb-0">
+                @if (item.Image != null)
+                {
+                    <div class="square-image" style="background-image: url(@item.Image.Path); width: 72px;"></div>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkingHours)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
+                <a asp-area="" asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@SharedLocalizer["View"]</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    int count = (int)ViewData["count"];
+    int page = (int)ViewData["page"];
+    decimal itemsPerPage = (int)ViewData["itemsPerPage"];
+}
+@await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })
