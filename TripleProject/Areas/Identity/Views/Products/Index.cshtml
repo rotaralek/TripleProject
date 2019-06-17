@@ -19,6 +19,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ImageId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
@@ -34,6 +37,12 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td class="pt-0 pb-0 pl-0">
+                    @if (item.Image != null)
+                    {
+                        <div class="square-image" style="background-image: url(@item.Image.Path); max-width: 48px;"></div>
+                    }
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -45,7 +54,6 @@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
-                    @*<a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |*@
                     <a asp-area="" asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@SharedLocalizer["View"]</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">@SharedLocalizer["Delete"]</a>
                 </td>

@@ -32,7 +32,7 @@ namespace TripleProject.Areas.Identity.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Products.Where(u => u.UserId == userId).CountAsync();
-            var applicationDbContext = await _context.Products.Where(u => u.UserId == userId).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = await _context.Products.Where(u => u.UserId == userId).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;
