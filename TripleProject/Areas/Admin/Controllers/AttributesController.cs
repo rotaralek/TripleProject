@@ -29,11 +29,13 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Attributes.CountAsync();
-            var applicationDbContext = await (from lst1 in _context.Attributes
-                                              join lst2 in _context.Attributes on lst1.Id equals lst2.ParentId into yG
-                                              from y1 in yG.DefaultIfEmpty()
-                                              where lst1.ParentId == null
-                                              select new Attribute { Id = (int?)y1.Id ?? lst1.Id, Name = y1.Name ?? lst1.Name, ParentId = (int?)y1.ParentId ?? lst1.ParentId }).Skip(skip).Take(itemsPerPage).ToListAsync();
+            //var applicationDbContext = await (from lst1 in _context.Attributes
+            //                                  join lst2 in _context.Attributes on lst1.Id equals lst2.ParentId into yG
+            //                                  from y1 in yG.DefaultIfEmpty()
+            //                                  where lst1.ParentId == null
+            //                                  select new Attribute { Id = (int?)y1.Id ?? lst1.Id, Name = y1.Name ?? lst1.Name, ParentId = (int?)y1.ParentId ?? lst1.ParentId }).Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            var applicationDbContext = await _context.Attributes.OrderBy(c => c.Parent).ThenBy(c => c.Name).Skip(skip).Take(itemsPerPage).ToListAsync();
 
             ViewData["count"] = count;
             ViewData["page"] = page;

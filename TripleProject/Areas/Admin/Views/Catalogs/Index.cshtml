@@ -17,21 +17,26 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentId)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            string parent = "";
-            @if (item.ParentId != null)
+            string parentClass = "";
+
+            if (item.ParentId != null)
             {
-                parent = "pl-5";
+                parentClass = "class=pl-5";
             }
             <tr>
-                <td class="@parent">
+                <td @parentClass>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
+                <td>@Html.DisplayFor(modelItem => item.Parent.Name)</td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">@SharedLocalizer["Edit"]</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">@SharedLocalizer["Details"]</a> |
