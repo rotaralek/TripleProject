@@ -48,11 +48,8 @@ a {
  */
 #navbarNav {
   text-transform: uppercase; }
-  #navbarNav > ul > li:first-of-type > a {
-    border-left: none; }
   #navbarNav > ul > li > a {
-    color: #ffffff;
-    border-left: none; }
+    color: #ffffff; }
     #navbarNav > ul > li > a.nav-link {
       padding: 0.69rem; }
   #navbarNav .nav-item.active {
@@ -69,7 +66,7 @@ a {
 
 @media (min-width: 992px) {
   #navbarNav > ul > li > a {
-    border-left: 1px solid rgba(255, 255, 255, 0.3); } }
+    border-right: 1px solid rgba(255, 255, 255, 0.3); } }
 
 /*
 	Second menu

@@ -68,15 +68,8 @@ a {
     text-transform: uppercase;
 
     > ul > li {
-        &:first-of-type {
-            > a {
-                border-left: none;
-            }
-        }
-
         > a {
             color: $white;
-            border-left: none;
 
             &.nav-link {
                 padding: 0.69rem;
@@ -110,7 +103,7 @@ a {
     #navbarNav {
         > ul > li {
             > a {
-                border-left: 1px solid rgba(255, 255, 255, 0.3);
+                border-right: 1px solid rgba(255, 255, 255, 0.3);
             }
         }
     }
