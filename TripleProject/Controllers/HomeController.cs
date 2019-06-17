@@ -240,6 +240,21 @@ namespace TripleProject.Controllers
                     response.Add(advertisement.Views);
                     _context.Update(advertisement);
                     break;
+                case "shop":
+                    Shop shop = await _context.Shops.FindAsync(id);
+
+                    if (shop.Views != null)
+                    {
+                        shop.Views = shop.Views + 1;
+                    }
+                    else
+                    {
+                        shop.Views = 1;
+                    }
+
+                    response.Add(shop.Views);
+                    _context.Update(shop);
+                    break;
                 default:
                     response.Add(type);
                     response.Add(id);

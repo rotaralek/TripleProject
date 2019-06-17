@@ -11,7 +11,6 @@
         @await Component.InvokeAsync("Filter")
     </div>
     <div class="col-md-8">
-        @await Component.InvokeAsync("ProductsCarousel")
         <div class="row mb-3">
             @foreach (var item in Model)
             {
@@ -23,10 +22,14 @@
                                 <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
                             </a>
                         }
-                        <div class="card-body">
-                            <h3 class="h5"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                            <p>@item.Description</p>
-                        </div>
+                            <div class="card-body">
+                                <h3 class="h5"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                                <p>@item.Description</p>
+                                <p class="mb-1"><i class="material-icons">location_on</i> @item.Location</p>
+                                <p class="mb-1"><i class="material-icons">call</i> @item.Phone</p>
+                                <p class="mb-1"><i class="material-icons">email</i> @item.Email</p>
+                                <p class="mb-1"><i class="material-icons">access_time</i> @item.WorkingHours</p>
+                            </div>
                     </article>
                 </div>
             }

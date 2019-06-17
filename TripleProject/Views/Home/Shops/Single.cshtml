@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-6 mb-3">
         <div class="d-flex justify-content-end">
-            <div class="views-trigger text-muted" data-type="product" data-id="@Model.Id">
+            <div class="views-trigger text-muted" data-type="shop" data-id="@Model.Id">
                 <i class="material-icons">visibility</i>
                 <span>@Html.DisplayFor(model => model.Views)</span>
                 <form asp-antiforgery="true"></form>
@@ -30,6 +30,10 @@
             <dd>
             </dd>
         </dl>
+        <p class="mb-1"><i class="material-icons">location_on</i> @Model.Location</p>
+        <p class="mb-1"><i class="material-icons">call</i> @Model.Phone</p>
+        <p class="mb-1"><i class="material-icons">email</i> @Model.Email</p>
+        <p class="mb-1"><i class="material-icons">access_time</i> @Model.WorkingHours</p>
 
         <div class="mb-3">
             @Html.Raw(Model.Description)
