@@ -9,16 +9,36 @@
     <h1 class="h2">@ViewData["Title"]</h1>
 </div>
 <div class="row">
-    <div class="col-md-6 mb-3">
-        <div class="owl-carousel owl-carousel-mono">
-            @if (Model.Image != null)
-            {
-                <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
-            }
-            @await Component.InvokeAsync("Carousel", Model.GalleryId)
+    <div class="col-md-7 mb-3">
+        <div class="row">
+            <div class="col">
+                <div class="owl-thumbnails-slider">
+                    <div class="owl-thumbnails-inner">
+                        @if (Model.Image != null)
+                        {
+                            <a href="@Model.Image.Path" data-hash="@Model.Image.Id">
+                                <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
+                            </a>
+                        }
+                        @await Component.InvokeAsync("Carousel", Model.GalleryId)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10">
+                <div class="owl-carousel owl-carousel-mono">
+                    @if (Model.Image != null)
+                    {
+                        <a href="@Model.Image.Path" data-hash="@Model.Image.Id">
+                            <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
+                        </a>
+                    }
+                    @await Component.InvokeAsync("Carousel", Model.GalleryId)
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-md-6 mb-3">
+    <div class="col-md-5 mb-3">
         <div class="d-flex justify-content-end">
             <div class="views-trigger text-muted" data-type="product" data-id="@Model.Id">
                 <i class="material-icons">visibility</i>

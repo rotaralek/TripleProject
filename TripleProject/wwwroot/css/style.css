@@ -280,6 +280,19 @@ footer {
     .owl-carousel .owl-dots .owl-dot.active {
       opacity: 1; }
 
+.owl-thumbnails-slider {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+  .owl-thumbnails-slider .owl-thumbnails-inner {
+    position: relative;
+    transition: all 0.5s ease; }
+    .owl-thumbnails-slider .owl-thumbnails-inner a {
+      display: block; }
+
 /*
     Pagination
 */

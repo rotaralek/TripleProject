@@ -81,6 +81,63 @@
     });
 
     /*
+     * Carousel nav
+     */
+    var owlThmbnailSlider = function () {
+        var slider = $(document).find('.owl-thumbnails-slider');
+        var inner = $(document).find('.owl-thumbnails-inner');
+
+        var owlThambnailSliderHeight = slider.height();
+        var owlThambnailInnerHeight = inner.height();
+        var owlThambnailItems = inner.find('a');
+        var owlThambnailItemsLength = owlThambnailItems.length;
+        var owlThambnailOneItemHeight = owlThambnailInnerHeight / owlThambnailItemsLength;
+        var counter = 1;
+
+        inner.css({
+            top: 0
+        }).attr('data-offset', 0).attr('data-location', 1);
+
+        owlThambnailItems.each(function () {
+            var hash = $(this).attr('data-hash');
+
+            $(this).removeAttr('data-hash');
+            $(this).attr('href', '#' + hash);
+            $(this).attr('data-counter', counter);
+
+            counter++;
+        });
+
+        inner.on('click', 'a', function () {
+            var inner = $(document).find('.owl-thumbnails-inner');
+            var offset = parseInt(inner.attr('data-offset'));
+            var prevLocation = parseInt(inner.attr('data-location'));
+            var location = parseInt($(this).attr('data-counter'));
+
+            if (location == prevLocation || location == owlThambnailItemsLength) {
+                offset = offset;
+            } else if (location == 1 || location == 2) {
+                offset = 0;
+            } else if (location < prevLocation) {
+                offset = offset + owlThambnailOneItemHeight;
+            } else if (location > prevLocation) {
+                offset = offset - owlThambnailOneItemHeight;
+            }
+
+            inner.css({
+                top: offset
+            });
+
+            inner.attr('data-offset', offset);
+            inner.attr('data-location', location);
+        });
+    }
+
+    if ($(document).find('.owl-thumbnails-slider').length) {
+        owlThmbnailSlider();
+    }
+
+    /*
      * Crousel miltiple
      */
     $(document).find('.owl-carousel').each(function () {
@@ -88,10 +145,13 @@
 
         if ($(this).hasClass('owl-carousel-mono')) {
             $(this).owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 30,
                 nav: false,
-                items: 1
+                items: 1,
+                URLhashListener: true,
+                autoplayHoverPause: true,
+                startPosition: 'URLHash'
             });
         } else {
             $(this).owlCarousel({
@@ -111,7 +171,7 @@
                 }
             });
         }
-    })
+    });
 
     /*
      * Views trigger
@@ -121,9 +181,6 @@
             var viewsContainer = $(document).find('.views-trigger');
             var type = viewsContainer.attr('data-type');
             var id = viewsContainer.attr('data-id');
-
-            console.log(type);
-            console.log(id);
 
             $.ajax({
                 url: '/AjaxViewsIncrement',
@@ -141,7 +198,7 @@
                 beforeSend: function () {
                 },
                 success: function (response) {
-                    console.log(response);
+                    //console.log(response);
                 }
             });
         }

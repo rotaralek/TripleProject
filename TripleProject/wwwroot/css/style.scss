@@ -148,7 +148,6 @@ a {
     /*border-right: 1px solid $grey-light;
     border-left: 1px solid $grey-light;
     border-radius: 0.25rem;*/
-
     .nav-item {
         position: relative;
 
@@ -397,6 +396,23 @@ footer {
     }
 }
 
+.owl-thumbnails-slider {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    .owl-thumbnails-inner {
+        position: relative;
+        transition: all 0.5s ease;
+
+        a {
+            display: block;
+        }
+    }
+}
 /*
     Pagination
 */
@@ -406,8 +422,10 @@ footer {
     background-color: $grey-dark;
     border-color: $grey-dark;
 }
+
 .page-link, .page-numbers {
     color: $grey-dark;
+
     &:hover {
         color: $red;
     }

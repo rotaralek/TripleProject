@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.FileUpload>
-
 @foreach (var image in Model)
 {
-    <div class="square-image" style="background-image: url(@image.Path)"></div>
+    <a href="@image.Path" data-hash="@image.Id">
+        <div class="square-image" style="background-image: url(@image.Path)"></div>
+    </a>
 }
