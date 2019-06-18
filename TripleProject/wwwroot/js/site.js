@@ -91,7 +91,7 @@
         var owlThambnailInnerHeight = inner.height();
         var owlThambnailItems = inner.find('a');
         var owlThambnailItemsLength = owlThambnailItems.length;
-        var owlThambnailOneItemHeight = owlThambnailInnerHeight / owlThambnailItemsLength;
+        var owlThambnailOneItemHeight = (owlThambnailInnerHeight / owlThambnailItemsLength) + 5;
         var counter = 1;
 
         inner.css({
