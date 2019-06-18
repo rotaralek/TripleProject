@@ -8,8 +8,15 @@
 {
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm navbarNav-2" class="navbar-right">
         <ul class="navbar-nav px-3">
-            <li class="nav-item text-nowrap">
-                <a class="nav-link text-white-50" asp-area="Identity" asp-page="/Account/Manage/Index">@SharedLocalizer["Hello"] @UserManager.GetUserName(User)!</a>
+            <li class="nav-item text-nowrap dropdown">
+                <a class="nav-link text-white-50 dropdown-toggle" asp-area="Identity" asp-page="/Account/Manage/Index">@SharedLocalizer["Account"]</a>
+                <div class="dropdown-menu">
+                    <a asp-area="Identity" asp-controller="Shops" asp-action="Index" class="dropdown-item">@SharedLocalizer["Shops"]</a>
+                    <a asp-area="Identity" asp-controller="Products" asp-action="Index" class="dropdown-item">@SharedLocalizer["Products"]</a>
+                    <a asp-area="Identity" asp-controller="Advertisements" asp-action="Index" class="dropdown-item">@SharedLocalizer["Advertisements"]</a>
+                    <div class="dropdown-divider"></div>
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="dropdown-item">@SharedLocalizer["Profile"]</a>
+                </div>
             </li>
             <li class="nav-item text-nowrap">
                 <button type="submit" class="btn btn-link navbar-btn navbar-link text-white-50">@SharedLocalizer["Logout"]</button>

@@ -438,3 +438,27 @@ footer {
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     background-color: $red;
 }
+
+/*
+    Chckeckbox style
+*/
+.nav {
+    .sub-item {
+        list-style: none;
+    }
+}
+
+/*
+    Dropdown menu
+*/
+.dropdown {
+    &:hover, &:active, &:focus {
+        .dropdown-menu {
+            display: block;
+            margin: 0;
+        }
+    }
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: $red;
+}

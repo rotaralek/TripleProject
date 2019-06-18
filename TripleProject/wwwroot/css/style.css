@@ -313,3 +313,19 @@ footer {
 */
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   background-color: #fb0102; }
+
+/*
+    Chckeckbox style
+*/
+.nav .sub-item {
+  list-style: none; }
+
+/*
+    Dropdown menu
+*/
+.dropdown:hover .dropdown-menu, .dropdown:active .dropdown-menu, .dropdown:focus .dropdown-menu {
+  display: block;
+  margin: 0; }
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #fb0102; }
