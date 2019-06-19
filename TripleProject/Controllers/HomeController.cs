@@ -115,6 +115,8 @@ namespace TripleProject.Controllers
                 .Include(p => p.ProductsAttributes)
                 .Include(p => p.ProductsCatalogs)
                 .Include(p => p.Image)
+                .Include(p => p.Shops)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)
@@ -158,6 +160,7 @@ namespace TripleProject.Controllers
                 .Include(p => p.AdvertisementsAttributes)
                 .Include(p => p.AdvertisemetsCategories)
                 .Include(p => p.Image)
+                .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (advertisement == null)
             {

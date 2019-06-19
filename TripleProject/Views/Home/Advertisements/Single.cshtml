@@ -1,4 +1,7 @@
 ﻿@model TripleProject.Areas.Admin.Models.Advertisement
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
     ViewData["Title"] = Model.Title;
 }
@@ -36,13 +39,16 @@
         </div>
     </div>
     <div class="col-md-5 mb-3">
-        <div class="d-flex justify-content-end">
-            <div class="views-trigger mr-3 text-muted" data-type="advertisement" data-id="@Model.Id">
+        <div class="d-flex justify-content-end flex-wrap">
+            <div class="text-muted">
+                @SharedLocalizer["User"]<span>:</span> @Model.User.UserName
+            </div>
+            <div class="views-trigger ml-3 text-muted" data-type="advertisement" data-id="@Model.Id">
                 <i class="material-icons">visibility</i>
                 <span>@Html.DisplayFor(model => model.Views)</span>
                 <form asp-antiforgery="true"></form>
             </div>
-            <div class="date text-muted">
+            <div class="date text-muted ml-3">
                 <i class="material-icons">access_time</i>
                 <time datetime="@Model.DateTime">@Model.DateTime</time>
             </div>

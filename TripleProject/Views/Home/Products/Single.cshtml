@@ -39,8 +39,24 @@
         </div>
     </div>
     <div class="col-md-5 mb-3">
-        <div class="d-flex justify-content-end">
-            <div class="views-trigger text-muted" data-type="product" data-id="@Model.Id">
+        <div class="d-flex justify-content-end flex-wrap">
+            <div class="text-muted ml-3">
+                @{
+                    if (Model.ShopId != null)
+                    {
+                        @SharedLocalizer["Shop"]<span>:</span>
+                        <a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@Model.Shops.Id">
+                            @Model.Shops.Title
+                        </a>
+                    }
+                    else
+                    {
+                        @SharedLocalizer["User"]<span>:</span> @Model.User.UserName
+                    }
+                }
+            </div>
+
+            <div class="views-trigger text-muted ml-3" data-type="product" data-id="@Model.Id">
                 <i class="material-icons">visibility</i>
                 <span>@Html.DisplayFor(model => model.Views)</span>
                 <form asp-antiforgery="true"></form>
