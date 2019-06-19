@@ -650,7 +650,7 @@ namespace TripleProject.Migrations
                         .WithMany()
                         .HasForeignKey("ImageId");
 
-                    b.HasOne("TripleProject.Areas.Admin.Models.Shop")
+                    b.HasOne("TripleProject.Areas.Admin.Models.Shop", "Shops")
                         .WithMany("Products")
                         .HasForeignKey("ShopId");
 

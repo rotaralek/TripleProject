@@ -10,7 +10,7 @@ using TripleProject.Data;
 namespace TripleProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190617130738_v3")]
+    [Migration("20190618132324_v3")]
     partial class v3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -652,7 +652,7 @@ namespace TripleProject.Migrations
                         .WithMany()
                         .HasForeignKey("ImageId");
 
-                    b.HasOne("TripleProject.Areas.Admin.Models.Shop")
+                    b.HasOne("TripleProject.Areas.Admin.Models.Shop", "Shops")
                         .WithMany("Products")
                         .HasForeignKey("ShopId");
 

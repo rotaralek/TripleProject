@@ -25,7 +25,7 @@ namespace TripleProject.Areas.Identity.Controllers
             _userManager = userManager;
         }
 
-        // GET: Admin/Products
+        // GET: Identity/Products
         public async Task<IActionResult> Index(int page = 1)
         {
             string userId = _userManager.GetUserId(User);
@@ -41,7 +41,7 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(applicationDbContext);
         }
 
-        // GET: Admin/Products/Details/5
+        // GET: Identity/Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -59,20 +59,22 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
+        // GET: Identity/Products/Create
         public IActionResult Create()
         {
-            ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName");
+            string userId = _userManager.GetUserId(User);
+            ViewData["Users"] = new SelectList(_context.Users.Where(u => u.Id == userId), "Id", "UserName");
+            ViewData["Shops"] = new SelectList(_context.Shops.Where(u => u.UserId == userId), "Id", "Title");
 
             return View();
         }
 
-        // POST: Admin/Products/Create
+        // POST: Identity/Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId,ShopId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (ModelState.IsValid)
             {
@@ -112,9 +114,10 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Edit/5
+        // GET: Identity/Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            string userId = _userManager.GetUserId(User);
             if (id == null)
             {
                 return NotFound();
@@ -128,17 +131,18 @@ namespace TripleProject.Areas.Identity.Controllers
 
             ViewData["ProductsAttributes"] = await _context.ProductsAttributes.Where(p => p.ProductId == id).ToListAsync();
             ViewData["ProductsCatalogs"] = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
-            ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName", product.User);
+            ViewData["Users"] = new SelectList(_context.Users.Where(u => u.Id == userId), "Id", "UserName", product.User);
+            ViewData["Shops"] = new SelectList(_context.Shops.Where(u => u.UserId == userId), "Id", "Title", product.ShopId);
 
             return View(product);
         }
 
-        // POST: Admin/Products/Edit/5
+        // POST: Identity/Products/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId,ShopId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (id != product.Id)
             {
@@ -223,7 +227,7 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Delete/5
+        // GET: Identity/Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -241,7 +245,7 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Delete/5
+        // POST: Identity/Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

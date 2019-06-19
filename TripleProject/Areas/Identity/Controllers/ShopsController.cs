@@ -24,7 +24,7 @@ namespace TripleProject.Areas.Identity.Controllers
             _userManager = userManager;
         }
 
-        // GET: Admin/Shops
+        // GET: Identity/Shops
         public async Task<IActionResult> Index(int page = 1)
         {
             string userId = _userManager.GetUserId(User);
@@ -40,7 +40,7 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(applicationDbContext);
         }
 
-        // GET: Admin/Shops/Details/5
+        // GET: Identity/Shops/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -60,15 +60,16 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(shop);
         }
 
-        // GET: Admin/Shops/Create
+        // GET: Identity/Shops/Create
         public IActionResult Create()
         {
-            ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName");
+            string userId = _userManager.GetUserId(User);
+            ViewData["Users"] = new SelectList(_context.Users.Where(u => u.Id == userId), "Id", "UserName");
 
             return View();
         }
 
-        // POST: Admin/Shops/Create
+        // POST: Identity/Shops/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -84,9 +85,10 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(shop);
         }
 
-        // GET: Admin/Shops/Edit/5
+        // GET: Identity/Shops/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            string userId = _userManager.GetUserId(User);
             if (id == null)
             {
                 return NotFound();
@@ -97,11 +99,11 @@ namespace TripleProject.Areas.Identity.Controllers
             {
                 return NotFound();
             }
-            ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName", shop.User);
+            ViewData["Users"] = new SelectList(_context.Users.Where(u => u.Id == userId), "Id", "UserName", shop.User);
             return View(shop);
         }
 
-        // POST: Admin/Shops/Edit/5
+        // POST: Identity/Shops/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -133,12 +135,10 @@ namespace TripleProject.Areas.Identity.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ImageId"] = new SelectList(_context.FileUploads, "Id", "Id", shop.ImageId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", shop.UserId);
             return View(shop);
         }
 
-        // GET: Admin/Shops/Delete/5
+        // GET: Identity/Shops/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -158,7 +158,7 @@ namespace TripleProject.Areas.Identity.Controllers
             return View(shop);
         }
 
-        // POST: Admin/Shops/Delete/5
+        // POST: Identity/Shops/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -76,6 +76,8 @@ namespace TripleProject.Controllers
 
             var product = await _context.Shops
                 .Include(p => p.Image)
+                .Include(p => p.Products)
+                .ThenInclude(i => i.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)

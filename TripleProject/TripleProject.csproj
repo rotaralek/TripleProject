@@ -20,6 +20,14 @@
     <Compile Remove="Migrations\20190614090101_v2.Designer.cs" />
     <Compile Remove="Migrations\20190617121837_v3.cs" />
     <Compile Remove="Migrations\20190617121837_v3.Designer.cs" />
+    <Compile Remove="Migrations\20190617130738_v3.cs" />
+    <Compile Remove="Migrations\20190617130738_v3.Designer.cs" />
+    <Compile Remove="Migrations\20190618125135_v4.cs" />
+    <Compile Remove="Migrations\20190618125135_v4.Designer.cs" />
+    <Compile Remove="Migrations\20190618131426_v4.cs" />
+    <Compile Remove="Migrations\20190618131426_v4.Designer.cs" />
+    <Compile Remove="Migrations\20190618131608_v3.cs" />
+    <Compile Remove="Migrations\20190618131608_v3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +100,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Home\Shops\Single.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Components\ShopCarousel\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\ProductsAttributesCheckboxTree\Default.cshtml">

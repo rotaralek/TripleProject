@@ -59,6 +59,7 @@ namespace TripleProject.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName");
+            ViewData["Shops"] = new SelectList(_context.Shops, "Id", "Title");
 
             return View();
         }
@@ -68,7 +69,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
+        public async Task<IActionResult> Create([Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId,ShopId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (ModelState.IsValid)
             {
@@ -125,6 +126,7 @@ namespace TripleProject.Areas.Admin.Controllers
             ViewData["ProductsAttributes"] = await _context.ProductsAttributes.Where(p => p.ProductId == id).ToListAsync();
             ViewData["ProductsCatalogs"] = await _context.ProductsCatalogs.Where(p => p.ProductId == id).ToListAsync();
             ViewData["Users"] = new SelectList(_context.Users, "Id", "UserName", product.User);
+            ViewData["Shops"] = new SelectList(_context.Shops, "Id", "Title", product.ShopId);
 
             return View(product);
         }
@@ -134,7 +136,7 @@ namespace TripleProject.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Slug,Title,Text,Description,ProductsCatalogs,ProductsAttributes,Price,Currency,Quantity,AttributeId,ImageId,GalleryId,DateTime,UserId,ShopId")] Product product, int[] ProductsCatalogs, int[] ProductsAttributes)
         {
             if (id != product.Id)
             {

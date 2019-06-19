@@ -69,6 +69,10 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "User")]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
+
+        [Display(Name = "Shop")]
+        public int? ShopId { get; set; }
+        public Shop Shops { get; set; }
     }
 
     public enum Currency
