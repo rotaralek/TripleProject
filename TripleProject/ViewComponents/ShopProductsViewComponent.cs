@@ -26,6 +26,7 @@ namespace TripleProject.ViewComponents
                       join c in _context.Catalogs
                       on pc.CatalogId equals c.Id
                       where p.ShopId == id
+                      where c.ParentId == null
                       orderby c.Name
                       select new Catalog { Id = c.Id, Name = c.Name }).Distinct();
 
