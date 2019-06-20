@@ -33,9 +33,9 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Range(0, 999999999.99)]
+        [Range(0, 999999999)]
         [Display(Name = "Price")]
-        public decimal? Price { get; set; }
+        public int? Price { get; set; }
 
         [Display(Name = "Currency")]
         public Currency? Currency { get; set; }
