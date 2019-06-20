@@ -86,7 +86,14 @@
             <dd>
                 @foreach (var attribute in Model.AdvertisementsAttributes)
                 {
-                    <p>@attribute.Attribute.Name</p>
+                    if (attribute.Attribute.Parent == null)
+                    {
+                        <p class="mb-1">@attribute.Attribute.Name: </p>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-outline-dark btn-sm">@attribute.Attribute.Name</button>
+                    }
                 }
             </dd>
         </dl>
