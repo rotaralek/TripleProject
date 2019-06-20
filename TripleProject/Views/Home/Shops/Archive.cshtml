@@ -23,8 +23,8 @@
                             </a>
                         }
                             <div class="card-body">
-                                <h3 class="h5"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                                <p>@item.Description</p>
+                                <h3 class="h5 trancate"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                                <p class="trancate">@item.Description</p>
                                 <p class="mb-1"><i class="material-icons">location_on</i> @item.Location</p>
                                 <p class="mb-1"><i class="material-icons">call</i> @item.Phone</p>
                                 <p class="mb-1"><i class="material-icons">email</i> @item.Email</p>

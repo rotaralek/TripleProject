@@ -426,8 +426,8 @@
                         }
 
                         html += '<div class="card-body">' +
-                            '<h3 class="h5"><a href="/products/' + response[i]['id'] + '">' + response[i]['title'] + '</a></h3>' +
-                            '<p>' + response[i]['description'] + '</p>' +
+                            '<h3 class="h5 trancate"><a href="/products/' + response[i]['id'] + '">' + response[i]['title'] + '</a></h3>' +
+                            '<p class="trancate">' + response[i]['description'] + '</p>' +
                             '<p class="text-red h5">' + response[i]['price'] + response[i]['currency'] + '</p>' +
                             '</div>' +
                             '</article></div>';

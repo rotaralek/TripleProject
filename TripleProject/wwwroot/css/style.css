@@ -340,3 +340,14 @@ footer {
     right: 15px;
     bottom: 53px;
     z-index: 1; }
+
+/*
+    Truncate string at second line
+*/
+.trancate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: initial;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
