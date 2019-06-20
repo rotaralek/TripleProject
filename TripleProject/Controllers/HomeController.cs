@@ -76,8 +76,8 @@ namespace TripleProject.Controllers
 
             var product = await _context.Shops
                 .Include(p => p.Image)
-                .Include(p => p.Products)
-                .ThenInclude(i => i.Image)
+                //.Include(p => p.Products)
+                //.ThenInclude(i => i.Image)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (product == null)
@@ -270,6 +270,18 @@ namespace TripleProject.Controllers
             await _context.SaveChangesAsync();
 
             return new JsonResult(response);
+        }
+
+        [Route("AjaxCatalogProductsLoad")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjaxCatalogProductsLoad(int shopId, int catalogId)
+        {
+            int itemsPerPage = 12;
+            int skip = 0;
+            var applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == catalogId).Select(pc => pc.Product).Where(pc => pc.ShopId == shopId).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            return new JsonResult(applicationDbContext);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

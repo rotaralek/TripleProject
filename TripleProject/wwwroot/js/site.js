@@ -386,4 +386,58 @@
         price.val("$" + range.slider("values", 0) + " - $" + range.slider("values", 1));
     };
     priceSlider();
+
+    /*
+     * Catalog products load
+     */
+    var catalogProductsLoad = function (selector) {
+
+        var viewsContainer = $(document).find('.views-trigger');
+        $(selector).each(function () {
+            var item = $(this);
+            var shopId = item.attr('data-shop-id');
+            var catalogId = item.attr('data-catalog-id');
+
+            $.ajax({
+                url: '/AjaxCatalogProductsLoad',
+                type: 'POST',
+                data: {
+                    shopId: shopId,
+                    catalogId: catalogId
+                },
+                dataType: "json",
+                cache: false,
+                headers: {
+                    "Accept": "application/json",
+                    "RequestVerificationToken": viewsContainer.find("input[name='__RequestVerificationToken']").val()
+                },
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    var html = "";
+
+                    for (var i = 0; i < response.length; i++) {
+                        html += '<div class="col-md-4 mb-3"><article class="card">';
+
+                        if (response[i]['image'] != null) {
+                            html += '<a href="/products/' + response[i]['id'] + '">' +
+                                '<div class="square-image card-img-top" style="background-image: url(' + response[i]['image']['path'] + ')"></div>' +
+                                '</a>';
+                        }
+
+                        html += '<div class="card-body">' +
+                            '<h3 class="h5"><a href="/products/' + response[i]['id'] + '">' + response[i]['title'] + '</a></h3>' +
+                            '<p>' + response[i]['description'] + '</p>' +
+                            '<p class="text-red h5">' + response[i]['price'] + response[i]['currency'] + '</p>' +
+                            '</div>' +
+                            '</article></div>';
+                    }
+
+                    item.html(html);
+                }
+            });
+        });
+    };
+
+    catalogProductsLoad('.ajax-catalog-load');
 })(jQuery);

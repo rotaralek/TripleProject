@@ -1,0 +1,27 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Shop>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+<h2 class="h3 mt-5 mb-4">@SharedLocalizer["Popular shops"]</h2>
+<div class="owl-carousel mb-4" data-slides-per-line="3">
+    @foreach (var item in Model)
+    {
+        <article class="card">
+            @if (item.Image != null)
+            {
+                <a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">
+                    <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
+                </a>
+            }
+            <div class="card-body">
+                <h3 class="h5"><a asp-controller="Home" asp-action="ShopsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
+                <p>@item.Description</p>
+                <p class="mb-1"><i class="material-icons">location_on</i> @item.Location</p>
+                <p class="mb-1"><i class="material-icons">call</i> @item.Phone</p>
+                <p class="mb-1"><i class="material-icons">email</i> @item.Email</p>
+                <p class="mb-1"><i class="material-icons">access_time</i> @item.WorkingHours</p>
+            </div>
+        </article>
+    }
+</div>

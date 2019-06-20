@@ -723,4 +723,7 @@
   <data name="Accounts" xml:space="preserve">
     <value>Профили</value>
   </data>
+  <data name="Popular shops" xml:space="preserve">
+    <value>Популярные магазины</value>
+  </data>
 </root>

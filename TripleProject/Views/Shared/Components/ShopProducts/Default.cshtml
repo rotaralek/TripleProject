@@ -1,0 +1,9 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Catalog>
+
+@foreach (var item in Model)
+{
+    <h2 class="h3 mt-5 mb-4 text-center">@item.Name</h2>
+    <div class="row ajax-catalog-load mb-5" data-shop-id="@ViewData["ShopId"]" data-catalog-id="@item.Id"></div>
+    <hr />
+}
+

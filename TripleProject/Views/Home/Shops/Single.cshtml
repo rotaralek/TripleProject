@@ -45,23 +45,4 @@
     </div>
 </div>
 
-<div class="row">
-    @foreach (var product in Model.Products)
-    {
-        <div class="col-md-4 mb-3">
-            <article class="card">
-                @if (product.Image != null)
-                {
-                    <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@product.Id">
-                        <div class="square-image card-img-top" style="background-image: url(@product.Image.Path)"></div>
-                    </a>
-                }
-                <div class="card-body">
-                    <h3 class="h5"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@product.Id">@product.Title</a></h3>
-                    <p>@product.Description</p>
-                    <p class="text-red h5">@product.Price @product.Currency</p>
-                </div>
-            </article>
-        </div>
-    }
-</div>
+@await Component.InvokeAsync("ShopProducts", Model.Id)
