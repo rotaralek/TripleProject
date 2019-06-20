@@ -391,6 +391,7 @@
      * Catalog products load
      */
     var catalogProductsLoad = function (selector) {
+        var currency = ['MDL', 'USD', 'EUR']
 
         var viewsContainer = $(document).find('.views-trigger');
         $(selector).each(function () {
@@ -416,6 +417,8 @@
                 success: function (response) {
                     var html = "";
 
+                    console.log(response)
+
                     for (var i = 0; i < response.length; i++) {
                         html += '<div class="col-md-4 mb-3"><article class="card">';
 
@@ -425,10 +428,13 @@
                                 '</a>';
                         }
 
+                        var price = response[i]['price'];
+                        price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ');
+
                         html += '<div class="card-body">' +
                             '<h3 class="h5 trancate"><a href="/products/' + response[i]['id'] + '">' + response[i]['title'] + '</a></h3>' +
                             '<p class="trancate">' + response[i]['description'] + '</p>' +
-                            '<p class="text-red h5">' + response[i]['price'] + response[i]['currency'] + '</p>' +
+                            '<p class="text-red h5">' + price + ' ' + currency[response[i]['currency']] + '</p>' +
                             '</div>' +
                             '</article></div>';
                     }

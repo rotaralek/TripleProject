@@ -55,7 +55,7 @@
         </div>
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.Price)
+                @String.Format("{0:### ### ### ###}", Model.Price)
             </dt>
             <dd class="text-red h3">
                 @Html.DisplayFor(model => model.Price) @Html.DisplayFor(model => model.Currency)
