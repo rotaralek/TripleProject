@@ -17,21 +17,9 @@
         <div class="row mb-3">
             @foreach (var item in Model)
             {
-                <div class="col-md-6 mb-3">
-                    <article class="card">
-                        @if (item.Image != null)
-                        {
-                            <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">
-                                <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
-                            </a>
-                        }
-                        <div class="card-body">
-                            <h3 class="h5 trancate"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                            <p class="trancate">@item.Description</p>
-                            <p class="text-red h5">@String.Format("{0:### ### ### ###}", item.Price) @item.Currency</p>
-                        </div>
-                    </article>
-                </div>
+            <div class="col-md-6 mb-3">
+                @await Component.InvokeAsync("Product", item)
+            </div>
             }
         </div>
         @{

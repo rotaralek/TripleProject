@@ -7,21 +7,6 @@
 <div class="owl-carousel mb-4" data-slides-per-line="4">
     @foreach (var item in Model)
     {
-        <article class="card">
-            @if (item.Image != null)
-            {
-                <a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">
-                    <div class="square-image card-img-top" style="background-image: url(@item.Image.Path)"></div>
-                </a>
-            }
-            <div class="card-body">
-                <h3 class="h6 trancate"><a asp-controller="Home" asp-action="AdvertisementsSingle" asp-route-id="@item.Id">@item.Title</a></h3>
-                <p class="text-red h6">@String.Format("{0:### ### ### ###}", item.Price) @item.Currency</p>
-                <div class="date text-muted">
-                    <i class="material-icons">access_time</i>
-                    <time datetime="@item.DateTime">@item.DateTime</time>
-                </div>
-            </div>
-        </article>
+        @await Component.InvokeAsync("Advertisement", item)
     }
 </div>

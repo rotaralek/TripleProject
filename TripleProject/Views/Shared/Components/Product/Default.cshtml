@@ -1,0 +1,15 @@
+﻿@model TripleProject.Areas.Admin.Models.Product
+
+<article class="card">
+    @if (Model.Image != null)
+    {
+        <a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@Model.Id">
+            <div class="square-image card-img-top" style="background-image: url(@Model.Image.Path)"></div>
+        </a>
+    }
+    <div class="card-body">
+        <h3 class="h5 trancate"><a asp-controller="Home" asp-action="ProductsSingle" asp-route-id="@Model.Id">@Model.Title</a></h3>
+        <p class="trancate">@Model.Description</p>
+        <p class="text-red h5">@String.Format("{0:### ### ### ###}", Model.Price) @Model.Currency</p>
+    </div>
+</article>

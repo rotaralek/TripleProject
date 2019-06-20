@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Catalog>
 @using TripleProject.ViewComponents
-
 <div class="mb-4">
     @{
         string menuTree = "";
         CatalogsViewComponent.GetCatalogList(Model, ref menuTree);
     }
-
     @Html.Raw(menuTree)
 </div>
