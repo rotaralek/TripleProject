@@ -16,6 +16,15 @@
                     <a asp-area="Identity" asp-controller="Advertisements" asp-action="Index" class="dropdown-item">@SharedLocalizer["Advertisements"]</a>
                     <div class="dropdown-divider"></div>
                     <a asp-area="Identity" asp-page="/Account/Manage/Index" class="dropdown-item">@SharedLocalizer["Profile"]</a>
+                    @{
+                        var currentUser = await UserManager.GetUserAsync(User);
+                        var isAdmin = currentUser != null && await UserManager.IsInRoleAsync(currentUser, "admin");
+                    }
+
+                    @if (isAdmin)
+                    {
+                        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="dropdown-item">@SharedLocalizer["Dashboard"]</a>
+                    }
                 </div>
             </li>
             <li class="nav-item text-nowrap">
