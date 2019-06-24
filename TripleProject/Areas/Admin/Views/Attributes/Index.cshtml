@@ -24,13 +24,37 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            bool showParent = true;
+        }
         @foreach (var item in Model)
         {
             string parentClass = "";
 
             if (item.ParentId != null)
             {
+                if (showParent)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Parent.Name)
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Parent.Parent.Name)</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Parent.Id">@SharedLocalizer["Edit"]</a> |
+                            <a asp-action="Details" asp-route-id="@item.Parent.Id">@SharedLocalizer["Details"]</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Parent.Id">@SharedLocalizer["Delete"]</a>
+                        </td>
+                    </tr>
+
+                    showParent = false;
+                }
+
                 parentClass = "class=pl-5";
+            }
+            else
+            {
+                showParent = true;
             }
             <tr>
                 <td @parentClass>

@@ -24,10 +24,10 @@ namespace TripleProject.Areas.Admin.Models
         public int? ParentId { get; set; }
 
         [Display(Name = "Parent")]
-        public virtual Catalog Parent { get; set; }
+        public Catalog Parent { get; set; }
 
         [Display(Name = "Children")]
-        public virtual ICollection<Catalog> Children { get; set; }
+        public ICollection<Catalog> Children { get; set; }
 
         [Display(Name = "Products")]
         public ICollection<ProductCatalog> ProductsCatalogs { get; set; }

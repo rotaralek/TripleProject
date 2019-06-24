@@ -23,9 +23,9 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Parent")]
         public int? ParentId { get; set; }
         [Display(Name = "Parent")]
-        public virtual Category Parent { get; set; }
+        public Category Parent { get; set; }
         [Display(Name = "Children")]
-        public virtual ICollection<Category> Children { get; set; }
+        public ICollection<Category> Children { get; set; }
 
         [Display(Name = "Advertisemets")]
         public ICollection<AdvertisementCategory> AdvertisemetsCategories { get; set; }

@@ -50,7 +50,7 @@ namespace TripleProject.Areas.Admin.Models
         public string WorkingHours { get; set; }
 
         [Display(Name = "Attribute")]
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
 
         [Display(Name = "Image")]
         public int? ImageId { get; set; }

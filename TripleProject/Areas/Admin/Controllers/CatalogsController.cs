@@ -29,12 +29,17 @@ namespace TripleProject.Areas.Admin.Controllers
             int itemsPerPage = 10;
             int skip = itemsPerPage * (page - 1);
             int count = await _context.Catalogs.CountAsync();
-            var applicationDbContext = await _context.Catalogs.OrderBy(c => c.Parent).ThenBy(c => c.Name).Skip(skip).Take(itemsPerPage).ToListAsync();
+            //var applicationDbContext = await _context.Catalogs.OrderBy(c => c.ParentId).ThenBy(c => c.Name).Skip(skip).Take(itemsPerPage).ToListAsync();
+            var applicationDbContext = (from c in _context.Catalogs
+                                       join sc in _context.Catalogs on c.Id equals sc.ParentId into gj
+                                       from subcat in gj.DefaultIfEmpty()
+                                       where c.ParentId == null
+                                       select new Catalog { Id = c.Id, Name = subcat.Name ?? c.Name, ParentId = subcat.ParentId ?? null, Parent = subcat.Parent != null ? subcat.Parent : c.Parent }).Skip(skip).Take(itemsPerPage);
 
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["itemsPerPage"] = itemsPerPage;
-            ViewData["applicationDbContext"] = applicationDbContext;
+            //ViewData["applicationDbContext"] = applicationDbContext;
 
             return View(applicationDbContext);
         }

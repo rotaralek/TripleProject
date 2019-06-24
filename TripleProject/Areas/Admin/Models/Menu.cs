@@ -23,6 +23,6 @@ namespace TripleProject.Areas.Admin.Models
         [Display(Name = "Parent")]
         public Menu Parent { get; set; }
         [Display(Name = "Children")]
-        public virtual ICollection<Menu> Children { get; set; }
+        public ICollection<Menu> Children { get; set; }
     }
 }
