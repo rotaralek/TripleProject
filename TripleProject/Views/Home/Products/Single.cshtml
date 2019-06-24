@@ -29,7 +29,7 @@
                 <div class="owl-carousel owl-carousel-mono">
                     @if (Model.Image != null)
                     {
-                        <a href="@Model.Image.Path" data-hash="@Model.Image.Id" data-toggle="modal" data-target="#modalImage">
+                        <a href="@Model.Image.Path" data-hash="@Model.Image.Id">
                             <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
                         </a>
                     }
