@@ -153,6 +153,8 @@
                 autoplayHoverPause: true,
                 startPosition: 'URLHash'
             });
+
+            $(this).find('a').attr('data-toggle', 'modal').attr('data-target', '#modalImage');
         } else {
             $(this).owlCarousel({
                 loop: true,
@@ -171,6 +173,17 @@
                 }
             });
         }
+    });
+
+    /*
+    * Modal image
+    */
+    $('#modalImage').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var image = button.attr('href');
+        var modal = $(this);
+        console.log(image);
+        modal.find('.modal-body .image').attr('src', image);
     });
 
     /*

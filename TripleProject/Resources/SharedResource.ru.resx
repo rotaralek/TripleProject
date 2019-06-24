@@ -726,4 +726,7 @@
   <data name="Popular shops" xml:space="preserve">
     <value>Популярные магазины</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
 </root>

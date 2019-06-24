@@ -29,11 +29,31 @@
                 <div class="owl-carousel owl-carousel-mono">
                     @if (Model.Image != null)
                     {
-                        <a href="@Model.Image.Path" data-hash="@Model.Image.Id">
+                        <a href="@Model.Image.Path" data-hash="@Model.Image.Id" data-toggle="modal" data-target="#modalImage">
                             <div class="square-image" style="background-image: url(@Model.Image.Path)"></div>
                         </a>
                     }
                     @await Component.InvokeAsync("Carousel", Model.GalleryId)
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalImage" tabindex="-1" role="dialog" aria-labelledby="modalImageTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalImageTitle">@ViewData["Title"]</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="@SharedLocalizer["Close"]">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="" class="image w-100"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer["Close"]</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
