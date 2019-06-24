@@ -31,7 +31,7 @@
         {
             string parentClass = "";
 
-            if (item.ParentId != null)
+            @*if (item.ParentId != null)
             {
                 if (showParent)
                 {
@@ -56,7 +56,7 @@
             else
             {
                 showParent = true;
-            }
+            }*@
             <tr>
                 <td @parentClass>
                     @Html.DisplayFor(modelItem => item.Name)
