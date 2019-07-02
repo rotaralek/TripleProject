@@ -89,18 +89,82 @@ namespace TripleProject.Controllers
         }
 
         [Route("products")]
-        public async Task<IActionResult> ProductsArchive(int page = 1)
+        public async Task<IActionResult> ProductsArchive(int page = 1, string type = "", int minPrice = 0, int maxPrice = 12000, IList<int> attributes = null)
         {
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
-            int count = await _context.Products.CountAsync();
-            var applicationDbContext = await _context.Products.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            int count = 0;
+            IEnumerable<Product> applicationDbContext = null;
+
+            if (type == "")
+            {
+                count = await _context.Products.CountAsync();
+                applicationDbContext = await _context.Products.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else if (attributes.Count() == 0)
+            {
+                count = await _context.Products.Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Products.Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else
+            {
+                count = await _context.Set<ProductAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Set<ProductAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+
+            decimal totalPages = count / itemsPerPage;
+            int pages = (int)Math.Ceiling(totalPages);
 
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["itemsPerPage"] = itemsPerPage;
+            ViewData["pages"] = pages;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["attributes"] = attributes;
 
             return View("Products/Archive", applicationDbContext);
+        }
+
+        [Route("products/catalogs/{id?}")]
+        public async Task<IActionResult> ProductsCatalog(int? id, int page = 1, string type = "", int minPrice = 0, int maxPrice = 12000, IList<int> attributes = null)
+        {
+            int itemsPerPage = 12;
+            int skip = itemsPerPage * (page - 1);
+            int count = 0;
+            IEnumerable<Product> applicationDbContext = null;
+
+            if (type == "")
+            {
+                count = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).CountAsync();
+                applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else if (attributes.Count() == 0)
+            {
+                count = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else
+            {
+                count = await _context.Set<ProductAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                //applicationDbContext = await _context.Set<ProductAttribute>().Where(pa => productsAttributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+                applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.ProductsAttributes).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+
+            }
+
+            decimal totalPages = count / itemsPerPage;
+            int pages = (int)Math.Ceiling(totalPages);
+
+            ViewData["id"] = id;
+            ViewData["count"] = count;
+            ViewData["page"] = page;
+            ViewData["itemsPerPage"] = itemsPerPage;
+            ViewData["pages"] = pages;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["attributes"] = attributes;
+
+            return View("Products/Catalog", applicationDbContext);
         }
 
         [Route("products/{id?}")]
@@ -134,16 +198,39 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements")]
-        public async Task<IActionResult> AdvertisementsArchive(int page = 1)
+        public async Task<IActionResult> AdvertisementsArchive(int page = 1, string type = "", int minPrice = 0, int maxPrice = 12000, IList<int> attributes = null)
         {
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
-            int count = await _context.Advertisements.CountAsync();
-            var applicationDbContext = await _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            int count = 0;            
+            IEnumerable<Advertisement> applicationDbContext = null;
+
+            if (type == "")
+            {
+                count = await _context.Advertisements.CountAsync();
+                applicationDbContext = await _context.Advertisements.Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else if (attributes.Count() == 0)
+            {
+                count = await _context.Advertisements.Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Advertisements.Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else
+            {
+                count = await _context.Set<AdvertisementAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Advertisement).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Set<AdvertisementAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Advertisement).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+
+            decimal totalPages = count / itemsPerPage;
+            int pages = (int)Math.Ceiling(totalPages);
 
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["itemsPerPage"] = itemsPerPage;
+            ViewData["pages"] = pages;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["attributes"] = attributes;
 
             return View("Advertisements/Archive", applicationDbContext);
         }
@@ -177,33 +264,44 @@ namespace TripleProject.Controllers
         }
 
         [Route("advertisements/categories/{id?}")]
-        public async Task<IActionResult> AdvertisementsCategory(int? id, int page = 1)
+        public async Task<IActionResult> AdvertisementsCategory(int? id, int page = 1, string type = "", int minPrice = 0, int maxPrice = 12000, IList<int> attributes = null)
         {
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
-            int count = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).CountAsync();
-            var applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            int count = 0;
+            IEnumerable<Advertisement> applicationDbContext = null;
+                       
+            if (type == "")
+            {
+                count = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).CountAsync();
+                applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else if (attributes.Count() == 0)
+            {
+                count = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.Image).Where(p => p.Price >= minPrice && p.Price <= maxPrice).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+            }
+            else
+            {
+                count = await _context.Set<AdvertisementAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Advertisement).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
+                //applicationDbContext = await _context.Set<ProductAttribute>().Where(pa => productsAttributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+                applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.AdvertisementsAttributes).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
 
+            }
+
+            decimal totalPages = count / itemsPerPage;
+            int pages = (int)Math.Ceiling(totalPages);
+
+            ViewData["id"] = id;
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["itemsPerPage"] = itemsPerPage;
+            ViewData["pages"] = pages;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["attributes"] = attributes;
 
             return View("Advertisements/Category", applicationDbContext);
-        }
-
-        [Route("products/catalogs/{id?}")]
-        public async Task<IActionResult> ProductsCatalog(int? id, int page = 1)
-        {
-            int itemsPerPage = 12;
-            int skip = itemsPerPage * (page - 1);
-            int count = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).CountAsync();
-            var applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
-
-            ViewData["count"] = count;
-            ViewData["page"] = page;
-            ViewData["itemsPerPage"] = itemsPerPage;
-
-            return View("Products/Catalog", applicationDbContext);
         }
 
         [Route("AjaxViewsIncrement")]

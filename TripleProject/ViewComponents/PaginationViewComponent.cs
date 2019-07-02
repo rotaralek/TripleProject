@@ -20,7 +20,7 @@ namespace TripleProject.ViewComponents
             _context = context;
         }
 
-        public IViewComponentResult Invoke(int count, int page, decimal itemsPerPage)
+        public IViewComponentResult Invoke(int count, int page, decimal itemsPerPage, string type = "", int minPrice = 0, int maxPrice = 12000, List<int> productsCatalogs = null)
         {
             int pages;
             decimal totalPages;
@@ -37,6 +37,10 @@ namespace TripleProject.ViewComponents
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["pages"] = pages;
+            ViewData["type"] = type;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["productsCatalogs"] = productsCatalogs;
 
             return View();
         }

@@ -104,11 +104,19 @@
                 @Html.DisplayNameFor(model => model.AdvertisementsAttributes)
             </dt>
             <dd>
+                @{
+                    int attributeCounter = 0;
+                }
                 @foreach (var attribute in Model.AdvertisementsAttributes)
                 {
                     if (attribute.Attribute.Parent == null)
                     {
+                        if (attributeCounter != 0)
+                        {
+                            <div class="mb-2"></div>
+                        }
                         <p class="mb-1">@attribute.Attribute.Name: </p>
+                        attributeCounter++;
                     }
                     else
                     {

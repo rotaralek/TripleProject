@@ -4,13 +4,24 @@
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
     ViewData["Title"] = SharedLocalizer["Advertisements"];
+    int count = (int)ViewData["count"];
+    int page = (int)ViewData["page"];
+    decimal itemsPerPage = (int)ViewData["itemsPerPage"];
+    IList<int> attributes = (IList<int>)ViewData["attributes"];
+    string type = "Advertisement";
+    int minPrice = (int)ViewData["minPrice"];
+    int maxPrice = (int)ViewData["maxPrice"];
 }
 <div class="row pt-4">
     <div class="col-md-4">
         <h1 class="h3">@ViewData["Title"]</h1>
         @await Component.InvokeAsync("Categories")
 
-        @await Component.InvokeAsync("Filter")
+        @await Component.InvokeAsync("Filter", new {
+           type = type,
+           minPrice = minPrice,
+           maxPrice = maxPrice
+       })
     </div>
     <div class="col-md-8">
         @await Component.InvokeAsync("AdvertisementsCarousel")
@@ -22,11 +33,7 @@
                 </div>
             }
         </div>
-        @{
-            int count = (int)ViewData["count"];
-            int page = (int)ViewData["page"];
-            decimal itemsPerPage = (int)ViewData["itemsPerPage"];
-        }
-        @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage })
+
+        @await Component.InvokeAsync("Pagination", new { count, page, itemsPerPage, type, minPrice, maxPrice, attributes })
     </div>
 </div>

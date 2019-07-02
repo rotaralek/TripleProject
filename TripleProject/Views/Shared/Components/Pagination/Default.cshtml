@@ -2,10 +2,34 @@
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 
-@if ((int)ViewData["count"] == 0)
+@{
+    int page = (int)ViewData["page"];
+    int pages = (int)ViewData["pages"];
+    int count = (int)ViewData["count"];
+    string type = (string)ViewData["type"];
+    int minPrice = (int)ViewData["minPrice"];
+    int maxPrice = (int)ViewData["maxPrice"];
+    IList<int> productsCatalogs = (IList<int>)ViewData["productsCatalogs"];
+    string filter = "";
+
+    if (ViewData["type"] != null)
+    {
+        filter = "&type=" + type + "&" + "minPrice=" + minPrice + "&" + "maxPrice=" + maxPrice;
+    }
+
+    if (productsCatalogs != null) {
+        foreach (var c in productsCatalogs)
+        {
+            filter += "&productsCatalogs=" + c;
+        }
+    }
+}
+
+@if (count == 0)
 {
     return;
 }
+
 <div class="mb-5">
     <nav aria-label="Page navigation" role="navigation">
         <span class="sr-only">Pagination</span>
@@ -13,18 +37,14 @@
             <li class="page-item disabled hidden-md-down d-none d-lg-block">
                 <span class="page-link">@SharedLocalizer["Page"] @ViewData["page"] @SharedLocalizer["from"] @ViewData["pages"]</span>
             </li>
-            @{
-                int page = (int)ViewData["page"];
-                int pages = (int)ViewData["pages"];
-            }
             @if (page > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=1" aria-label="First Page"><span class="hidden-sm-down d-none d-md-block">« @SharedLocalizer["First"]</span></a>
+                    <a class="page-link" href="?page=1 @filter" aria-label="First Page"><span class="hidden-sm-down d-none d-md-block">« @SharedLocalizer["First"]</span></a>
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(page-1)" aria-label="Previous Page"><span class="hidden-sm-down d-none d-md-block">‹ @SharedLocalizer["Previous"]</span></a>
+                    <a class="page-link" href="?page=@(page-1)@filter" aria-label="Previous Page"><span class="hidden-sm-down d-none d-md-block">‹ @SharedLocalizer["Previous"]</span></a>
                 </li>
             }
             @for (int i = 1; i <= pages; i++)
@@ -38,18 +58,18 @@
                 else if (i == (page + 1) || i == (page - 1))
                 {
                     <li class="page-item">
-                        <a href="?page=@i" class="page-link"><span class="sr-only">@SharedLocalizer["Page"] </span>@i</a>
+                        <a href="?page=@i@filter" class="page-link"><span class="sr-only">@SharedLocalizer["Page"] </span>@i</a>
                     </li>
                 }
             }
             @if (page < pages)
             {
                 <li class="page-item">
-                    <a class="page-link" href="?page=@(page < pages ? page + 1 : pages)" aria-label="Next Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Next"] ›</span></a>
+                    <a class="page-link" href="?page=@(page < pages ? page + 1 : pages)@filter" aria-label="Next Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Next"] ›</span></a>
                 </li>
 
                 <li class="page-item">
-                    <a class="page-link" href="?page=@pages" aria-label="Last Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Last"] »</span></a>
+                    <a class="page-link" href="?page=@pages@filter" aria-label="Last Page"><span class="hidden-sm-down d-none d-md-block">@SharedLocalizer["Last"] »</span></a>
                 </li>
             }
         </ul>

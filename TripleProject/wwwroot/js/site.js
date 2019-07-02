@@ -383,16 +383,26 @@
         if (!$(document).find("#slider-range").length) {
             return;
         }
+
         var range = $(document).find("#slider-range");
+        var minPrice = $(document).find("#minPrice");
+        var maxPrice = $(document).find("#maxPrice");
         var price = $(document).find("#price");
+        var min = parseInt(price.attr('min'));
+        var max = parseInt(price.attr('max'));
+
+        minPrice.val(minPrice.val());
+        maxPrice.val(maxPrice.val());
 
         range.slider({
             range: true,
-            min: 0,
-            max: 500,
-            values: [75, 300],
+            min: min,
+            max: max,
+            values: [minPrice.val(), maxPrice.val()],
             slide: function (event, ui) {
                 price.val("$" + ui.values[0] + " - $" + ui.values[1]);
+                minPrice.val(ui.values[0]);
+                maxPrice.val(ui.values[1]);
             }
         });
 
@@ -404,9 +414,9 @@
      * Catalog products load
      */
     var catalogProductsLoad = function (selector) {
-        var currency = ['MDL', 'USD', 'EUR']
-
+        var currency = ['MDL', 'USD', 'EUR'];
         var viewsContainer = $(document).find('.views-trigger');
+
         $(selector).each(function () {
             var item = $(this);
             var shopId = item.attr('data-shop-id');

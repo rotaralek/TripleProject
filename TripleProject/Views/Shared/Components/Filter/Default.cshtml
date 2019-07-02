@@ -3,16 +3,44 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
+
+@{
+    IList<int> attributes = (IList<int>)ViewData["attributes"];
+    string actionName = "";
+    string type = (string)ViewData["type"];
+    int id = (int)ViewData["id"];
+
+    if (type == "Product") {
+        actionName = "ProductsArchive";
+
+        if (id != 0)
+        {
+            actionName = "ProductsCatalog";
+        }
+
+    } else if (type == "Advertisement")
+    {
+        actionName = "AdvertisementsArchive";
+
+        if (id != 0)
+        {
+            actionName = "AdvertisementsCategory";
+        }
+    }
+}
+
 <div class="mb-4">
-    <form method="post" class="mb-3">
+    <form asp-action="@actionName" method="get" class="mb-3">
+        <input type="hidden" name="type" value="@type" />
+
         <h3>@SharedLocalizer["Filter"]</h3>
 
         <div class="card mb-3">
             <div class="card-body">
-                <p>
-                    <label for="price">@SharedLocalizer["Price"]:</label>
-                    <input type="text" id="price" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                </p>
+                <label for="price">@SharedLocalizer["Price"]:</label>
+                <input type="text" id="price" min="0" max="12000" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                <input type="hidden" name="minPrice" id="minPrice" value="@ViewData["minPrice"]">
+                <input type="hidden" name="maxPrice" id="maxPrice" value="@ViewData["maxPrice"]">
 
                 <div id="slider-range" class="mb-3"></div>
             </div>
@@ -20,7 +48,7 @@
 
         @{
             string attributesTree = "";
-            TripleProject.ViewComponents.FilterViewComponent.GetAttributesList(Model, ref attributesTree);
+            TripleProject.ViewComponents.FilterViewComponent.GetAttributesList(Model, ref attributesTree, attributes);
         }
         @Html.Raw(attributesTree)
 

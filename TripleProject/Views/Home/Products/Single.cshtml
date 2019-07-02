@@ -47,7 +47,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <img src="" class="image w-100"/>
+                                <img src="" class="image w-100" />
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer["Close"]</button>
@@ -113,11 +113,19 @@
                 @Html.DisplayNameFor(model => model.ProductsAttributes)
             </dt>
             <dd>
+                @{
+                    int attributeCounter = 0;
+                }
                 @foreach (var attribute in Model.ProductsAttributes)
                 {
                     if (attribute.Attribute.Parent == null)
                     {
+                        if (attributeCounter != 0)
+                        {
+                            <div class="mb-2"></div>
+                        }
                         <p class="mb-1">@attribute.Attribute.Name: </p>
+                        attributeCounter++;
                     }
                     else
                     {
