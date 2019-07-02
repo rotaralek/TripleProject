@@ -75,11 +75,11 @@ namespace TripleProject.ViewComponents
 
                     if (isChecked)
                     {
-                        localCatalogTree += "<div class='form-check'><label><input type='checkbox' name='ProductsCatalogs' value='" + item.Id + "' class='form-check-input' checked>" + item.Name + "</label></div>";
+                        localCatalogTree += "<div class='form-check'><label><input type='checkbox' name='Attributes' value='" + item.Id + "' class='form-check-input' checked>" + item.Name + "</label></div>";
                     }
                     else
                     {
-                        localCatalogTree += "<div class='form-check'><label><input type='checkbox' name='ProductsCatalogs' value='" + item.Id + "' class='form-check-input'>" + item.Name + "</label></div>";
+                        localCatalogTree += "<div class='form-check'><label><input type='checkbox' name='Attributes' value='" + item.Id + "' class='form-check-input'>" + item.Name + "</label></div>";
                     }
 
                     GetChildList(catalog, ref localCatalogTree, item.Id);
