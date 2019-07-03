@@ -38,7 +38,7 @@
 
                 <!-- Modal -->
                 <div class="modal fade" id="modalImage" tabindex="-1" role="dialog" aria-labelledby="modalImageTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalImageTitle">@ViewData["Title"]</h5>
@@ -46,11 +46,8 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <img src="" class="image w-100" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">@SharedLocalizer["Close"]</button>
+                            <div class="modal-body text-center">
+                                <img src="" class="image h-100" />
                             </div>
                         </div>
                     </div>
