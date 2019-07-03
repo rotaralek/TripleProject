@@ -25,9 +25,17 @@ namespace TripleProject.ViewComponents
             int pages;
             decimal totalPages;
 
+            ViewData["type"] = type;
+            ViewData["minPrice"] = minPrice;
+            ViewData["maxPrice"] = maxPrice;
+            ViewData["productsCatalogs"] = productsCatalogs;
+
             if (count == 0)
             {
                 ViewData["count"] = 0;
+                ViewData["page"] = 1;
+                ViewData["pages"] = 1;
+
                 return View();
             }
 
@@ -37,10 +45,6 @@ namespace TripleProject.ViewComponents
             ViewData["count"] = count;
             ViewData["page"] = page;
             ViewData["pages"] = pages;
-            ViewData["type"] = type;
-            ViewData["minPrice"] = minPrice;
-            ViewData["maxPrice"] = maxPrice;
-            ViewData["productsCatalogs"] = productsCatalogs;
 
             return View();
         }
