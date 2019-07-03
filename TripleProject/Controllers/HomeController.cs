@@ -146,10 +146,45 @@ namespace TripleProject.Controllers
             }
             else
             {
-                count = await _context.Set<ProductAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
-                //applicationDbContext = await _context.Set<ProductAttribute>().Where(pa => productsAttributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
-                applicationDbContext = await _context.Set<ProductCatalog>().Where(pc => pc.CatalogId == id).Select(pc => pc.Product).Include(p => p.ProductsAttributes).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+                count = await (
+                    from pc in _context.ProductsCatalogs
+                    join p in _context.Products on pc.ProductId equals p.Id into ProductsCatalogsProducts
+                    where pc.CatalogId == id
+                    from pcp in ProductsCatalogsProducts.DefaultIfEmpty()
+                    join pa in _context.ProductsAttributes on pcp.Id equals pa.ProductId into ProductsAttributesProducts
+                    from pap in ProductsAttributesProducts.DefaultIfEmpty()
+                    where attributes.Contains(pap.AttributeId)
+                    select new Product
+                    {
+                        Id = pcp.Id,
+                        Title = pcp.Title,
+                        Description = pcp.Description,
+                        Image = pcp.Image,
+                        Price = pcp.Price,
+                        Currency = pcp.Currency,
+                        DateTime = pcp.DateTime
+                    }
+                ).Distinct().CountAsync();
 
+                applicationDbContext = await (
+                    from pc in _context.ProductsCatalogs
+                    join p in _context.Products on pc.ProductId equals p.Id into ProductsCatalogsProducts
+                    where pc.CatalogId == id
+                    from pcp in ProductsCatalogsProducts.DefaultIfEmpty()
+                    join pa in _context.ProductsAttributes on pcp.Id equals pa.ProductId into ProductsAttributesProducts
+                    from pap in ProductsAttributesProducts.DefaultIfEmpty()
+                    where attributes.Contains(pap.AttributeId)
+                    select new Product
+                    {
+                        Id = pcp.Id,
+                        Title = pcp.Title,
+                        Description = pcp.Description,
+                        Image = pcp.Image,
+                        Price = pcp.Price,
+                        Currency = pcp.Currency,
+                        DateTime = pcp.DateTime
+                    }
+                ).Distinct().ToListAsync();
             }
 
             decimal totalPages = count / itemsPerPage;
@@ -202,7 +237,7 @@ namespace TripleProject.Controllers
         {
             int itemsPerPage = 12;
             int skip = itemsPerPage * (page - 1);
-            int count = 0;            
+            int count = 0;
             IEnumerable<Advertisement> applicationDbContext = null;
 
             if (type == "")
@@ -270,7 +305,7 @@ namespace TripleProject.Controllers
             int skip = itemsPerPage * (page - 1);
             int count = 0;
             IEnumerable<Advertisement> applicationDbContext = null;
-                       
+
             if (type == "")
             {
                 count = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).CountAsync();
@@ -283,10 +318,43 @@ namespace TripleProject.Controllers
             }
             else
             {
-                count = await _context.Set<AdvertisementAttribute>().Where(pa => attributes.Contains(pa.AttributeId)).Select(pc => pc.Advertisement).Where(p => p.Price >= minPrice && p.Price <= maxPrice).CountAsync();
-                //applicationDbContext = await _context.Set<ProductAttribute>().Where(pa => productsAttributes.Contains(pa.AttributeId)).Select(pc => pc.Product).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
-                applicationDbContext = await _context.Set<AdvertisementCategory>().Where(pc => pc.CategoryId == id).Select(pc => pc.Advertisement).Include(p => p.AdvertisementsAttributes).Where(p => p.Price >= minPrice && p.Price <= maxPrice).Include(p => p.Image).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).ToListAsync();
+                count = await (
+                    from ac in _context.AdvertisementsCategories
+                    join a in _context.Advertisements on ac.AdvertisementId equals a.Id into AdvertisementsCategoriesAdvertisements
+                    where ac.CategoryId == id
+                    from aca in AdvertisementsCategoriesAdvertisements.DefaultIfEmpty()
+                    join aa in _context.AdvertisementsAttributes on aca.Id equals aa.AdvertisementId into AdvertisementsAttributesAdvertisements
+                    from aaa in AdvertisementsAttributesAdvertisements.DefaultIfEmpty()
+                    where attributes.Contains(aaa.AttributeId)
+                    select new Advertisement
+                    {
+                        Id = aca.Id,
+                        Title = aca.Title,
+                        Image = aca.Image,
+                        Price = aca.Price,
+                        Currency = aca.Currency,
+                        DateTime = aca.DateTime
+                    }
+                ).Distinct().CountAsync();
 
+                applicationDbContext = await (
+                    from ac in _context.AdvertisementsCategories
+                    join a in _context.Advertisements on ac.AdvertisementId equals a.Id into AdvertisementsCategoriesAdvertisements
+                    where ac.CategoryId == id
+                    from aca in AdvertisementsCategoriesAdvertisements.DefaultIfEmpty()
+                    join aa in _context.AdvertisementsAttributes on aca.Id equals aa.AdvertisementId into AdvertisementsAttributesAdvertisements
+                    from aaa in AdvertisementsAttributesAdvertisements.DefaultIfEmpty()
+                    where attributes.Contains(aaa.AttributeId)
+                    select new Advertisement
+                    {
+                        Id = aca.Id,
+                        Title = aca.Title,
+                        Image = aca.Image,
+                        Price = aca.Price,
+                        Currency = aca.Currency,
+                        DateTime = aca.DateTime
+                    }
+                ).Distinct().ToListAsync();
             }
 
             decimal totalPages = count / itemsPerPage;
