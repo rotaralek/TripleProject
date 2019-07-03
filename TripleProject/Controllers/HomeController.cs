@@ -152,6 +152,7 @@ namespace TripleProject.Controllers
                     where pc.CatalogId == id
                     from pcp in ProductsCatalogsProducts.DefaultIfEmpty()
                     join pa in _context.ProductsAttributes on pcp.Id equals pa.ProductId into ProductsAttributesProducts
+                    where pcp.Price >= minPrice && pcp.Price <= maxPrice
                     from pap in ProductsAttributesProducts.DefaultIfEmpty()
                     where attributes.Contains(pap.AttributeId)
                     select new Product
@@ -164,7 +165,7 @@ namespace TripleProject.Controllers
                         Currency = pcp.Currency,
                         DateTime = pcp.DateTime
                     }
-                ).Distinct().CountAsync();
+                ).Where(p => p.Price >= minPrice && p.Price <= maxPrice).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).Distinct().CountAsync();
 
                 applicationDbContext = await (
                     from pc in _context.ProductsCatalogs
@@ -172,6 +173,7 @@ namespace TripleProject.Controllers
                     where pc.CatalogId == id
                     from pcp in ProductsCatalogsProducts.DefaultIfEmpty()
                     join pa in _context.ProductsAttributes on pcp.Id equals pa.ProductId into ProductsAttributesProducts
+                    where pcp.Price >= minPrice && pcp.Price <= maxPrice
                     from pap in ProductsAttributesProducts.DefaultIfEmpty()
                     where attributes.Contains(pap.AttributeId)
                     select new Product
@@ -184,7 +186,7 @@ namespace TripleProject.Controllers
                         Currency = pcp.Currency,
                         DateTime = pcp.DateTime
                     }
-                ).Distinct().ToListAsync();
+                ).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).Distinct().ToListAsync();
             }
 
             decimal totalPages = count / itemsPerPage;
@@ -324,6 +326,7 @@ namespace TripleProject.Controllers
                     where ac.CategoryId == id
                     from aca in AdvertisementsCategoriesAdvertisements.DefaultIfEmpty()
                     join aa in _context.AdvertisementsAttributes on aca.Id equals aa.AdvertisementId into AdvertisementsAttributesAdvertisements
+                    where aca.Price >= minPrice && aca.Price <= maxPrice
                     from aaa in AdvertisementsAttributesAdvertisements.DefaultIfEmpty()
                     where attributes.Contains(aaa.AttributeId)
                     select new Advertisement
@@ -343,6 +346,7 @@ namespace TripleProject.Controllers
                     where ac.CategoryId == id
                     from aca in AdvertisementsCategoriesAdvertisements.DefaultIfEmpty()
                     join aa in _context.AdvertisementsAttributes on aca.Id equals aa.AdvertisementId into AdvertisementsAttributesAdvertisements
+                    where aca.Price >= minPrice && aca.Price <= maxPrice
                     from aaa in AdvertisementsAttributesAdvertisements.DefaultIfEmpty()
                     where attributes.Contains(aaa.AttributeId)
                     select new Advertisement
@@ -354,7 +358,7 @@ namespace TripleProject.Controllers
                         Currency = aca.Currency,
                         DateTime = aca.DateTime
                     }
-                ).Distinct().ToListAsync();
+                ).OrderByDescending(p => p.DateTime).Skip(skip).Take(itemsPerPage).Distinct().ToListAsync();
             }
 
             decimal totalPages = count / itemsPerPage;
