@@ -52,11 +52,11 @@ namespace TripleProject
              * Social login services
              */
             services.AddAuthentication()
-                .AddFacebook(facebookOptions =>
-                {
-                    facebookOptions.AppId = "2422744887958458";
-                    facebookOptions.AppSecret = "4dae6d6d1bbe460c19213af0bb3269fc";
-                })
+                //.AddFacebook(facebookOptions =>
+                //{
+                //    facebookOptions.AppId = "2422744887958458";
+                //    facebookOptions.AppSecret = "4dae6d6d1bbe460c19213af0bb3269fc";
+                //})
                 .AddGoogle(options =>
                 {
                     IConfigurationSection googleAuthNSection =
