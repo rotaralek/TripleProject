@@ -48,6 +48,34 @@ namespace TripleProject
 
             services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+            /*
+             * Social login services
+             */
+            services.AddAuthentication()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = "2422744887958458";
+                    facebookOptions.AppSecret = "4dae6d6d1bbe460c19213af0bb3269fc";
+                })
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+
+                    options.ClientId = "989377894471-jfm0vlfto8vhji5se4hblcebp0e94552.apps.googleusercontent.com";
+                    options.ClientSecret = "CSpWKX6dNEHKLXs_NKVIyuiN";
+                });
+                //.AddTwitter(twitterOptions =>
+                //{
+                //    twitterOptions.ConsumerKey = "";
+                //    twitterOptions.ConsumerSecret = "";
+                //});
+                //.AddMicrosoftAccount(microsoftOptions =>
+                //{
+                //    microsoftOptions.ClientId = "";
+                //    microsoftOptions.ClientSecret = "";
+                //});
+
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
