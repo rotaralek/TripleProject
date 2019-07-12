@@ -23,6 +23,8 @@ namespace TripleProject.Data
         public DbSet<AdvertisementAttribute> AdvertisementsAttributes { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<Menu> Menus { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

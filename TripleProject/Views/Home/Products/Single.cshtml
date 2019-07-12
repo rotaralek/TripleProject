@@ -4,6 +4,8 @@
 @inject IHtmlLocalizer<SharedResource> SharedLocalizer
 @{
     ViewData["Title"] = Model.Title;
+    int catalogId = 0;
+    int attributeCounter = 0;
 }
 <div class="pb-2 mt-4 mb-3 border-bottom">
     <h1 class="h2">@ViewData["Title"]</h1>
@@ -79,64 +81,85 @@
                 <form asp-antiforgery="true"></form>
             </div>
         </div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Price)
-            </dt>
-            <dd class="text-red h3">
-                @String.Format("{0:### ### ### ###}", Model.Price) @Html.DisplayFor(model => model.Currency)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </dt>
-            <dd class="form-inline">
-                <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductsCatalogs)
-            </dt>
-            <dd>
-                @{
-                    int catalogId = 0;
-                }
-                @foreach (var catalog in Model.ProductsCatalogs)
-                {
-                    <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.CatalogId">@catalog.Catalog.Name</a>
-
-                    catalogId = catalog.CatalogId;
-                }
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.ProductsAttributes)
-            </dt>
-            <dd>
-                @{
-                    int attributeCounter = 0;
-                }
-                @foreach (var attribute in Model.ProductsAttributes)
-                {
-                    if (attribute.Attribute.Parent == null)
+        <form asp-antiforgery="true" class="product-form">
+            <input type="hidden" name="ProductId" value="@Model.Id" />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="text-red h3">
+                    @String.Format("{0:### ### ### ###}", Model.Price) @Html.DisplayFor(model => model.Currency)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </dt>
+                <dd class="form-inline">
+                    <input type="number" name="Quantity" min="1" max="@Model.Quantity" value="1" class="form-control" />
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductsCatalogs)
+                </dt>
+                <dd>
+                    @foreach (var catalog in Model.ProductsCatalogs)
                     {
-                        if (attributeCounter != 0)
+                        <a asp-controller="Home" asp-action="ProductsCatalog" asp-route-id="@catalog.CatalogId">@catalog.Catalog.Name</a>
+
+                        catalogId = catalog.CatalogId;
+                    }
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProductsAttributes)
+                </dt>
+                <dd>
+                    @{
+                        bool isOpened = false;
+                        string btnGroupStart = "<div class='btn-group btn-group-toggle' data-toggle='buttons'>";
+                        string btnGroupEnd = "</div>";
+                    }
+
+                    @foreach (var attribute in Model.ProductsAttributes)
+                    {
+                        if (attribute.Attribute.Parent == null)
                         {
-                            <div class="mb-2"></div>
+                            if (isOpened)
+                            {
+                                @Html.Raw(btnGroupEnd)
+                                isOpened = false;
+                            }
+
+                            if (attributeCounter != 0)
+                            {
+                                <div class="mb-2"></div>
+                            }
+
+                            <p class="mb-1">@attribute.Attribute.Name: </p>
+                            @Html.Raw(btnGroupStart)
+                            isOpened = true;
+                            attributeCounter++;
                         }
-                        <p class="mb-1">@attribute.Attribute.Name: </p>
-                        attributeCounter++;
+                        else
+                        {
+                            <label class="btn btn-outline-warning mb-1">
+                                <input type="radio" name="attr-@attribute.Attribute.Parent.Id" id="@attribute.Attribute.Id" value="@attribute.Attribute.Id" autocomplete="off" required>@attribute.Attribute.Name
+                            </label>
+                        }
                     }
-                    else
+
+                    @if (isOpened)
                     {
-                        <button type="button" class="btn btn-outline-dark btn-sm">@attribute.Attribute.Name</button>
+                        @Html.Raw(btnGroupEnd)
+                        isOpened = false;
                     }
-                }
-            </dd>
-        </dl>
+                </dd>
+            </dl>
 
-        <div class="mb-3">
-            @Html.Raw(Model.Description)
-        </div>
-
-        <button type="button" class="btn btn-primary">@SharedLocalizer["Buy now"]</button>
+            <div class="mb-3">
+                @Html.Raw(Model.Description)
+            </div>
+             
+            <button type="submit" class="btn btn-lg btn-primary mb-1 buy-now">@SharedLocalizer["Buy now"]</button>
+            <button type="submit" class="btn btn-lg btn-outline-primary mb-1 add-to-cart">@SharedLocalizer["Add to cart"]</button>
+        </form>
     </div>
 </div>
 <nav>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using TripleProject.Areas.Admin.Models;
 using TripleProject.Data;
 using TripleProject.Models;
@@ -458,6 +460,43 @@ namespace TripleProject.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("cart")]
+        public async Task<IActionResult> Cart(int userId)
+        {
+            IEnumerable<Cart> Carts = await _context.Carts.ToListAsync();
+
+            return View("Carts/Index", Carts);
+        }
+
+        [HttpPost]
+        [Route("AjaxAddToCart")]
+        public IActionResult AjaxAddToCart([FromForm]Newtonsoft.Json.Linq.JObject formData)
+        {
+            string metaData = "";
+            var jsonDecode = JsonConvert.SerializeObject(formData);
+            //foreach(var item in jsonDecode)
+            //{
+            //    metaData += item.ToString();
+            //}
+
+            //if (false)
+            //{
+            //    Cart Cart = new Cart
+            //    {
+            //        ProductId = 1,
+            //        Quantity = 1,
+            //        MetaData = "",
+            //        UserId = "",
+            //        DateTime = new DateTime()
+            //    };
+
+            //    _context.Carts.Add(Cart);
+            //    await _context.SaveChangesAsync();
+            //}
+
+            return new JsonResult(formData);
         }
     }
 }

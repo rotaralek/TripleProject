@@ -105,6 +105,9 @@
     <Content Update="Views\Shared\Components\Advertisement\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Components\Cart\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\PopularShops\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

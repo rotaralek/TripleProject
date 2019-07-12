@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TripleProject.Areas.Admin.Models.Cart>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SharedResource> SharedLocalizer
+@using TripleProject.ViewComponents
+
+<div class="shopping-cart h3 ml-2 position-relative dropdown">
+    <a href="" class="text-white"><i class="material-icons">shopping_cart</i></a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <div class="card-body">
+            <a class="dropdown-item">Cras justo odio</a>
+            <a class="dropdown-item">Dapibus ac facilisis in</a>
+            <a class="dropdown-item">Morbi leo risus</a>
+            <a class="dropdown-item">Porta ac consectetur ac</a>
+            <a class="dropdown-item">Vestibulum at eros</a>
+
+            <a href="" class="btn btn-outline-info">@SharedLocalizer["Cart"]</a>
+            <a href="" class="btn btn-outline-info">@SharedLocalizer["Checkout"]</a>
+        </div>
+    </div>
+</div>

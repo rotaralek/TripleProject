@@ -469,4 +469,58 @@
     };
 
     catalogProductsLoad('.ajax-catalog-load');
+
+    /*
+     * Product form submit
+     */
+    var productFormSubmit = function () {
+        $(document).on('submit', '.product-form', function (e) {
+            e.preventDefault();
+
+            var form = $(this);
+            var formData = {}
+            var formFields = form.serialize();
+            formFields = formFields.split('&');
+
+            for (var i = 0; i < formFields.length; i++) {
+                var localField = formFields[i].split('=');
+                formData[localField[0]] = localField[1];
+            }
+            console.log(formData);
+
+            $.ajax({
+                url: '/AjaxAddToCart',
+                type: 'POST',
+                data:  formData,
+                dataType: "json",
+                cache: false,
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "RequestVerificationToken": form.find("input[name='__RequestVerificationToken']").val()
+                },
+                beforeSend: function () {
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    };
+
+    /*
+     * Add to cart
+     */
+    $(document).on('click', '.add-to-cart', function () {
+
+        productFormSubmit();
+    });
+
+    /*
+     * Buy now
+     */
+    $(document).on('click', '.buy-now', function () {
+
+
+    });
 })(jQuery);
